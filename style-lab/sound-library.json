@@ -1,0 +1,546 @@
+{
+ "root": "sfx/ (uploaded EAR_CANDY.zip)",
+ "count": 60,
+ "files": [
+  {
+   "path": "EAR CANDY/ Whoosh Fast.wav",
+   "pack": "EAR CANDY",
+   "subfolder": "",
+   "file": " Whoosh Fast.wav",
+   "seconds": 0.5,
+   "group": "whooshes",
+   "guessed": false
+  },
+  {
+   "path": "EAR CANDY/ Whoosh Left.wav",
+   "pack": "EAR CANDY",
+   "subfolder": "",
+   "file": " Whoosh Left.wav",
+   "seconds": 0.5,
+   "group": "whooshes",
+   "guessed": false
+  },
+  {
+   "path": "EAR CANDY/ Whoosh Right.wav",
+   "pack": "EAR CANDY",
+   "subfolder": "",
+   "file": " Whoosh Right.wav",
+   "seconds": 0.7,
+   "group": "whooshes",
+   "guessed": false
+  },
+  {
+   "path": "EAR CANDY/ Whoosh Very Quick.wav",
+   "pack": "EAR CANDY",
+   "subfolder": "",
+   "file": " Whoosh Very Quick.wav",
+   "seconds": 1.0,
+   "group": "whooshes",
+   "guessed": false
+  },
+  {
+   "path": "EAR CANDY/Bell Ding 01.wav",
+   "pack": "EAR CANDY",
+   "subfolder": "",
+   "file": "Bell Ding 01.wav",
+   "seconds": 5.806,
+   "group": "clicks",
+   "guessed": false
+  },
+  {
+   "path": "EAR CANDY/Build.wav",
+   "pack": "EAR CANDY",
+   "subfolder": "",
+   "file": "Build.wav",
+   "seconds": 1.4,
+   "group": "risers",
+   "guessed": false
+  },
+  {
+   "path": "EAR CANDY/CINEMATIC_TRANSITION_Whoosh_11.wav",
+   "pack": "EAR CANDY",
+   "subfolder": "",
+   "file": "CINEMATIC_TRANSITION_Whoosh_11.wav",
+   "seconds": 2.7,
+   "group": "whooshes",
+   "guessed": false
+  },
+  {
+   "path": "EAR CANDY/Camera Click.wav",
+   "pack": "EAR CANDY",
+   "subfolder": "",
+   "file": "Camera Click.wav",
+   "seconds": 0.48,
+   "group": "clicks",
+   "guessed": false
+  },
+  {
+   "path": "EAR CANDY/Camera Focus Sound.wav",
+   "pack": "EAR CANDY",
+   "subfolder": "",
+   "file": "Camera Focus Sound.wav",
+   "seconds": 0.4,
+   "group": "clicks",
+   "guessed": false
+  },
+  {
+   "path": "EAR CANDY/Camera Photo Shoot.wav",
+   "pack": "EAR CANDY",
+   "subfolder": "",
+   "file": "Camera Photo Shoot.wav",
+   "seconds": 1.88,
+   "group": "foley",
+   "guessed": false
+  },
+  {
+   "path": "EAR CANDY/Camera Rolling Countdown.wav",
+   "pack": "EAR CANDY",
+   "subfolder": "",
+   "file": "Camera Rolling Countdown.wav",
+   "seconds": 3.36,
+   "group": "foley",
+   "guessed": false
+  },
+  {
+   "path": "EAR CANDY/Camera Shot.wav",
+   "pack": "EAR CANDY",
+   "subfolder": "",
+   "file": "Camera Shot.wav",
+   "seconds": 0.4,
+   "group": "clicks",
+   "guessed": false
+  },
+  {
+   "path": "EAR CANDY/Cinematic Whoosh Impact Sound.mp3",
+   "pack": "EAR CANDY",
+   "subfolder": "",
+   "file": "Cinematic Whoosh Impact Sound.mp3",
+   "seconds": 3.5,
+   "group": "hits",
+   "guessed": false
+  },
+  {
+   "path": "EAR CANDY/Deep Tension Buildup.wav",
+   "pack": "EAR CANDY",
+   "subfolder": "",
+   "file": "Deep Tension Buildup.wav",
+   "seconds": 9.917,
+   "group": "risers",
+   "guessed": false
+  },
+  {
+   "path": "EAR CANDY/Down.wav",
+   "pack": "EAR CANDY",
+   "subfolder": "",
+   "file": "Down.wav",
+   "seconds": 1.2,
+   "group": "whooshes",
+   "guessed": true
+  },
+  {
+   "path": "EAR CANDY/Fast Swipe Right.wav",
+   "pack": "EAR CANDY",
+   "subfolder": "",
+   "file": "Fast Swipe Right.wav",
+   "seconds": 1.0,
+   "group": "whooshes",
+   "guessed": false
+  },
+  {
+   "path": "EAR CANDY/Fast Swipe.wav",
+   "pack": "EAR CANDY",
+   "subfolder": "",
+   "file": "Fast Swipe.wav",
+   "seconds": 1.0,
+   "group": "whooshes",
+   "guessed": false
+  },
+  {
+   "path": "EAR CANDY/Hard Swipe.wav",
+   "pack": "EAR CANDY",
+   "subfolder": "",
+   "file": "Hard Swipe.wav",
+   "seconds": 1.1,
+   "group": "whooshes",
+   "guessed": false
+  },
+  {
+   "path": "EAR CANDY/Hard.wav",
+   "pack": "EAR CANDY",
+   "subfolder": "",
+   "file": "Hard.wav",
+   "seconds": 1.0,
+   "group": "hits",
+   "guessed": true
+  },
+  {
+   "path": "EAR CANDY/Hits Average Bass.wav",
+   "pack": "EAR CANDY",
+   "subfolder": "",
+   "file": "Hits Average Bass.wav",
+   "seconds": 8.0,
+   "group": "hits",
+   "guessed": false
+  },
+  {
+   "path": "EAR CANDY/Hits Spoesh.wav",
+   "pack": "EAR CANDY",
+   "subfolder": "",
+   "file": "Hits Spoesh.wav",
+   "seconds": 4.875,
+   "group": "hits",
+   "guessed": false
+  },
+  {
+   "path": "EAR CANDY/Hits Take it Easy.wav",
+   "pack": "EAR CANDY",
+   "subfolder": "",
+   "file": "Hits Take it Easy.wav",
+   "seconds": 5.25,
+   "group": "hits",
+   "guessed": false
+  },
+  {
+   "path": "EAR CANDY/Hole.wav",
+   "pack": "EAR CANDY",
+   "subfolder": "",
+   "file": "Hole.wav",
+   "seconds": 1.2,
+   "group": "other",
+   "guessed": true
+  },
+  {
+   "path": "EAR CANDY/Impact Quick.wav",
+   "pack": "EAR CANDY",
+   "subfolder": "",
+   "file": "Impact Quick.wav",
+   "seconds": 2.2,
+   "group": "hits",
+   "guessed": false
+  },
+  {
+   "path": "EAR CANDY/Impact Space.wav",
+   "pack": "EAR CANDY",
+   "subfolder": "",
+   "file": "Impact Space.wav",
+   "seconds": 3.631,
+   "group": "hits",
+   "guessed": false
+  },
+  {
+   "path": "EAR CANDY/Impact Wavy Build Up.wav",
+   "pack": "EAR CANDY",
+   "subfolder": "",
+   "file": "Impact Wavy Build Up.wav",
+   "seconds": 3.6,
+   "group": "risers",
+   "guessed": false
+  },
+  {
+   "path": "EAR CANDY/Impact Wavy Down.wav",
+   "pack": "EAR CANDY",
+   "subfolder": "",
+   "file": "Impact Wavy Down.wav",
+   "seconds": 3.6,
+   "group": "hits",
+   "guessed": false
+  },
+  {
+   "path": "EAR CANDY/Incoming.wav",
+   "pack": "EAR CANDY",
+   "subfolder": "",
+   "file": "Incoming.wav",
+   "seconds": 1.3,
+   "group": "other",
+   "guessed": true
+  },
+  {
+   "path": "EAR CANDY/Right.wav",
+   "pack": "EAR CANDY",
+   "subfolder": "",
+   "file": "Right.wav",
+   "seconds": 1.0,
+   "group": "whooshes",
+   "guessed": true
+  },
+  {
+   "path": "EAR CANDY/Rise.wav",
+   "pack": "EAR CANDY",
+   "subfolder": "",
+   "file": "Rise.wav",
+   "seconds": 1.3,
+   "group": "risers",
+   "guessed": false
+  },
+  {
+   "path": "EAR CANDY/Riser Stop.wav",
+   "pack": "EAR CANDY",
+   "subfolder": "",
+   "file": "Riser Stop.wav",
+   "seconds": 3.701,
+   "group": "risers",
+   "guessed": false
+  },
+  {
+   "path": "EAR CANDY/Short foley Crumble.wav",
+   "pack": "EAR CANDY",
+   "subfolder": "",
+   "file": "Short foley Crumble.wav",
+   "seconds": 1.141,
+   "group": "foley",
+   "guessed": false
+  },
+  {
+   "path": "EAR CANDY/Short foley Hit Deep.wav",
+   "pack": "EAR CANDY",
+   "subfolder": "",
+   "file": "Short foley Hit Deep.wav",
+   "seconds": 1.141,
+   "group": "foley",
+   "guessed": false
+  },
+  {
+   "path": "EAR CANDY/Short foley Zipper.wav",
+   "pack": "EAR CANDY",
+   "subfolder": "",
+   "file": "Short foley Zipper.wav",
+   "seconds": 1.141,
+   "group": "foley",
+   "guessed": false
+  },
+  {
+   "path": "EAR CANDY/Soft Wipe.wav",
+   "pack": "EAR CANDY",
+   "subfolder": "",
+   "file": "Soft Wipe.wav",
+   "seconds": 1.0,
+   "group": "whooshes",
+   "guessed": false
+  },
+  {
+   "path": "EAR CANDY/Swipe.wav",
+   "pack": "EAR CANDY",
+   "subfolder": "",
+   "file": "Swipe.wav",
+   "seconds": 1.0,
+   "group": "whooshes",
+   "guessed": false
+  },
+  {
+   "path": "EAR CANDY/Teleport Sound Effect (DOWNLOAD).mp3",
+   "pack": "EAR CANDY",
+   "subfolder": "",
+   "file": "Teleport Sound Effect (DOWNLOAD).mp3",
+   "seconds": 2.691,
+   "group": "glitches",
+   "guessed": false
+  },
+  {
+   "path": "EAR CANDY/Tense Fast.wav",
+   "pack": "EAR CANDY",
+   "subfolder": "",
+   "file": "Tense Fast.wav",
+   "seconds": 1.3,
+   "group": "risers",
+   "guessed": false
+  },
+  {
+   "path": "EAR CANDY/Tension Small Riser.wav",
+   "pack": "EAR CANDY",
+   "subfolder": "",
+   "file": "Tension Small Riser.wav",
+   "seconds": 6.31,
+   "group": "risers",
+   "guessed": false
+  },
+  {
+   "path": "EAR CANDY/Tones Glitch.wav",
+   "pack": "EAR CANDY",
+   "subfolder": "",
+   "file": "Tones Glitch.wav",
+   "seconds": 1.0,
+   "group": "glitches",
+   "guessed": false
+  },
+  {
+   "path": "EAR CANDY/Tones Hope.mp3",
+   "pack": "EAR CANDY",
+   "subfolder": "",
+   "file": "Tones Hope.mp3",
+   "seconds": 13.779,
+   "group": "other",
+   "guessed": true
+  },
+  {
+   "path": "EAR CANDY/Whoosh Rise.wav",
+   "pack": "EAR CANDY",
+   "subfolder": "",
+   "file": "Whoosh Rise.wav",
+   "seconds": 2.125,
+   "group": "risers",
+   "guessed": false
+  },
+  {
+   "path": "EAR CANDY/Wipe fast.wav",
+   "pack": "EAR CANDY",
+   "subfolder": "",
+   "file": "Wipe fast.wav",
+   "seconds": 1.0,
+   "group": "whooshes",
+   "guessed": false
+  },
+  {
+   "path": "EAR CANDY/Phone/Dead Line Phone Call.wav",
+   "pack": "EAR CANDY",
+   "subfolder": "Phone",
+   "file": "Dead Line Phone Call.wav",
+   "seconds": 1.92,
+   "group": "foley",
+   "guessed": false
+  },
+  {
+   "path": "EAR CANDY/Phone/Dial One.wav",
+   "pack": "EAR CANDY",
+   "subfolder": "Phone",
+   "file": "Dial One.wav",
+   "seconds": 0.4,
+   "group": "foley",
+   "guessed": false
+  },
+  {
+   "path": "EAR CANDY/Phone/Mobile Phone In a Bag.wav",
+   "pack": "EAR CANDY",
+   "subfolder": "Phone",
+   "file": "Mobile Phone In a Bag.wav",
+   "seconds": 2.28,
+   "group": "foley",
+   "guessed": false
+  },
+  {
+   "path": "EAR CANDY/Phone/Mobile Phone Ring Big Room.wav",
+   "pack": "EAR CANDY",
+   "subfolder": "Phone",
+   "file": "Mobile Phone Ring Big Room.wav",
+   "seconds": 2.28,
+   "group": "foley",
+   "guessed": false
+  },
+  {
+   "path": "EAR CANDY/Phone/Mobile Phone Ring Close.wav",
+   "pack": "EAR CANDY",
+   "subfolder": "Phone",
+   "file": "Mobile Phone Ring Close.wav",
+   "seconds": 2.28,
+   "group": "foley",
+   "guessed": false
+  },
+  {
+   "path": "EAR CANDY/Phone/Mobile Phone Ring Other Room.wav",
+   "pack": "EAR CANDY",
+   "subfolder": "Phone",
+   "file": "Mobile Phone Ring Other Room.wav",
+   "seconds": 2.28,
+   "group": "foley",
+   "guessed": false
+  },
+  {
+   "path": "EAR CANDY/Phone/Mobile Phone Ring Right.wav",
+   "pack": "EAR CANDY",
+   "subfolder": "Phone",
+   "file": "Mobile Phone Ring Right.wav",
+   "seconds": 1.64,
+   "group": "foley",
+   "guessed": false
+  },
+  {
+   "path": "EAR CANDY/Phone/Mobile Phone Ring.wav",
+   "pack": "EAR CANDY",
+   "subfolder": "Phone",
+   "file": "Mobile Phone Ring.wav",
+   "seconds": 3.96,
+   "group": "foley",
+   "guessed": false
+  },
+  {
+   "path": "EAR CANDY/Phone/Mobile Phone Typing.wav",
+   "pack": "EAR CANDY",
+   "subfolder": "Phone",
+   "file": "Mobile Phone Typing.wav",
+   "seconds": 1.48,
+   "group": "foley",
+   "guessed": false
+  },
+  {
+   "path": "EAR CANDY/Phone/Old Phone Ring In a House.wav",
+   "pack": "EAR CANDY",
+   "subfolder": "Phone",
+   "file": "Old Phone Ring In a House.wav",
+   "seconds": 1.44,
+   "group": "foley",
+   "guessed": false
+  },
+  {
+   "path": "EAR CANDY/Phone/Old Phone Ring Multiple.wav",
+   "pack": "EAR CANDY",
+   "subfolder": "Phone",
+   "file": "Old Phone Ring Multiple.wav",
+   "seconds": 4.16,
+   "group": "foley",
+   "guessed": false
+  },
+  {
+   "path": "EAR CANDY/Phone/Old Phone Ring Other Room.wav",
+   "pack": "EAR CANDY",
+   "subfolder": "Phone",
+   "file": "Old Phone Ring Other Room.wav",
+   "seconds": 2.08,
+   "group": "foley",
+   "guessed": false
+  },
+  {
+   "path": "EAR CANDY/Phone/Phone Trying to Contact Long.wav",
+   "pack": "EAR CANDY",
+   "subfolder": "Phone",
+   "file": "Phone Trying to Contact Long.wav",
+   "seconds": 5.68,
+   "group": "foley",
+   "guessed": false
+  },
+  {
+   "path": "EAR CANDY/Phone/Phone Trying to Contact Short.wav",
+   "pack": "EAR CANDY",
+   "subfolder": "Phone",
+   "file": "Phone Trying to Contact Short.wav",
+   "seconds": 1.72,
+   "group": "foley",
+   "guessed": false
+  },
+  {
+   "path": "EAR CANDY/Phone/Trying to Contact Short Far Off.wav",
+   "pack": "EAR CANDY",
+   "subfolder": "Phone",
+   "file": "Trying to Contact Short Far Off.wav",
+   "seconds": 1.72,
+   "group": "foley",
+   "guessed": false
+  },
+  {
+   "path": "EAR CANDY/Phone/Trying to Contact Short Hollow.wav",
+   "pack": "EAR CANDY",
+   "subfolder": "Phone",
+   "file": "Trying to Contact Short Hollow.wav",
+   "seconds": 1.72,
+   "group": "foley",
+   "guessed": false
+  },
+  {
+   "path": "EAR CANDY/Phone/Vintage Phone Ring.wav",
+   "pack": "EAR CANDY",
+   "subfolder": "Phone",
+   "file": "Vintage Phone Ring.wav",
+   "seconds": 3.56,
+   "group": "foley",
+   "guessed": false
+  }
+ ]
+}
