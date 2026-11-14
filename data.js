@@ -116,9 +116,8 @@ const DAY_BLOCKS = {
   {s:"14:00",e:"17:00",cat:"life",title:"Rest",sub:"Off means off",detail:"No client work. Rest is part of the job."}
  ],
  sat:[
-  {s:"07:30",e:"08:30",cat:"us",title:"Walk together",sub:"Easy movement, easy talk",link:"train",detail:"Easy walk together before class. Counts as your Saturday movement."},
-  {s:"09:00",e:"10:30",cat:"faith",title:"Kingston class",sub:"Relationships class",detail:"Be present, take notes, bring one thing back to talk about at home."},
-  {s:"11:00",e:"17:00",cat:"us",title:"Your day together",sub:"No client work",detail:"No laptop. Plan something together or rest."}
+  {s:"09:00",e:"10:00",cat:"us",title:"Walk together",sub:"Easy movement, easy talk",link:"train",detail:"Easy walk together. Counts as your Saturday movement."},
+  {s:"10:30",e:"17:00",cat:"us",title:"Your day together",sub:"No client work",detail:"No laptop. Plan something together or rest."}
  ],
  sun:[
   {s:"08:00",e:"11:30",cat:"faith",title:"Slow morning",sub:"Prayer, breakfast, no rushing",detail:"No phone until after prayer and breakfast."},
@@ -240,7 +239,7 @@ const SESSIONS = {
    {n:"Calf stretch on wall",s:"45 sec per side",c:"Calves."}]}
  }
 };
-const WALK_SESSION = {title:"Saturday walk together", ex:[{n:"Easy walk",s:"45–60 min",c:"Walk with your wife before class. Low effort, high return for fat loss and recovery."}]};
+const WALK_SESSION = {title:"Saturday walk together", ex:[{n:"Easy walk",s:"45–60 min",c:"Walk with your wife. Low effort, high return for fat loss and recovery."}]};
 const REST_SESSION = {title:"Rest day", ex:[{n:"Nothing required",s:"Full rest",c:"Recovery is when muscle is built. A short walk is fine."}]};
 
 /* ── US ── */
@@ -322,7 +321,7 @@ MY WEEK
 - Mon = Admin (inbox, invoices, planning, outreach, Harbor House, content planning, modeling submissions)
 - Tue + Thu = Shoot days
 - Wed + Fri = Edit days (deliver + invoice same day; Friday weekly review)
-- Sat = Off: walk together, Kingston relationships class 9–10:30a, time together
+- Sat = Off: slow morning, walk together, time together
 - Sun = Off: church 12–1:45p, rest, State of Us check-in 6p, week preview 7p
 - Every workday morning: 5:45 wake, 6:00 Word + journal, 6:30–7:30 gym, start work 8:30.
 - Mon/Wed/Fri 3:00–3:45p: personal brand mentorship course (origin story). I paid $4k and haven't finished it — hold me to it, and help me turn each lesson into something I actually use.

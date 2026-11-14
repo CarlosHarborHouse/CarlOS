@@ -49,7 +49,7 @@ function paintSky(){
 function dayType(d){ return S.overrides[keyOf(d)] || DEFAULT_WEEK[d.getDay()]; }
 function isFirstFriday(d){ return d.getDay() === 5 && d.getDate() <= 7; }
 function typeInfo(t){
-  if (t === "sat" || t === "sun") return {label:"Off", color:TYPES.rest.color, desc: t === "sat" ? "Class, rest, and your wife" : "Church, rest, reset for the week"};
+  if (t === "sat" || t === "sun") return {label:"Off", color:TYPES.rest.color, desc: t === "sat" ? "Rest and time with your wife" : "Church, rest, reset for the week"};
   return TYPES[t];
 }
 function blocksFor(d){
@@ -61,7 +61,7 @@ function blocksFor(d){
     if (S.eveGym[k]) morning = morning.filter(b => !b.gym);
     list = list.concat(morning, DAY_BLOCKS[t].map(b => Object.assign({}, b, {cat:b.cat === "work" ? t : b.cat})));
   } else if (t === "sat"){
-    list.push({s:"07:00",e:"07:25",cat:"faith",title:"Word + journal",sub:"Today's verse",link:"word",detail:"Open the Word tab before the walk."});
+    list.push({s:"08:00",e:"08:30",cat:"faith",title:"Word + journal",sub:"Slow morning, today's verse",link:"word",detail:"No alarm. Open the Word tab over coffee before the walk."});
     list = list.concat(DAY_BLOCKS.sat);
   } else {
     list = list.concat(DAY_BLOCKS[t === "sun" ? "sun" : "rest"]);
