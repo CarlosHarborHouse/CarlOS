@@ -4,7 +4,7 @@
 
 /* ── storage ── */
 const KEY = "carlos2";
-const DEF = {course:{name:"Origin story course", total:0, done:0, notes:[]}, done:{}, overrides:{}, eveGym:{}, jobs:[], journal:{}, read:{},
+const DEF = {events:[], skips:{}, workouts:[], course:{name:"Origin story course", total:0, done:0, notes:[]}, done:{}, overrides:{}, eveGym:{}, jobs:[], journal:{}, read:{},
   train:{phase:0, phaseStart:null, exDone:{}, loads:{}, gate:{}},
   body:[], dateCheck:{}, qIndex:0, coachLink:""};
 let S;
@@ -75,9 +75,98 @@ function blocksFor(d){
     evening = [DATE_NIGHT, {s:"22:30",e:"22:31",cat:"sleep",title:"Lights out",sub:"A little later tonight",detail:"Late night is fine once a month."}];
   }
   list = list.concat(evening);
-  list.sort((a,b) => mins(a.s) - mins(b.s));
   list.forEach(b => b.id = b.s + "|" + b.title);
+  const skip = S.skips[k] || {};
+  list = list.filter(b => !skip[b.id]);
+  eventsOn(d).forEach(ev => list.push({s:ev.s, e:ev.e, cat:ev.cat, title:ev.title, sub:ev.note || (ev.repeat === "weekly" ? "Every " + DOWL[d.getDay()] : "Added by you"), detail:ev.note, event:ev.id, id:"ev:" + ev.id}));
+  const wo = S.workouts.find(w => w.d === k);
+  if (wo) list.forEach(b => { if (b.gym) b.sub = "Logged: " + wo.what; });
+  list.sort((a,b) => mins(a.s) - mins(b.s));
   return list;
+}
+function eventsOn(d){
+  const k = keyOf(d);
+  return S.events.filter(ev => ev.repeat === "weekly" ? (ev.dow === d.getDay() && k >= ev.date && !(ev.off || {})[k]) : ev.date === k);
+}
+const EV_CATS = [
+  {id:"life", label:"Personal"}, {id:"admin", label:"Work"}, {id:"us", label:"Us"},
+  {id:"faith", label:"Faith"}, {id:"body", label:"Body"}, {id:"grow", label:"Growth"}
+];
+function openEventSheet(ev){
+  const isNew = !ev;
+  const e = ev || {title:"", s:"16:00", e:"17:00", cat:"us", date:keyOf(viewDate), repeat:"none", note:""};
+  openSheet(`
+    <h2 style="margin-bottom:12px">${isNew ? "Add to your day" : "Edit event"}</h2>
+    <label class="f" for="et" style="margin-top:0">What</label><input id="et" value="${esc(e.title)}" placeholder="e.g. Couples counseling">
+    <div class="row">
+      <div><label class="f" for="es">Starts</label><input id="es" type="time" value="${esc(e.s)}"></div>
+      <div><label class="f" for="ee">Ends</label><input id="ee" type="time" value="${esc(e.e)}"></div>
+    </div>
+    <div class="row">
+      <div><label class="f" for="ed">Date</label><input id="ed" type="date" value="${esc(e.date)}"></div>
+      <div><label class="f" for="er">Repeats</label><select id="er"><option value="none"${e.repeat !== "weekly" ? " selected" : ""}>Just this day</option><option value="weekly"${e.repeat === "weekly" ? " selected" : ""}>Every week</option></select></div>
+    </div>
+    <label class="f">Type</label>
+    <div class="row" style="flex-wrap:wrap;gap:8px" id="ecats">${EV_CATS.map(c => `<button class="chip${c.id === e.cat ? " on" : ""}" data-cat="${c.id}" style="flex:0 0 auto;${c.id === e.cat ? "background:#f6f3ff;color:#1b1840" : ""}"><i style="background:${TYPES[c.id] ? TYPES[c.id].color : CAT[c.id]}"></i>${c.label}</button>`).join("")}</div>
+    <label class="f" for="en">Note</label><textarea id="en" rows="2" placeholder="Optional">${esc(e.note)}</textarea>
+    <div class="row" style="margin-top:16px">
+      ${isNew ? "" : `<button class="btn ghost" id="delEv">Delete</button>`}
+      <button class="btn primary" id="saveEv">${isNew ? "Add" : "Save changes"}</button>
+    </div>
+    ${!isNew && e.repeat === "weekly" ? `<button class="btn ghost" id="skipEv" style="margin-top:10px">Skip it just on ${parseKey(keyOf(viewDate)).toLocaleDateString("en-US",{weekday:"long",month:"short",day:"numeric"})}</button>` : ""}
+  `);
+  let cat = e.cat;
+  document.querySelectorAll("#ecats [data-cat]").forEach(b => b.onclick = () => {
+    cat = b.dataset.cat;
+    document.querySelectorAll("#ecats [data-cat]").forEach(x => { const on = x.dataset.cat === cat; x.style.background = on ? "#f6f3ff" : ""; x.style.color = on ? "#1b1840" : ""; });
+  });
+  $("#saveEv").onclick = () => {
+    const title = $("#et").value.trim(), s = $("#es").value, en = $("#ee").value, date = $("#ed").value;
+    if (!title){ $("#et").focus(); toast("Add a name"); return; }
+    if (!s || !en || mins(en) <= mins(s)){ toast("End time has to be after the start"); return; }
+    if (!date){ toast("Pick a date"); return; }
+    const data = {title, s, e:en, date, cat, repeat:$("#er").value, dow:parseKey(date).getDay(), note:$("#en").value.trim()};
+    if (isNew) S.events.push(Object.assign({id:Date.now().toString(36)}, data)); else Object.assign(ev, data);
+    save(); closeSheet(); refresh(); toast(isNew ? "Added" : "Saved");
+  };
+  if (!isNew){
+    $("#delEv").onclick = () => { S.events = S.events.filter(x => x.id !== ev.id); save(); closeSheet(); refresh(); toast("Deleted"); };
+    if ($("#skipEv")) $("#skipEv").onclick = () => { ev.off = ev.off || {}; ev.off[keyOf(viewDate)] = true; save(); closeSheet(); refresh(); toast("Skipped for that day"); };
+  }
+}
+function openWorkoutSheet(dateKey){
+  const k = dateKey || today();
+  const ex = S.workouts.find(w => w.d === k);
+  const parts = ["Back","Chest","Legs","Shoulders","Arms","Core","Full body","Stretching","Run","Walk","Bike"];
+  const picked = new Set(ex ? ex.parts || [] : []);
+  openSheet(`
+    <h2 style="margin-bottom:4px">${ex ? "Edit workout" : "Log a workout"}</h2>
+    <p class="small" style="margin-bottom:12px">For days you trained differently from the plan. It checks off the gym block.</p>
+    <div class="row" style="flex-wrap:wrap;gap:8px" id="wparts">${parts.map(p => `<button class="chip" data-p="${p}" style="flex:0 0 auto;padding:8px 14px;${picked.has(p) ? "background:#f6f3ff;color:#1b1840" : ""}">${p}</button>`).join("")}</div>
+    <div class="row">
+      <div><label class="f" for="wm">Minutes</label><input id="wm" inputmode="numeric" value="${ex && ex.mins ? ex.mins : ""}" placeholder="e.g. 60"></div>
+      <div><label class="f" for="wdt">Date</label><input id="wdt" type="date" value="${k}"></div>
+    </div>
+    <label class="f" for="wn">Notes</label><textarea id="wn" rows="2" placeholder="Weights, how the shoulder felt…">${esc(ex ? ex.note : "")}</textarea>
+    <div class="row" style="margin-top:16px">${ex ? `<button class="btn ghost" id="wdel">Delete</button>` : ""}<button class="btn primary" id="wsave">Save workout</button></div>
+  `);
+  document.querySelectorAll("#wparts [data-p]").forEach(b => b.onclick = () => {
+    const p = b.dataset.p; if (picked.has(p)) picked.delete(p); else picked.add(p);
+    b.style.background = picked.has(p) ? "#f6f3ff" : ""; b.style.color = picked.has(p) ? "#1b1840" : "";
+  });
+  $("#wsave").onclick = () => {
+    const note = $("#wn").value.trim(), d = $("#wdt").value || k;
+    if (!picked.size && !note){ toast("Pick what you trained or add a note"); return; }
+    const list = [...picked];
+    const what = list.length ? list.join(" + ").toLowerCase().replace(/^./, c => c.toUpperCase()) : note;
+    S.workouts = S.workouts.filter(w => w.d !== d && w.d !== k);
+    S.workouts.push({d, parts:list, what, mins:parseInt($("#wm").value,10) || null, note});
+    S.workouts.sort((a,b) => a.d.localeCompare(b.d));
+    S.done[d] = S.done[d] || {};
+    blocksFor(parseKey(d)).filter(b => b.gym).forEach(b => S.done[d][b.id] = true);
+    save(); closeSheet(); refresh(); toast("Workout logged");
+  };
+  if (ex) $("#wdel").onclick = () => { S.workouts = S.workouts.filter(w => w.d !== k); save(); closeSheet(); refresh(); toast("Deleted"); };
 }
 function colorOf(b){ return TYPES[b.cat] ? TYPES[b.cat].color : CAT[b.cat] || "var(--life)"; }
 
@@ -146,6 +235,7 @@ function renderToday(){
       <div class="meta" style="margin-top:14px">
         <button class="chip" id="typeBtn"><i style="background:${info.color}"></i>${esc(info.label)} day<span class="tiny" style="margin-left:2px">change</span></button>
         ${work ? `<button class="chip" id="gymBtn">${S.eveGym[k] ? "Gym: evening" : "Gym: morning"}</button>` : ""}
+        <button class="chip" id="addEv">+ Add event</button>
         ${!isToday ? `<button class="chip" id="backToday">Back to today</button>` : ""}
       </div>
     </div>
@@ -153,11 +243,12 @@ function renderToday(){
 
     <div class="glass panel prog" style="margin-top:10px">
       <svg class="ring" viewBox="0 0 54 54"><circle class="bg" cx="27" cy="27" r="24"/><circle class="fg" cx="27" cy="27" r="24" transform="rotate(-90 27 27)" stroke-dasharray="${circ}" stroke-dashoffset="${circ*(1-pct)}"/></svg>
-      <div><h3>${doneCount} of ${blocks.length} done</h3><div class="small">${pct >= 1 ? "Full day. Well done." : isFirstFriday(d) ? "Date night tonight." : esc(info.desc)}</div></div>
+      <div><h3>${doneCount} of ${blocks.length} done</h3>${S.workouts.find(w => w.d === k) ? `<div class="small" style="color:var(--body)">Workout: ${esc(S.workouts.find(w => w.d === k).what)}</div>` : ""}<div class="small">${pct >= 1 ? "Full day. Well done." : isFirstFriday(d) ? "Date night tonight." : esc(info.desc)}</div></div>
     </div>
 
     ${groups.map(g => `<div class="glass group"><div class="group-head"><span>${g.name}</span><span>${fmt(g.list[0].s)}–${fmt(g.list[g.list.length-1].s)}</span></div>${g.list.map(blockHtml).join("")}</div>`).join("")}
 
+    ${S.skips[k] && Object.keys(S.skips[k]).length ? `<button class="link" id="restoreSkips" style="display:block;margin:2px auto 0">Show ${Object.keys(S.skips[k]).length} hidden block${Object.keys(S.skips[k]).length > 1 ? "s" : ""}</button>` : ""}
     <div class="section-title"><h2>Jobs for ${isToday ? "today" : DOW[d.getDay()]}</h2><button class="link" id="allJobs">All jobs</button></div>
     <div class="glass group" id="jobsToday">${jobsFor(d)}</div>
     <button class="btn" id="addJob" style="margin-top:4px">Add a job</button>
@@ -167,6 +258,8 @@ function renderToday(){
   $("#nextDay").onclick = () => { viewDate = new Date(viewDate.getTime() + 864e5); renderToday(); };
   if ($("#backToday")) $("#backToday").onclick = () => { viewDate = new Date(); renderToday(); };
   $("#typeBtn").onclick = openTypeSheet;
+  $("#addEv").onclick = () => openEventSheet();
+  if ($("#restoreSkips")) $("#restoreSkips").onclick = () => { delete S.skips[k]; save(); renderToday(); toast("Blocks restored"); };
   if ($("#gymBtn")) $("#gymBtn").onclick = () => { S.eveGym[k] = !S.eveGym[k]; save(); renderToday(); toast(S.eveGym[k] ? "Gym moved to 5:45p" : "Gym back to 6:30a"); };
   $("#addJob").onclick = () => openJobSheet();
   $("#allJobs").onclick = openAllJobs;
@@ -218,15 +311,22 @@ function bindCourse(b){
   };
 }
 function openBlockSheet(b){
+  if (b.event){ openEventSheet(S.events.find(x => x.id === b.event)); return; }
   openSheet(`
     <div class="small" style="margin-bottom:6px">${fmt(b.s)} – ${fmt(b.e)}</div>
     <h2 style="font-size:28px;margin-bottom:12px">${esc(b.title)}</h2>
     <p style="font-size:16px;line-height:1.6;color:var(--ink2);margin-bottom:20px">${esc(b.detail || b.sub)}</p>
     ${b.course ? courseHtml() : ""}
+    ${b.gym ? `<button class="btn" id="logWo" style="margin-bottom:10px">Trained something different? Log it</button>` : ""}
     ${b.link ? `<button class="btn primary" id="goLink">Open ${b.link === "word" ? "the Word" : b.link === "train" ? "today's session" : "Us"}</button>` : ""}
   `);
   if (b.link) $("#goLink").onclick = () => { closeSheet(); go(b.link); };
   if (b.course) bindCourse(b);
+  if (b.gym) $("#logWo").onclick = () => openWorkoutSheet(keyOf(viewDate));
+  const sk = document.createElement("button");
+  sk.className = "btn ghost"; sk.style.marginTop = "10px"; sk.textContent = "Hide this block on " + DOWL[viewDate.getDay()];
+  sk.onclick = () => { const k = keyOf(viewDate); S.skips[k] = S.skips[k] || {}; S.skips[k][b.id] = true; save(); closeSheet(); refresh(); toast("Hidden for that day"); };
+  $("#sheet-body").appendChild(sk);
 }
 
 function openTypeSheet(){
@@ -489,6 +589,7 @@ function renderTrain(){
       ${sess.ex.map(e => exRow(e, k, (key === "walk" || key === "rest") ? "prep" : "")).join("")}
     </div>
 
+    <button class="btn" id="logWorkoutTop" style="margin-bottom:14px">${S.workouts.find(w => w.d === k) ? "Logged today: " + esc(S.workouts.find(w => w.d === k).what) + " · edit" : "Trained something different today? Log it"}</button>
     ${key !== "rest" && key !== "walk" ? `<details class="glass panel"><summary><div><h3>10-minute prep</h3><div class="small">Before every session. Loosens hips, back, and shoulder.</div></div></summary><div style="margin:8px -14px -6px">${PREP.map(e => exRow(e, k, "prep")).join("")}</div></details>` : ""}
 
     <div class="glass panel">
@@ -500,6 +601,12 @@ function renderTrain(){
     <div class="glass panel gate">${P.gate.map((g,i) => `<label><input type="checkbox" data-gate="${i}"${gate[i] ? " checked" : ""}>${esc(g)}</label>`).join("")}
       ${gateDone ? `<button class="btn primary" id="nextPh" style="margin-top:10px">Move to ${PHASES[ph+1].name}</button>` : `<div class="tiny" style="margin-top:6px">Check all of these before moving up.</div>`}
     </div>` : ""}
+
+    <div class="section-title"><h2>Workouts</h2><span class="tiny">${weekWorkouts()} this week</span></div>
+    <div class="glass panel">
+      ${S.workouts.length ? S.workouts.slice(-5).reverse().map(w => `<button class="wo" data-wo="${w.d}"><span><b>${esc(w.what)}</b><span class="tiny" style="display:block">${parseKey(w.d).toLocaleDateString("en-US",{weekday:"short",month:"short",day:"numeric"})}${w.mins ? " · " + w.mins + " min" : ""}${w.note ? " · " + esc(w.note) : ""}</span></span><span class="tiny">Edit</span></button>`).join("") : `<p class="small" style="margin-bottom:12px">Trained something other than today's plan? Log it here so the week still counts.</p>`}
+      <button class="btn" id="logWorkout" style="margin-top:10px">Log a workout</button>
+    </div>
 
     <div class="section-title"><h2>Body check-in</h2><span class="tiny">Once a week, same morning</span></div>
     <div class="glass panel">
@@ -536,6 +643,9 @@ function renderTrain(){
     S.train.gate[ph] = S.train.gate[ph] || {}; S.train.gate[ph][c.dataset.gate] = c.checked; save(); renderTrain();
   });
   if ($("#nextPh")) $("#nextPh").onclick = () => { S.train.phase = ph + 1; S.train.phaseStart = today(); save(); renderTrain(); toast(PHASES[ph+1].name + " started"); };
+  $("#logWorkout").onclick = () => openWorkoutSheet();
+  $("#logWorkoutTop").onclick = () => openWorkoutSheet(S.workouts.find(w => w.d === k) ? k : undefined);
+  document.querySelectorAll("[data-wo]").forEach(b => b.onclick = () => openWorkoutSheet(b.dataset.wo));
   $("#logBody").onclick = () => {
     const w = parseFloat($("#bw").value), wa = parseFloat($("#bwa").value);
     if (!w){ $("#bw").focus(); toast("Add your weight"); return; }
@@ -543,6 +653,11 @@ function renderTrain(){
     S.body.push({d:today(), w, waist: wa || null});
     save(); renderTrain(); toast("Logged");
   };
+}
+
+function weekWorkouts(){
+  const d = new Date(); const start = new Date(d.getFullYear(), d.getMonth(), d.getDate() - ((d.getDay() + 6) % 7));
+  return S.workouts.filter(w => parseKey(w.d) >= start).length;
 }
 
 /* ── US ── */
@@ -615,6 +730,8 @@ function contextText(){
     "Word: " + th.r[day] + " (theme: " + th.t + ")",
     [J.i1, J.i2, J.i3].filter(Boolean).length ? "My intentions: " + [J.i1, J.i2, J.i3].filter(Boolean).join(" / ") : "Intentions: not written yet",
     "Brand course: " + S.course.name + " — " + S.course.done + (S.course.total ? " of " + S.course.total : "") + " lessons done" + (S.course.notes.length ? "; last takeaway: " + S.course.notes[S.course.notes.length-1].t : ""),
+    S.workouts.find(w => w.d === k) ? "Workout logged today: " + S.workouts.find(w => w.d === k).what + (S.workouts.find(w => w.d === k).note ? " (" + S.workouts.find(w => w.d === k).note + ")" : "") : "",
+    eventsOn(d).length ? "Events today: " + eventsOn(d).map(ev => fmt(ev.s) + " " + ev.title).join(", ") : "",
     "Training: " + PHASES[S.train.phase].name + (S.train.phaseStart ? ", week " + programWeek() : ", not started"),
     S.body.length ? "Last check-in: " + S.body[S.body.length-1].w + " lb" + (S.body[S.body.length-1].waist ? ", waist " + S.body[S.body.length-1].waist + " in" : "") : "",
     open.length ? "Open jobs: " + open.map(j => j.client + (j.what ? " (" + j.what + ")" : "") + " — " + stageLabel(j.stage).toLowerCase() + ", " + dueText(j.due).txt.toLowerCase()).join("; ") : "Open jobs: none logged"
@@ -670,7 +787,7 @@ function renderCoach(){
     openSheet(`<h2 style="margin-bottom:10px">Restore a backup</h2><p class="small" style="margin-bottom:10px">Paste the backup text. This replaces what's on this phone.</p>
       <textarea id="imp" rows="6"></textarea><button class="btn primary" id="doImp" style="margin-top:12px">Restore</button>`);
     $("#doImp").onclick = () => {
-      try { const v = JSON.parse($("#imp").value); S = Object.assign({}, DEF, v); S.train = Object.assign({}, DEF.train, v.train || {}); save(); closeSheet(); refresh(); toast("Restored"); }
+      try { const v = JSON.parse($("#imp").value); S = Object.assign({}, DEF, v); S.course = Object.assign({}, DEF.course, v.course || {}); S.train = Object.assign({}, DEF.train, v.train || {}); save(); closeSheet(); refresh(); toast("Restored"); }
       catch(e){ toast("That backup text isn't valid"); }
     };
   };
