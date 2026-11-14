@@ -1,0 +1,1673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CarlOS</title>
+<meta name="theme-color" content="#151735">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="CarlOS">
+<link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAIAAACyr5FlAAAWfmNhQlgAABZ+anVtYgAAAB5qdW1kYzJwYQARABCAAACqADibcQNjMnBhAAAAFlhqdW1iAAAAR2p1bWRjMm1hABEAEIAAAKoAOJtxA3VybjpjMnBhOjkxNjJhYWJlLTgwNDYtNDRiOS1iMDBmLWVkZjFmODVmYWFhNAAAAAOTanVtYgAAAClqdW1kYzJhcwARABCAAACqADibcQNjMnBhLmFzc2VydGlvbnMAAAAAuGp1bWIAAABEanVtZGNib3IAEQAQgAAAqgA4m3ETYzJwYS5pbmdyZWRpZW50LnYzAAAAABhjMnNoHx+kaoRG1iKvI8H03kipAAAAAGxjYm9yo2lkYzpmb3JtYXRpaW1hZ2UvcG5namluc3RhbmNlSUR4LHhtcDppaWQ6NzIzNjhlNzctNDUzNS00NDVlLWJmZjEtMzI3MWYzM2YwNjNibHJlbGF0aW9uc2hpcGhwYXJlbnRPZgAAAeJqdW1iAAAAQWp1bWRjYm9yABEAEIAAAKoAOJtxE2MycGEuYWN0aW9ucy52MgAAAAAYYzJzaJuZG/KbQN31Aligssf3l54AAAGZY2JvcqJnYWN0aW9uc4KiZmFjdGlvbmtjMnBhLm9wZW5lZGpwYXJhbWV0ZXJzoWtpbmdyZWRpZW50c4GiY3VybHgtc2VsZiNqdW1iZj1jMnBhLmFzc2VydGlvbnMvYzJwYS5pbmdyZWRpZW50LnYzZGhhc2hYIALggi0tRyvzwF/fnKIX9lAYSj/oPc+b+BjGOoVuG/CLpGZhY3Rpb254HWNvbS5hbnRocm9waWMuY2xhdWRlLnByb3ZpZGVkanBhcmFtZXRlcnOheB9jb20uYW50aHJvcGljLm9yaWdpbi1jb25maWRlbmNlZ3Vua25vd25rZGVzY3JpcHRpb254ZkNsYXVkZSBwcm92aWRlZCB0aGlzIGZpbGUgYXQgdGhlIHJlcXVlc3Qgb2YgYSB1c2VyIGFuZCBtYXkgaGF2ZSBjcmVhdGVkIG9yIG1vZGlmaWVkIHRoZSBmaWxlIGNvbnRlbnRzLm1zb2Z0d2FyZUFnZW50oWRuYW1lZkNsYXVkZXJhbGxBY3Rpb25zSW5jbHVkZWT1AAAAyGp1bWIAAABAanVtZGNib3IAEQAQgAAAqgA4m3ETYzJwYS5oYXNoLmRhdGEAAAAAGGMyc2g5Xmk13R4gvQhpouBbFuhYAAAAgGNib3KlY2FsZ2ZzaGEyNTZjcGFkTQAAAAAAAAAAAAAAAABkaGFzaFggCj/vt8knzMqzISpTC4skNR5mvoA/eNV33Fsbg2piSqxkbmFtZW5qdW1iZiBtYW5pZmVzdGpleGNsdXNpb25zgaJlc3RhcnQYIWZsZW5ndGgZFooAAAI+anVtYgAAACdqdW1kYzJjbAARABCAAACqADibcQNjMnBhLmNsYWltLnYyAAAAAg9jYm9ypWNhbGdmc2hhMjU2aXNpZ25hdHVyZXhNc2VsZiNqdW1iZj0vYzJwYS91cm46YzJwYTo5MTYyYWFiZS04MDQ2LTQ0YjktYjAwZi1lZGYxZjg1ZmFhYTQvYzJwYS5zaWduYXR1cmVqaW5zdGFuY2VJRHgseG1wOmlpZDozODVjZjdkYy0xOGM4LTRiZjktOWRlNS02ZjI1MDQyNjQzOTdyY3JlYXRlZF9hc3NlcnRpb25zg6JjdXJseC1zZWxmI2p1bWJmPWMycGEuYXNzZXJ0aW9ucy9jMnBhLmluZ3JlZGllbnQudjNkaGFzaFggAuCCLS1HK/PAX9+cohf2UBhKP+g9z5v4GMY6hW4b8IuiY3VybHgqc2VsZiNqdW1iZj1jMnBhLmFzc2VydGlvbnMvYzJwYS5hY3Rpb25zLnYyZGhhc2hYIMFTKkOEDBGsIBQLsc9ZLLwnSIUmORuTUoPeYyavG+rJomN1cmx4KXNlbGYjanVtYmY9YzJwYS5hc3NlcnRpb25zL2MycGEuaGFzaC5kYXRhZGhhc2hYIK8Xk92lqWDCfgVMdXtPvXN2q8/fUsQ9Vj68ZsQeOKJedGNsYWltX2dlbmVyYXRvcl9pbmZvo2RuYW1lb0FudGhyb3BpYyBGaWxlc2d2ZXJzaW9uZTEuMC4wa3NwZWNWZXJzaW9uZTIuNC4wAAAQOGp1bWIAAAAoanVtZGMyY3MAEQAQgAAAqgA4m3EDYzJwYS5zaWduYXR1cmUAAAAQCGNib3LShFkCEqIBJhghWQIKMIICBjCCAY2gAwIBAgIUQOWgCu7COdC+uIP6BkIFPWdVEwAwCgYIKoZIzj0EAwMwSTEXMBUGA1UEChMOQW50aHJvcGljLCBQQkMxLjAsBgNVBAMTJUFudGhyb3BpYyBDb250ZW50IENyZWRlbnRpYWxzIFJvb3QgQ0EwHhcNMjYwODA3MTg0MzU2WhcNMjgwODA2MTk0MzU2WjBEMRcwFQYDVQQKEw5BbnRocm9waWMsIFBCQzEpMCcGA1UEAxMgQW50aHJvcGljIENsYXVkZSBDb250ZW50IFNpZ25pbmcwWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAASYegpry1AYBRTVNL1CpTlbROnY3dey+UrsF9C3phYrATN3ZHf93Mo8RQN0KOUuOn19P4oWNFWe5n2/She9N7eTo1gwVjAOBgNVHQ8BAf8EBAMCB4AwFQYDVR0lBA4wDAYKKwYBBAGD6F4CATAMBgNVHRMBAf8EAjAAMB8GA1UdIwQYMBaAFM5R4gSBTmRbI/jjxM+aPpzB11zCMAoGCCqGSM49BAMDA2cAMGQCMDFzHRSeAXrSy1WOzkbhPZ6Km2wGTmZ/2gK18k8BQGXyqz88Rdrz6CTX9flAnYNVxgIwcF9c3fVhqmJKpi+UhasNUMko69cyX6STPfta3Q8EjyzDjzoyrol46FP6VFHhvUcJoWNwYWRZDZ4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA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">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,300..800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root{
+  --sky1:#151735; --sky2:#2b2463; --sky3:#4b3a8a; --glow:#6f5bd6;
+  --ink:#f6f3ff; --ink2:rgba(246,243,255,.72); --ink3:rgba(246,243,255,.5);
+  --glass:rgba(255,255,255,.085); --glass2:rgba(255,255,255,.14);
+  --line:rgba(255,255,255,.16); --line2:rgba(255,255,255,.08);
+  --grow:#7fe0c3; --faith:#ecc76f; --body:#ff8a65; --us:#f593ba; --sleep:#9a90ff; --life:rgba(255,255,255,.42);
+  --admin:#a79bff; --shoot:#ff7a59; --edit:#4bbcff; --rest:#ecc76f;
+  --ok:#62d6a0;
+  --sat:env(safe-area-inset-top,0px); --sab:env(safe-area-inset-bottom,0px);
+  --display:"Bricolage Grotesque",ui-sans-serif,system-ui,sans-serif;
+  --serif:"Instrument Serif",Georgia,serif;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%}
+body{
+  font-family:var(--display);font-variation-settings:"wdth" 100;color:var(--ink);
+  background:var(--sky1);overflow:hidden;font-size:16px;line-height:1.45;
+  -webkit-font-smoothing:antialiased;
+}
+/* ── living sky ── */
+.sky{position:fixed;inset:0;z-index:0;
+  background:linear-gradient(180deg,var(--sky1) 0%,var(--sky2) 55%,var(--sky3) 100%);
+  transition:background 1.2s ease}
+.orb{position:absolute;border-radius:50%;filter:blur(60px);opacity:.55;pointer-events:none}
+.orb.a{width:340px;height:340px;background:var(--glow);top:-90px;right:-110px}
+.orb.b{width:300px;height:300px;background:var(--sky3);bottom:60px;left:-140px;opacity:.45}
+.grain{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.07;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+#app{position:relative;z-index:2;height:100dvh;max-width:480px;margin:0 auto;display:flex;flex-direction:column}
+.screen{display:none;flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;
+  padding:calc(var(--sat) + 18px) 18px calc(var(--sab) + 110px)}
+.screen.on{display:block}
+.screen::-webkit-scrollbar{display:none}
+
+/* ── type ── */
+h1{font-size:44px;line-height:1.02;font-weight:700;letter-spacing:-.02em;font-variation-settings:"wdth" 88}
+h2{font-size:22px;line-height:1.15;font-weight:650;letter-spacing:-.01em;font-variation-settings:"wdth" 92}
+h3{font-size:17px;font-weight:600;line-height:1.25}
+.small{font-size:13px;color:var(--ink2)}
+.tiny{font-size:12px;color:var(--ink3)}
+.muted{color:var(--ink2)}
+.serif{font-family:var(--serif)}
+
+/* ── glass ── */
+.glass{background:var(--glass);border:1px solid var(--line);
+  backdrop-filter:blur(26px) saturate(150%);-webkit-backdrop-filter:blur(26px) saturate(150%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.18), 0 18px 40px -24px rgba(0,0,0,.55)}
+.panel{border-radius:26px;padding:18px;margin-bottom:14px}
+.section-title{display:flex;align-items:baseline;justify-content:space-between;margin:26px 4px 10px}
+.section-title h2{font-size:20px}
+.link{background:none;border:0;color:var(--ink2);font:inherit;font-size:14px;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+
+/* ── top ── */
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px}
+.brand{font-weight:750;font-size:18px;letter-spacing:-.01em;font-variation-settings:"wdth" 80}
+.brand span{opacity:.55;font-weight:400}
+.date{font-size:14px;color:var(--ink2)}
+
+.chip{display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:8px 14px 8px 10px;
+  font-size:14px;font-weight:600;border:1px solid var(--line);background:var(--glass2);color:var(--ink);cursor:pointer;font-family:inherit}
+.chip i{width:10px;height:10px;border-radius:50%;display:block}
+
+/* ── hero ── */
+.hero{margin:6px 2px 18px}
+.hero .lead{font-size:15px;color:var(--ink2);margin-bottom:8px}
+.hero h1{margin-bottom:10px}
+.hero .meta{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.remain{font-size:15px;color:var(--ink2)}
+
+/* ── ribbon ── */
+.ribbon{position:relative;height:54px;margin:4px 2px 6px}
+.ribbon .track{position:absolute;left:0;right:0;top:20px;height:14px;border-radius:999px;background:rgba(255,255,255,.08);overflow:hidden}
+.ribbon .seg{position:absolute;top:0;bottom:0;border-radius:3px;opacity:.9}
+.ribbon .seg.done{opacity:.35}
+.ribbon .sun{position:absolute;top:12px;width:30px;height:30px;margin-left:-15px;border-radius:50%;
+  background:radial-gradient(circle,#fff6dc 0 35%,#ffd27a 36% 55%,rgba(255,210,122,0) 56%);
+  box-shadow:0 0 22px 6px rgba(255,214,140,.55)}
+.ribbon .ends{position:absolute;top:40px;left:0;right:0;display:flex;justify-content:space-between;font-size:11px;color:var(--ink3)}
+
+/* ── progress ── */
+.prog{display:flex;gap:14px;align-items:center}
+.ring{width:54px;height:54px;flex-shrink:0}
+.ring circle{fill:none;stroke-width:6}
+.ring .bg{stroke:rgba(255,255,255,.12)}
+.ring .fg{stroke:var(--ok);stroke-linecap:round;transition:stroke-dashoffset .5s ease}
+
+/* ── blocks ── */
+.group{border-radius:24px;padding:6px;margin-bottom:12px}
+.group-head{display:flex;justify-content:space-between;padding:10px 12px 6px;font-size:14px;color:var(--ink2)}
+.blk{display:flex;gap:12px;align-items:center;padding:12px;border-radius:18px;cursor:pointer;position:relative}
+.blk + .blk{border-top:1px solid var(--line2);border-radius:0 0 18px 18px}
+.blk.now{background:rgba(255,255,255,.12);border-radius:18px;border-top-color:transparent}
+.blk.now + .blk{border-top-color:transparent}
+.blk .bar{width:4px;align-self:stretch;border-radius:4px;flex-shrink:0}
+.blk .t{font-size:13px;color:var(--ink3);width:46px;flex-shrink:0;font-variant-numeric:tabular-nums}
+.blk .body{flex:1;min-width:0}
+.blk .ttl{font-size:16px;font-weight:600;line-height:1.25}
+.blk .sub{font-size:13px;color:var(--ink2);margin-top:2px}
+.blk.done .ttl{text-decoration:line-through;text-decoration-color:rgba(255,255,255,.4);color:var(--ink2)}
+.blk .now-tag{font-size:12px;font-weight:650;color:#1a1640;background:#ffe2a8;border-radius:999px;padding:3px 9px;margin-left:6px;vertical-align:2px}
+.check{width:28px;height:28px;border-radius:50%;border:1.5px solid rgba(255,255,255,.35);flex-shrink:0;display:grid;place-items:center;background:none;cursor:pointer;color:transparent;transition:background .2s,border-color .2s}
+.check svg{width:14px;height:14px}
+.check.on{background:var(--ok);border-color:var(--ok);color:#0e2a1e}
+
+/* ── jobs ── */
+.job{display:flex;gap:12px;align-items:center;padding:12px;border-radius:18px}
+.job + .job{border-top:1px solid var(--line2)}
+.job .body{flex:1;min-width:0}
+.job .ttl{font-weight:600}
+.job .due{font-size:13px;color:var(--ink2)}
+.job .due.late{color:#ffb4a2}
+.stage{font-family:inherit;border:1px solid var(--line);background:rgba(255,255,255,.1);color:var(--ink);border-radius:999px;padding:7px 12px;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap}
+.empty{padding:14px 12px;color:var(--ink2);font-size:14px}
+
+/* ── buttons/inputs ── */
+.btn{font-family:inherit;font-size:15px;font-weight:650;border-radius:16px;padding:14px 18px;border:1px solid var(--line);
+  background:rgba(255,255,255,.14);color:var(--ink);cursor:pointer;width:100%}
+.btn.primary{background:#f6f3ff;color:#1b1840;border-color:transparent}
+.btn.ghost{background:transparent}
+.row{display:flex;gap:10px}
+.row > *{flex:1}
+input,textarea,select{font-family:inherit;font-size:16px;color:var(--ink);background:rgba(10,8,40,.25);border:1px solid var(--line);
+  border-radius:14px;padding:12px 14px;width:100%;outline:none}
+textarea{resize:none;line-height:1.5;min-height:52px}
+input::placeholder,textarea::placeholder{color:var(--ink3)}
+label.f{display:block;font-size:13px;color:var(--ink2);margin:12px 2px 6px}
+:focus-visible{outline:2px solid #ffe2a8;outline-offset:2px}
+select{appearance:none}
+
+/* ── word ── */
+.verse{border-radius:30px;padding:26px 22px;margin-bottom:14px;position:relative;overflow:hidden}
+.verse .ref{font-size:15px;font-weight:600;color:var(--faith);margin-bottom:12px}
+.verse .txt{font-family:var(--serif);font-size:29px;line-height:1.22;letter-spacing:-.005em}
+.verse .txt.loading{opacity:.5}
+.theme-line{font-size:14px;color:var(--ink2);margin-top:16px}
+.q{font-family:var(--serif);font-style:italic;font-size:21px;line-height:1.3;margin:4px 0 2px}
+.days{display:flex;gap:6px;margin-top:6px}
+.days button{flex:1;font-family:inherit;border:1px solid var(--line);background:rgba(255,255,255,.06);color:var(--ink2);border-radius:14px;padding:9px 0;font-size:13px;cursor:pointer}
+.days button.on{background:#f6f3ff;color:#1b1840;font-weight:650;border-color:transparent}
+.days button.read{color:var(--ink)}
+
+/* ── train ── */
+.seg-ctl{display:flex;gap:4px;padding:4px;border-radius:999px;margin-bottom:14px}
+.seg-ctl button{flex:1;font-family:inherit;border:0;background:none;color:var(--ink2);border-radius:999px;padding:10px 0;font-size:14px;font-weight:600;cursor:pointer}
+.seg-ctl button.on{background:#f6f3ff;color:#1b1840}
+.ex{padding:14px;border-radius:18px}
+.ex + .ex{border-top:1px solid var(--line2);border-radius:0}
+.ex-head{display:flex;gap:12px;align-items:flex-start}
+.ex .name{font-weight:620;font-size:16px}
+.ex .sets{font-size:14px;color:var(--body);font-weight:600;margin-top:1px}
+.ex .cue{font-size:14px;color:var(--ink2);margin-top:8px;line-height:1.5}
+.ex .tools{display:flex;gap:8px;margin-top:10px;align-items:center}
+.ex .tools a{font-size:13px;font-weight:600;color:var(--ink);text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:7px 12px;display:inline-flex;gap:6px;align-items:center;background:rgba(255,255,255,.08)}
+.ex .tools input{max-width:130px;padding:7px 12px;font-size:14px;border-radius:999px}
+.runplan div{padding:9px 12px;border-radius:12px;font-size:14px;color:var(--ink2)}
+.runplan div.cur{background:rgba(255,255,255,.12);color:var(--ink);font-weight:600}
+details summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center}
+details summary::-webkit-details-marker{display:none}
+details summary::after{content:"+";font-size:22px;color:var(--ink2);font-weight:300}
+details[open] summary::after{content:"–"}
+.gate label{display:flex;gap:12px;align-items:center;padding:10px 4px;font-size:15px;cursor:pointer}
+.gate input{width:22px;height:22px;accent-color:var(--ok);flex-shrink:0}
+.stat{display:flex;gap:10px}
+.stat > div{flex:1;border-radius:18px;padding:14px;background:rgba(255,255,255,.07);border:1px solid var(--line2)}
+.stat b{display:block;font-size:24px;font-weight:700;font-variation-settings:"wdth" 85}
+
+/* ── us ── */
+.date-hero{border-radius:30px;padding:24px 22px;margin-bottom:14px;background:linear-gradient(150deg,rgba(245,147,186,.32),rgba(154,144,255,.18));border:1px solid rgba(255,255,255,.2)}
+.date-hero .big{font-size:64px;line-height:.95;font-weight:750;font-variation-settings:"wdth" 78;letter-spacing:-.03em}
+.idea{font-family:var(--serif);font-size:24px;line-height:1.25;margin:6px 0 14px}
+.qcard{font-family:var(--serif);font-size:26px;line-height:1.25;min-height:96px}
+.list-check label{display:flex;gap:12px;align-items:center;padding:9px 2px;font-size:15px;cursor:pointer}
+.list-check input{width:22px;height:22px;accent-color:var(--us);flex-shrink:0}
+.prompt{padding:12px 2px;font-family:var(--serif);font-size:20px;line-height:1.3}
+.prompt + .prompt{border-top:1px solid var(--line2)}
+
+/* ── coach ── */
+.step{display:flex;gap:14px;padding:12px 2px}
+.step + .step{border-top:1px solid var(--line2)}
+.step .n{width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.14);display:grid;place-items:center;font-size:14px;font-weight:700;flex-shrink:0}
+pre.ctx{white-space:pre-wrap;font-family:inherit;font-size:13px;color:var(--ink2);line-height:1.5;max-height:180px;overflow:auto;background:rgba(10,8,40,.25);border-radius:14px;padding:12px;border:1px solid var(--line2)}
+
+/* ── nav ── */
+nav{background:rgba(20,18,58,.62)!important;position:fixed;left:50%;transform:translateX(-50%);bottom:calc(var(--sab) + 12px);z-index:20;
+  width:calc(100% - 28px);max-width:452px;border-radius:28px;display:flex;padding:6px}
+nav button{flex:1;border:0;background:none;color:var(--ink3);font-family:inherit;font-size:11px;font-weight:600;
+  display:flex;flex-direction:column;align-items:center;gap:3px;padding:8px 0 6px;border-radius:22px;cursor:pointer;transition:color .2s,background .2s}
+nav button svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+nav button.on{color:var(--ink);background:rgba(255,255,255,.14)}
+
+/* ── sheet ── */
+.scrim{position:fixed;inset:0;z-index:40;background:rgba(8,6,30,.5);display:none;align-items:flex-end;justify-content:center}
+.scrim.on{display:flex}
+.sheet{width:100%;max-width:480px;border-radius:30px 30px 0 0;padding:12px 20px calc(var(--sab) + 22px);max-height:88vh;overflow:auto;
+  background:rgba(34,30,80,.82);border:1px solid var(--line);backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);
+  animation:up .28s cubic-bezier(.2,.8,.2,1)}
+.grab{width:40px;height:5px;border-radius:9px;background:rgba(255,255,255,.3);margin:0 auto 16px}
+.type-opt{display:flex;gap:14px;align-items:center;padding:14px;border-radius:18px;cursor:pointer;border:1px solid transparent}
+.type-opt.on{background:rgba(255,255,255,.1);border-color:var(--line)}
+.type-opt i{width:14px;height:14px;border-radius:50%}
+@keyframes up{from{transform:translateY(40px);opacity:0}to{transform:none;opacity:1}}
+
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(var(--sab) + 96px);z-index:60;background:#f6f3ff;color:#1b1840;
+  font-weight:650;font-size:14px;border-radius:999px;padding:10px 18px;opacity:0;pointer-events:none;transition:opacity .25s}
+.toast.on{opacity:1}
+
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="sky" id="sky"><div class="orb a"></div><div class="orb b"></div></div>
+<div class="grain"></div>
+
+<div id="app">
+  <main class="screen on" id="s-today"></main>
+  <main class="screen" id="s-word"></main>
+  <main class="screen" id="s-train"></main>
+  <main class="screen" id="s-us"></main>
+  <main class="screen" id="s-coach"></main>
+</div>
+
+<nav class="glass" id="nav">
+  <button class="on" data-tab="today" aria-label="Today"><svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="4"/><path d="M12 3v2M4.2 7.2l1.4 1.4M19.8 7.2l-1.4 1.4M2 17h20M6 21h12"/></svg>Today</button>
+  <button data-tab="word" aria-label="Word"><svg viewBox="0 0 24 24"><path d="M4 5.5C6.5 4 9.5 4 12 5.5v14c-2.5-1.5-5.5-1.5-8 0z"/><path d="M20 5.5C17.5 4 14.5 4 12 5.5v14c2.5-1.5 5.5-1.5 8 0z"/></svg>Word</button>
+  <button data-tab="train" aria-label="Train"><svg viewBox="0 0 24 24"><path d="M6.5 6.5v11M17.5 6.5v11M3.5 9v6M20.5 9v6M6.5 12h11"/></svg>Train</button>
+  <button data-tab="us" aria-label="Us"><svg viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg>Us</button>
+  <button data-tab="coach" aria-label="Coach"><svg viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/><path d="M8.5 9.5h7M8.5 12.5h4"/></svg>Coach</button>
+</nav>
+
+<div class="scrim" id="scrim"><div class="sheet" id="sheet"><div class="grab"></div><div id="sheet-body"></div></div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* CarlOS v2 — content data */
+
+/* ── SCRIPTURE: 52 weekly themes x 7 days. Text is fetched live from the
+   World English Bible (public domain) via bible-api.com ── */
+const THEMES = [
+ {t:"Stewardship", q:"What has been put in my hands right now, and am I treating it like it's mine or like it's entrusted?", r:["Matthew 25:21","Luke 16:10","1 Corinthians 4:2","Psalm 24:1","1 Peter 4:10","Luke 12:48","Genesis 2:15"]},
+ {t:"Work as Worship", q:"Which part of today's work would change if I did it for God instead of the client?", r:["Colossians 3:23-24","Ecclesiastes 9:10","1 Corinthians 10:31","Ephesians 6:7","Proverbs 14:23","Psalm 90:17","2 Thessalonians 3:10"]},
+ {t:"Diligence", q:"Where am I being hasty instead of diligent?", r:["Proverbs 21:5","Proverbs 10:4","Proverbs 13:4","Proverbs 12:24","Proverbs 6:6-8","Romans 12:11","Proverbs 28:19"]},
+ {t:"Commit Your Plans", q:"What plan am I holding too tightly this week?", r:["Proverbs 16:3","Proverbs 16:9","Proverbs 19:21","James 4:13-15","Proverbs 3:5-6","Psalm 37:5","Jeremiah 29:11"]},
+ {t:"Marriage", q:"What does my wife need from me this week that I haven't asked about?", r:["Ephesians 5:25","Genesis 2:24","Ecclesiastes 4:9-12","1 Peter 3:7","Colossians 3:19","Proverbs 18:22","Proverbs 5:18"]},
+ {t:"Love", q:"Who did I love well yesterday, and who did I just tolerate?", r:["1 Corinthians 13:4-7","John 15:12-13","1 John 4:7-8","Romans 13:8","1 Peter 4:8","Colossians 3:14","John 13:34-35"]},
+ {t:"Rest & Sabbath", q:"Am I resting because I trust God or only because I'm tired?", r:["Exodus 20:8-10","Mark 2:27","Matthew 11:28-30","Psalm 127:2","Hebrews 4:9-10","Psalm 23:1-3","Mark 6:31"]},
+ {t:"Wealth God's Way", q:"How would I describe the purpose of the money I'm trying to make?", r:["Deuteronomy 8:18","Proverbs 10:22","Proverbs 13:11","1 Timothy 6:17-19","Proverbs 3:9-10","Ecclesiastes 5:10","Malachi 3:10"]},
+ {t:"Contentment", q:"What am I chasing that I'd still be unsatisfied with once I got it?", r:["Philippians 4:11-13","Hebrews 13:5","1 Timothy 6:6-8","Proverbs 30:8-9","Luke 12:15","Psalm 37:16","Matthew 6:19-21"]},
+ {t:"Generosity", q:"Where can I give something away this week — time, skill, or money?", r:["2 Corinthians 9:6-7","Proverbs 11:24-25","Acts 20:35","Luke 6:38","Proverbs 19:17","1 John 3:17","Proverbs 22:9"]},
+ {t:"Wisdom", q:"What decision am I making on instinct that deserves more wisdom?", r:["James 1:5","Proverbs 4:7","Proverbs 9:10","Proverbs 2:6","Proverbs 3:13-14","Ecclesiastes 7:12","Colossians 3:16"]},
+ {t:"Humility", q:"Where do I need to be teachable right now?", r:["James 4:10","Philippians 2:3-4","Proverbs 11:2","Micah 6:8","1 Peter 5:5-6","Proverbs 22:4","Matthew 23:12"]},
+ {t:"Pride", q:"What am I quietly taking credit for?", r:["Proverbs 16:18","Proverbs 29:23","Romans 12:3","Galatians 6:3","Proverbs 27:2","Jeremiah 9:23-24","1 Corinthians 4:7"]},
+ {t:"Courage", q:"What am I avoiding because I'm afraid of the outcome?", r:["Joshua 1:9","Deuteronomy 31:6","Isaiah 41:10","2 Timothy 1:7","Psalm 27:1","Psalm 56:3-4","1 Corinthians 16:13"]},
+ {t:"Anxiety & Trust", q:"What am I carrying that I haven't actually handed over?", r:["Philippians 4:6-7","Matthew 6:34","1 Peter 5:7","Psalm 55:22","Isaiah 26:3","John 14:27","Psalm 94:19"]},
+ {t:"Identity", q:"Where am I getting my worth from this week — views, money, or God?", r:["2 Corinthians 5:17","Ephesians 2:10","Galatians 2:20","Psalm 139:13-14","1 Peter 2:9","Romans 8:1","John 1:12"]},
+ {t:"Calling", q:"Does my calendar this week reflect what I believe I'm called to?", r:["Romans 11:29","Ephesians 4:1","Jeremiah 1:5","2 Timothy 1:9","Philippians 3:14","1 Thessalonians 5:24","Colossians 1:10"]},
+ {t:"Gifts", q:"Which of my gifts am I underusing?", r:["Romans 12:6-8","1 Corinthians 12:4-7","Exodus 35:31-32","James 1:17","2 Timothy 1:6","Proverbs 18:16","1 Peter 4:11"]},
+ {t:"Excellence", q:"What would 'excellent' look like on today's main deliverable?", r:["Daniel 6:3","Proverbs 22:29","Philippians 4:8","Titus 2:7","Exodus 31:3","2 Timothy 2:15","1 Corinthians 9:24"]},
+ {t:"Discipline", q:"What small discipline would make the biggest difference this week?", r:["1 Corinthians 9:25-27","Hebrews 12:11","Proverbs 25:28","Titus 2:11-12","1 Timothy 4:7-8","Proverbs 12:1","Galatians 5:22-23"]},
+ {t:"The Body", q:"Am I treating my body like a temple or like a tool I'll fix later?", r:["1 Corinthians 6:19-20","Romans 12:1","1 Thessalonians 5:23","Isaiah 40:29-31","Proverbs 17:22","Proverbs 3:7-8","Philippians 1:20"]},
+ {t:"Perseverance", q:"Where am I tempted to quit just before it would have worked?", r:["James 1:2-4","Romans 5:3-5","Galatians 6:9","Hebrews 12:1-2","2 Corinthians 4:16-18","James 1:12","Philippians 1:6"]},
+ {t:"Patience & Waiting", q:"What am I trying to force that needs time?", r:["Lamentations 3:25-26","Psalm 37:7","Habakkuk 2:3","Romans 8:25","Ecclesiastes 3:1","James 5:7-8","Psalm 130:5"]},
+ {t:"Speech", q:"How did my words land at home this week?", r:["Proverbs 18:21","James 1:19","Ephesians 4:29","Proverbs 15:1","Colossians 4:6","Proverbs 12:18","James 3:5"]},
+ {t:"Integrity", q:"Is there anywhere my private behavior doesn't match my public content?", r:["Proverbs 10:9","Proverbs 11:3","Psalm 15:1-2","Proverbs 20:7","Proverbs 28:6","2 Corinthians 8:21","Proverbs 19:1"]},
+ {t:"Forgiveness", q:"Who am I still holding something against?", r:["Colossians 3:13","Ephesians 4:32","Matthew 6:14-15","Matthew 18:21-22","Luke 6:37","Mark 11:25","1 John 1:9"]},
+ {t:"Servant Leadership", q:"Who can I serve without it being seen?", r:["Mark 10:43-45","John 13:14-15","Philippians 2:5-7","Galatians 5:13","1 Peter 5:2-3","Matthew 23:11","Luke 22:26"]},
+ {t:"Prayer", q:"What have I stopped praying about?", r:["1 Thessalonians 5:16-18","Matthew 7:7-8","Jeremiah 33:3","James 5:16","Mark 11:24","Matthew 6:6","Romans 12:12"]},
+ {t:"Faith", q:"What would I do this week if I actually believed God would come through?", r:["Hebrews 11:1","Hebrews 11:6","Romans 10:17","Mark 9:23","2 Corinthians 5:7","Matthew 17:20","James 2:17"]},
+ {t:"Gratitude", q:"What did I get this year that I prayed for and forgot to thank Him for?", r:["Psalm 100:4-5","Colossians 3:17","Psalm 118:24","Psalm 107:1","Ephesians 5:20","Psalm 9:1","Hebrews 12:28"]},
+ {t:"Friendship & Community", q:"Who sharpens me, and when did I last reach out?", r:["Proverbs 27:17","Hebrews 10:24-25","Proverbs 17:17","Proverbs 13:20","Proverbs 18:24","Galatians 6:2","Acts 2:42"]},
+ {t:"Self-Control", q:"Where am I letting impulse run the day?", r:["Proverbs 16:32","1 Peter 5:8","1 Corinthians 10:13","Romans 6:12","James 1:14-15","2 Peter 1:5-7","Romans 13:14"]},
+ {t:"Renewing the Mind", q:"What am I feeding my mind first thing in the morning?", r:["Romans 12:2","2 Corinthians 10:5","Colossians 3:2","Proverbs 4:23","Ephesians 4:22-24","Psalm 19:14","Psalm 119:11"]},
+ {t:"Kingdom First", q:"If I sorted my week by eternal value, what moves up?", r:["Matthew 6:33","Colossians 3:1","Luke 9:23","Matthew 16:26","Romans 14:17","Matthew 13:44","Luke 9:62"]},
+ {t:"Provision", q:"Where have I seen provision this month that I didn't plan for?", r:["Philippians 4:19","Matthew 6:26","Psalm 34:10","Psalm 37:25","2 Corinthians 9:8","Genesis 22:14","Psalm 84:11"]},
+ {t:"Strength", q:"Where am I running on my own strength?", r:["Psalm 46:1","Nehemiah 8:10","2 Corinthians 12:9-10","Psalm 28:7","Ephesians 6:10","Psalm 73:26","Habakkuk 3:19"]},
+ {t:"Leadership", q:"What does my business need me to lead on, not just do?", r:["Proverbs 11:14","Proverbs 29:18","Nehemiah 2:17-18","Exodus 18:21","Psalm 78:72","Proverbs 27:23","2 Timothy 2:2"]},
+ {t:"Family & Home", q:"What kind of home are we building, and does this week match it?", r:["Joshua 24:15","Psalm 127:1","Proverbs 24:3-4","Proverbs 14:1","Deuteronomy 6:6-7","Proverbs 22:6","1 Timothy 5:8"]},
+ {t:"Purity", q:"What am I letting in through my eyes and phone?", r:["Psalm 119:9","Matthew 5:8","1 Thessalonians 4:3-4","Psalm 51:10","2 Timothy 2:22","Philippians 2:14-15","Hebrews 13:4"]},
+ {t:"Discernment", q:"Which opportunity looks good but isn't right?", r:["Hebrews 5:14","1 John 4:1","Philippians 1:9-10","Proverbs 14:15","James 3:17","1 Kings 3:9","Proverbs 15:22"]},
+ {t:"Hope", q:"What am I hoping for that I haven't said out loud?", r:["Romans 15:13","Lamentations 3:22-23","Hebrews 6:19","Psalm 42:11","Isaiah 43:19","Psalm 71:14","1 Peter 1:3"]},
+ {t:"Joy", q:"Where did I feel real joy this week, and what was I doing?", r:["Psalm 16:11","John 15:11","Psalm 30:5","Philippians 4:4","John 16:24","Psalm 126:5","Psalm 4:7"]},
+ {t:"Peace", q:"What's stealing my peace, and is it mine to carry?", r:["John 16:33","Romans 5:1","Colossians 3:15","Isaiah 9:6","Psalm 4:8","Numbers 6:24-26","2 Thessalonians 3:16"]},
+ {t:"Truth", q:"Is there a truth I'm avoiding about my business or my habits?", r:["John 8:32","John 14:6","Psalm 119:105","2 Timothy 3:16-17","Ephesians 4:15","John 17:17","Proverbs 12:22"]},
+ {t:"Obedience", q:"What do I already know I should do but haven't?", r:["John 14:15","James 1:22","Luke 11:28","Deuteronomy 28:1-2","1 Samuel 15:22","Matthew 7:24","Joshua 1:8"]},
+ {t:"Grace", q:"Where do I need to receive grace instead of earning it?", r:["Ephesians 2:8-9","Hebrews 4:16","Romans 5:20","John 1:16","James 4:6","2 Peter 3:18","Romans 3:23-24"]},
+ {t:"Light & Witness", q:"What does someone learn about God from watching my week?", r:["Matthew 5:14-16","1 Peter 3:15","Acts 1:8","Romans 1:16","Colossians 4:5","2 Corinthians 5:20","Mark 16:15"]},
+ {t:"New Beginnings", q:"What do I need to stop dragging into this season?", r:["Isaiah 43:18","Ezekiel 36:26","Philippians 3:13","Revelation 21:5","Psalm 51:12","Isaiah 1:18","Psalm 40:2-3"]},
+ {t:"Legacy", q:"What will still matter about this year in ten years?", r:["Psalm 78:4","Proverbs 13:22","2 Timothy 4:7","Psalm 145:4","Psalm 90:12","Ecclesiastes 12:13","Psalm 112:1-2"]},
+ {t:"Money & Debt", q:"Do I know exactly where my money went last month?", r:["Proverbs 22:7","Luke 14:28","Proverbs 21:20","Proverbs 6:1-3","Proverbs 24:27","Proverbs 23:4-5","Luke 16:11"]},
+ {t:"God's Faithfulness", q:"Where has God been faithful that I can point to specifically?", r:["Deuteronomy 7:9","Psalm 36:5","2 Timothy 2:13","Psalm 89:1","Hebrews 10:23","1 Corinthians 1:9","Isaiah 25:1"]},
+ {t:"Surrender", q:"What would I have to let go of to follow fully?", r:["Luke 22:42","Matthew 16:24","Psalm 37:4","James 4:7","Psalm 46:10","Isaiah 6:8","John 3:30"]}
+];
+
+/* ── DAY TYPES ── */
+const TYPES = {
+ admin:{label:"Admin", color:"#9B8CFF", desc:"Money, planning, outreach, building"},
+ shoot:{label:"Shoot", color:"#FF7A59", desc:"Capture everything for the week"},
+ edit:{label:"Edit", color:"#3FB6FF", desc:"Deep work, revisions, delivery"},
+ rest:{label:"Off", color:"#D9B26F", desc:"Rest, faith, and time together"}
+};
+const DEFAULT_WEEK = ["sun","admin","shoot","edit","shoot","edit","sat"]; // Sun..Sat
+
+/* blocks: s/e = "HH:MM", cat = faith|body|work|us|sleep|life */
+const MORNING = [
+ {s:"05:45",e:"06:00",cat:"life",title:"Wake + water",sub:"No phone until the Word",detail:"Lights on, glass of water, get dressed for the gym. Leave the phone on the charger until you open the Word tab."},
+ {s:"06:00",e:"06:25",cat:"faith",title:"Word + journal",sub:"Today's verse, 3 intentions",link:"word",detail:"Open the Word tab. Read the verse slowly, answer the week's question, write three intentions for the day."},
+ {s:"06:30",e:"07:30",cat:"body",title:"Gym",sub:"Today's session in Train",link:"train",gym:true,detail:"Building gym. 10 min prep, 40 min session, 10 min cooldown. Today's session is in the Train tab."},
+ {s:"07:35",e:"08:20",cat:"life",title:"Shower + breakfast",sub:"Protein first",detail:"Shower, eat a real breakfast with protein. Check the plan for today before opening email."}
+];
+const EVENING = [
+ {s:"18:00",e:"18:45",cat:"us",title:"Dinner together",sub:"No phones at the table",detail:"Eat together. Phones stay in the other room. Ask her about her day before talking about yours."},
+ {s:"20:30",e:"20:35",cat:"us",title:"Devices down",sub:"Phones charge outside the bedroom",detail:"Laptop closed, phones on the charger outside the bedroom. Work is finished for the day."},
+ {s:"21:00",e:"21:45",cat:"us",title:"Together time",sub:"Tonight's idea in the Us tab",link:"us",detail:"Do tonight's idea from the Us tab, or anything you both pick. The point is attention, not activity."},
+ {s:"21:45",e:"22:00",cat:"sleep",title:"Wind down",sub:"Lights low, pray together",detail:"Lights low, read or pray together. Same time every night makes falling asleep easier."},
+ {s:"22:00",e:"22:01",cat:"sleep",title:"Lights out",sub:"7h45 before the 5:45 alarm",detail:"Lights out at 10. Adults need at least 7 hours; this gives you 7 hours 45 minutes."}
+];
+const DAY_BLOCKS = {
+ admin:[
+  {s:"08:30",e:"09:30",cat:"work",title:"Inbox + money",sub:"Replies, invoices, payments",detail:"Reply to clients, send invoices, check what's been paid and what's overdue. Update the Jobs list."},
+  {s:"09:30",e:"10:30",cat:"work",title:"Plan the week",sub:"Lock shoots + due dates",detail:"Confirm this week's shoots, put every deliverable in Jobs with a due date, and set each day's type if a client moved something."},
+  {s:"10:30",e:"12:00",cat:"work",title:"Outreach",sub:"B2B pitches + brand follow-ups",detail:"Aim for 10 touches: new B2B pitches, brand follow-ups, past clients. Log anything that turns into work in Jobs."},
+  {s:"12:00",e:"13:00",cat:"life",title:"Lunch + walk",sub:"Get outside",detail:"Eat away from the desk and walk at least 10 minutes."},
+  {s:"13:00",e:"15:00",cat:"work",title:"Harbor House",sub:"One build goal",detail:"Write the one goal for this block before you start. Stop when it's done or time is up."},
+  {s:"15:00",e:"15:45",cat:"grow",title:"Brand course",sub:"One lesson, one takeaway",course:true,detail:"Watch one lesson of the origin story course. Before you close it, write the one thing you'll apply, ideally as a hook or post idea for your own page."},
+  {s:"15:45",e:"16:30",cat:"work",title:"Content planning",sub:"Hooks, scripts, shot lists",detail:"Plan your own content for this week's shoot days: hooks, scripts, shot lists, outfits. Start with whatever the course lesson just gave you."},
+  {s:"16:30",e:"17:15",cat:"work",title:"Modeling",sub:"Casting Networks + submissions",detail:"Check auditions, submit to anything that fits, update your comp card or tape if needed."},
+  {s:"17:15",e:"17:30",cat:"work",title:"Shutdown",sub:"Tomorrow's top 3",detail:"Write tomorrow's top 3, close the laptop."}
+ ],
+ shoot:[
+  {s:"08:30",e:"09:30",cat:"work",title:"Prep",sub:"Batteries, cards, shot list",detail:"Charge everything, clear cards, review the shot list, set out outfits and props."},
+  {s:"09:30",e:"12:30",cat:"work",title:"Shoot block 1",sub:"Client work first",detail:"Client shoot first while energy is highest. Follow the shot list; grab extra b-roll."},
+  {s:"12:30",e:"13:30",cat:"life",title:"Lunch",sub:"Eat, reset",detail:"Real lunch. Recharge batteries during the break."},
+  {s:"13:30",e:"16:00",cat:"work",title:"Shoot block 2",sub:"Client or your own batch",detail:"Second client shoot or batch your own content for the week."},
+  {s:"16:00",e:"16:45",cat:"work",title:"Offload + backup",sub:"Two copies before you stop",detail:"Offload to the drive and a second backup. Name folders by client and date."},
+  {s:"16:45",e:"17:30",cat:"work",title:"Log selects",sub:"Notes for edit day",detail:"Mark selects and note anything you need to reshoot so edit day starts fast."}
+ ],
+ edit:[
+  {s:"08:30",e:"11:00",cat:"work",title:"Deep edit 1",sub:"Phone in another room",detail:"One project only. Phone in another room, notifications off."},
+  {s:"11:00",e:"11:15",cat:"life",title:"Break",sub:"Walk, water",detail:"Get up from the screen. Walk and drink water."},
+  {s:"11:15",e:"12:30",cat:"work",title:"Deep edit 2",sub:"Same project to finish",detail:"Finish the morning's project before switching."},
+  {s:"12:30",e:"13:30",cat:"life",title:"Lunch",sub:"Away from the desk",detail:"Eat away from the desk."},
+  {s:"13:30",e:"15:00",cat:"work",title:"Revisions",sub:"Client feedback",detail:"Work through client notes in the order they're due."},
+  {s:"15:00",e:"15:45",cat:"grow",title:"Brand course",sub:"One lesson, one takeaway",course:true,detail:"Watch one lesson of the origin story course. Before you close it, write the one thing you'll apply, ideally as a hook or post idea for your own page."},
+  {s:"15:45",e:"16:30",cat:"work",title:"Own content edit",sub:"Your page + series",detail:"Edit your own posts and series episodes."},
+  {s:"16:30",e:"17:30",cat:"work",title:"Deliver + invoice",sub:"Ship it, bill it",detail:"Export, deliver, send the invoice the same day. On Friday, also run the weekly review: what shipped, what's owed, what's next."}
+ ],
+ rest:[
+  {s:"08:00",e:"09:00",cat:"faith",title:"Slow morning",sub:"Prayer, breakfast, no screens",detail:"No alarm pressure. Pray, eat, stay off your phone until mid-morning."},
+  {s:"10:00",e:"12:00",cat:"us",title:"Out together",sub:"Walk, errand, or nothing",detail:"Do something together, even a long walk."},
+  {s:"14:00",e:"17:00",cat:"life",title:"Rest",sub:"Off means off",detail:"No client work. Rest is part of the job."}
+ ],
+ sat:[
+  {s:"07:30",e:"08:30",cat:"us",title:"Walk together",sub:"Easy movement, easy talk",link:"train",detail:"Easy walk together before class. Counts as your Saturday movement."},
+  {s:"09:00",e:"10:30",cat:"faith",title:"Kingston class",sub:"Relationships class",detail:"Be present, take notes, bring one thing back to talk about at home."},
+  {s:"11:00",e:"17:00",cat:"us",title:"Your day together",sub:"No client work",detail:"No laptop. Plan something together or rest."}
+ ],
+ sun:[
+  {s:"08:00",e:"11:30",cat:"faith",title:"Slow morning",sub:"Prayer, breakfast, no rushing",detail:"No phone until after prayer and breakfast."},
+  {s:"12:00",e:"13:45",cat:"faith",title:"Church",sub:"The anchor of the week",detail:"Come ready to receive. Sit together."},
+  {s:"14:00",e:"18:00",cat:"us",title:"Rest together",sub:"No build work",detail:"Sabbath. No client work, no Harbor House."},
+  {s:"18:00",e:"18:15",cat:"us",title:"State of Us",sub:"15-min check-in",link:"us",detail:"Use the four questions in the Us tab. Listen first, fix nothing."},
+  {s:"19:00",e:"19:15",cat:"work",title:"Week preview",sub:"Set day types, check Jobs",detail:"Look at Jobs, set each day's type for the week, write Monday's top 3. 15 minutes, then close it."}
+ ]
+};
+const DATE_NIGHT = {s:"18:00",e:"22:00",cat:"us",title:"Date night",sub:"First Friday of the month",link:"us",detail:"Monthly date night. Plan is in the Us tab. Phone stays in your pocket."};
+
+/* ── TRAINING ──
+   demo opens a YouTube search for that movement from coaches who teach form */
+const PREP = [
+ {n:"Cat-cow + open book", s:"8 each side", c:"Move one segment at a time. On the open book, keep knees stacked and follow your hand with your eyes."},
+ {n:"90/90 hip switch", s:"8 per side", c:"Sit tall, rotate knees side to side without using your hands if you can."},
+ {n:"World's greatest stretch", s:"5 per side", c:"Long lunge, elbow to instep, then rotate and reach to the ceiling."},
+ {n:"Cable external rotation", s:"15 per side, light", c:"Towel under the elbow, elbow pinned to your side, rotate out slowly. Light weight."},
+ {n:"Scap wall slide", s:"10 slow", c:"Back and forearms on the wall, slide up without shrugging."},
+ {n:"Glute bridge", s:"12, pause at top", c:"Ribs down, squeeze glutes, don't arch the low back."}
+];
+
+const PHASES = [
+ {name:"Foundation", weeks:"Weeks 1–4", goal:"Loosen up, learn the patterns, build the base. Leave 2–3 reps in the tank every set.",
+  gate:["Finished 4 weeks (12 strength sessions)","Both arms reach fully overhead with no pain","Can jog 4 minutes straight comfortably","Goblet squat to full depth, heels down","Shoulder feels fine the day after pressing"]},
+ {name:"Build", weeks:"Weeks 5–10", goal:"Heavier compound lifts and continuous running. Add weight when you hit the top of the rep range.",
+  gate:["Ran 30 minutes continuous","Back squat 5 clean reps at about your bodyweight × 0.75","Dumbbell overhead press with no pain","5 strict pull-ups or a heavy pulldown for 3×8","No joint pain the morning after sessions"]},
+ {name:"Athletic", weeks:"Week 11 on", goal:"Power, speed, and conditioning. This is the model-body phase: athletic, not bulky.", gate:[]}
+];
+
+/* session keys by weekday Sun..Sat */
+const WEEK_SESSIONS = ["rest","A","engine","B","engine","C","walk"];
+
+const SESSIONS = {
+ 0:{ // Foundation
+  A:{title:"Strength A — full body", ex:[
+   {n:"Goblet squat",s:"3×10",c:"Elbows inside knees, sit between your heels, chest tall. Pause 1 sec at the bottom."},
+   {n:"Neutral-grip dumbbell bench press",s:"3×10",c:"Palms facing each other, elbows about 45°. Easiest press on a healing shoulder."},
+   {n:"Lat pulldown",s:"3×12",c:"Pull to upper chest, lead with elbows, don't lean back more than a little."},
+   {n:"Dumbbell Romanian deadlift",s:"3×10",c:"Soft knees, push hips back, dumbbells slide down the thighs. Stop when hamstrings stretch."},
+   {n:"Cable face pull",s:"3×15",c:"Rope to eye level, pull apart and rotate hands back. Builds the back of the shoulder."},
+   {n:"Dead bug",s:"3×8 per side",c:"Low back pressed into the floor the whole time. Slow."}]},
+  B:{title:"Strength B — full body", ex:[
+   {n:"Leg press",s:"3×12",c:"Feet shoulder width, lower until hips start to curl, press through the whole foot."},
+   {n:"Seated cable row",s:"3×12",c:"Chest up, pull to the belly button, squeeze shoulder blades for 1 sec."},
+   {n:"Half-kneeling landmine press",s:"3×10 per side",c:"Barbell end in a corner. Press up and slightly forward. Shoulder-friendly overhead pattern."},
+   {n:"Dumbbell reverse lunge",s:"3×8 per leg",c:"Step back, both knees to 90°, push through the front heel."},
+   {n:"Pallof press",s:"3×10 per side",c:"Cable at chest height, press straight out and resist the twist."},
+   {n:"Farmer carry",s:"3×40 sec",c:"Heavy dumbbells, tall posture, shoulders down, walk slow."}]},
+  C:{title:"Strength C — full body", ex:[
+   {n:"Dumbbell split squat",s:"3×8 per leg",c:"Back knee lowers straight down, front heel stays planted."},
+   {n:"Incline dumbbell press",s:"3×10",c:"Bench at 30°, control the lowering, stop short of any pinch in the shoulder."},
+   {n:"Chest-supported dumbbell row",s:"3×10",c:"Chest on an incline bench, row to the hips."},
+   {n:"Barbell hip thrust",s:"3×10",c:"Upper back on the bench, chin tucked, full lockout with glutes."},
+   {n:"Cable external rotation",s:"3×15 per side",c:"Same as prep but slightly heavier. Slow on the way back."},
+   {n:"Side plank",s:"3×30 sec per side",c:"Straight line head to feet, hips up."}]},
+  engine:{title:"Engine — run-walk + mobility", run:["Week 1: 8 × (1:00 jog / 2:00 walk)","Week 2: 8 × (1:30 jog / 1:30 walk)","Week 3: 6 × (2:30 jog / 1:30 walk)","Week 4: 5 × (4:00 jog / 1:00 walk)"],
+   ex:[
+   {n:"Treadmill run-walk",s:"See this week's intervals",c:"Jog pace = you can still talk in short sentences. Legs sore from lifting? Do 25 min on the bike instead."},
+   {n:"Couch stretch",s:"60 sec per side",c:"Back knee against the wall or bench, squeeze glute. Opens tight hip flexors."},
+   {n:"Pigeon stretch",s:"60 sec per side",c:"Square hips, breathe into the outer hip."},
+   {n:"Doorway pec stretch",s:"45 sec per side",c:"Forearm on the frame at shoulder height, step through gently."},
+   {n:"Child's pose lat stretch",s:"45 sec per side",c:"Walk hands to one side to stretch the lat."},
+   {n:"Hamstring floss",s:"10 per side",c:"On your back, straighten and bend the knee with a strap around the foot."}]}
+ },
+ 1:{ // Build
+  A:{title:"Strength A — squat + bench", ex:[
+   {n:"Barbell back squat",s:"4×6–8",c:"Brace before every rep, hips and chest rise together. Add 5–10 lb when all sets hit 8."},
+   {n:"Barbell bench press",s:"4×6–8",c:"Shoulder blades pinned, bar to lower chest. Any pinch: switch back to neutral-grip dumbbells."},
+   {n:"Pull-up or assisted pull-up",s:"4×6–8",c:"Full hang to chin over bar. Use the pulldown if you can't get 6 yet."},
+   {n:"Barbell Romanian deadlift",s:"3×8",c:"Bar stays touching the legs, flat back, hips back."},
+   {n:"Cable face pull",s:"3×15",c:"Keep this in forever. Shoulder insurance."},
+   {n:"Hanging knee raise",s:"3×10",c:"No swinging. Curl the pelvis up."}]},
+  B:{title:"Strength B — legs + overhead", ex:[
+   {n:"Leg press",s:"4×10",c:"Heavier than Phase 1, same depth."},
+   {n:"Single-arm cable row",s:"3×10 per side",c:"Reach forward, then row and rotate slightly."},
+   {n:"Dumbbell overhead press",s:"3×8",c:"Half-kneeling until week 8, standing after if pain-free. Ribs down."},
+   {n:"Dumbbell walking lunge",s:"3×10 per leg",c:"Long steps, upright torso."},
+   {n:"Cable woodchop",s:"3×10 per side",c:"Rotate through the hips, arms stay long."},
+   {n:"Heavy farmer carry",s:"4×40 sec",c:"Heaviest dumbbells you can hold with good posture."}]},
+  C:{title:"Strength C — single leg + upper", ex:[
+   {n:"Bulgarian split squat",s:"3×8 per leg",c:"Rear foot on the bench, most weight on the front leg."},
+   {n:"Incline dumbbell press",s:"4×8",c:"Heavier than Phase 1."},
+   {n:"Chest-supported dumbbell row",s:"4×8",c:"Pause at the top."},
+   {n:"Barbell hip thrust",s:"4×8",c:"Heavy, full lockout."},
+   {n:"Cable external rotation",s:"3×15 per side",c:"Keep the cuff work."},
+   {n:"Ab wheel rollout",s:"3×8",c:"From the knees. Stop before the low back sags."}]},
+  engine:{title:"Engine — continuous running", run:["Week 5: 2 × 10:00 jog, 1:00 walk between","Week 6: 20:00 easy","Week 7: 22:00 easy","Week 8: 25:00 easy","Week 9: 25:00 easy + 4 × 20-sec strides","Week 10: 30:00 easy"],
+   ex:[
+   {n:"Treadmill or outdoor run",s:"See this week's run",c:"Easy pace: you could hold a conversation. Most fat-loss cardio should feel this easy."},
+   {n:"Couch stretch",s:"60 sec per side",c:"Hip flexors."},
+   {n:"Pigeon stretch",s:"60 sec per side",c:"Outer hip."},
+   {n:"Calf stretch on wall",s:"45 sec per side",c:"Running makes calves tight; keep them loose."}]}
+ },
+ 2:{ // Athletic
+  A:{title:"Power A — lower body", ex:[
+   {n:"Box jump",s:"4×3",c:"Jump up, step down. Full reset between reps. Quality over height."},
+   {n:"Barbell back squat",s:"4×5",c:"Heavy, fast out of the bottom."},
+   {n:"Barbell Romanian deadlift",s:"3×6",c:"Heavy, perfect positions."},
+   {n:"Dumbbell walking lunge",s:"3×10 per leg",c:"Loaded."},
+   {n:"Copenhagen side plank",s:"3×20 sec per side",c:"Top leg on the bench. Groin and hip strength for sprinting."}]},
+  B:{title:"Power B — upper + rotation", ex:[
+   {n:"Barbell push press",s:"4×5",c:"Dip and drive with the legs. Only if overhead is fully pain-free; otherwise landmine press."},
+   {n:"Weighted or strict pull-up",s:"4×5–8",c:"Add a dumbbell between the feet once 8 is easy."},
+   {n:"Barbell bench press",s:"4×5",c:"Heavy, controlled."},
+   {n:"Landmine rotation",s:"3×8 per side",c:"Rotate from the hips, arms stay long."},
+   {n:"Cable face pull",s:"3×15",c:"Always."}]},
+  C:{title:"Power C — athletic full body", ex:[
+   {n:"Dumbbell snatch",s:"4×5 per side",c:"Hinge, explode, punch overhead in one motion."},
+   {n:"Dumbbell front squat",s:"3×6",c:"Elbows high, upright torso."},
+   {n:"Single-leg Romanian deadlift",s:"3×8 per side",c:"Balance and hamstring strength."},
+   {n:"Push-up variations",s:"3×max",c:"Clap, decline, or weighted — leave 1 rep in reserve."},
+   {n:"Heavy farmer carry",s:"4×40 sec",c:"Grip and trunk."}]},
+  engine:{title:"Engine — speed + tempo", run:["Tuesday: 6–8 × (1:00 fast / 2:00 easy)","Thursday: 25–35 min tempo, comfortably hard","Saturday (optional): long easy run or walk together"],
+   ex:[
+   {n:"Treadmill intervals or tempo run",s:"See the plan",c:"Warm up 5 min easy before anything fast."},
+   {n:"A-skip drill",s:"3×20 m",c:"Knee drive, quick contacts. Running mechanics."},
+   {n:"Couch stretch",s:"60 sec per side",c:"Hip flexors."},
+   {n:"Calf stretch on wall",s:"45 sec per side",c:"Calves."}]}
+ }
+};
+const WALK_SESSION = {title:"Saturday walk together", ex:[{n:"Easy walk",s:"45–60 min",c:"Walk with your wife before class. Low effort, high return for fat loss and recovery."}]};
+const REST_SESSION = {title:"Rest day", ex:[{n:"Nothing required",s:"Full rest",c:"Recovery is when muscle is built. A short walk is fine."}]};
+
+/* ── US ── */
+const TONIGHT = [
+ "Walk around the block together, no phones",
+ "Cook something new together",
+ "Read a Psalm out loud and pray for each other",
+ "Ask three questions from the deck",
+ "Play a card or board game",
+ "Plan the next date night together",
+ "Stretch together for 15 minutes",
+ "Share one high and one low from the day",
+ "Look through old photos and talk about them",
+ "Slow dance in the kitchen to one song",
+ "Write each other a short note and swap",
+ "Make dessert or tea and just talk",
+ "Plan something for @christandcovenant together",
+ "Pray through each other's week"
+];
+const QUESTIONS = [
+ "What's one thing I did this week that made you feel loved?",
+ "What's something you're looking forward to this month?",
+ "What's a dream you haven't told me in a while?",
+ "When do you feel most like yourself with me?",
+ "What's one thing that's been weighing on you?",
+ "What's a memory of us you think about often?",
+ "What would a perfect Saturday look like for you right now?",
+ "How can I pray for you this week?",
+ "What's something new you'd like us to try together?",
+ "What's one habit of mine that helps you, and one that's hard?",
+ "Where do you see us in five years?",
+ "What part of our faith do you want us to grow in together?",
+ "What's something you're proud of yourself for lately?",
+ "What made you laugh this week?",
+ "What do you need more of from me right now?",
+ "What does rest look like for you?",
+ "What's a tradition you want us to start?",
+ "Who in our life do you want us to spend more time with?",
+ "What's something about our first year you never want to forget?",
+ "What's one fear you have about the future?",
+ "What's a way I can support your goals this month?",
+ "What song reminds you of us?",
+ "What's a place you want us to travel to next?",
+ "When did you feel closest to God recently?"
+];
+const DATE_IDEAS = [
+ "Sunset walk along the waterfront, then dinner somewhere neither of you has tried",
+ "Cooking class together",
+ "Museum late night and dessert after",
+ "Pick a neighborhood you've never explored and walk it",
+ "Live jazz or a small music venue",
+ "Comedy show",
+ "Ice skating and hot chocolate",
+ "Bookstore browse, then coffee and swap picks",
+ "Picnic in the park (or indoor picnic in winter)",
+ "Recreate your first date",
+ "Dance class",
+ "Rooftop dinner with a view",
+ "Pottery or painting class",
+ "Day trip out of the city",
+ "At-home tasting night: pick a cuisine and cook it together"
+];
+const STATE_OF_US = [
+ "One thing I appreciated about you this week…",
+ "Something that felt heavy for me this week…",
+ "What I need from you this coming week…",
+ "One thing on our calendar we should protect…"
+];
+
+/* ── COACH PROJECT INSTRUCTIONS ── */
+const COACH_INSTRUCTIONS = `You are my personal coach inside CarlOS, the system I use to run my week. Be direct, warm, and practical. Ask one question at a time. When I'm overwhelmed, narrow it to one next step. Faith is real for me — bring scripture in when it fits, not to fill space. No hype, no tagline-style phrasing.
+
+WHO I AM
+- Carlos, NYC. Full-time content creator and videographer: UGC, brand partnerships, B2B video. Also a model (Stewart Talent NY).
+- Founder of Harbor House (harborhouse.ai).
+- Married. Growing my marriage is a top priority, not something that fits around work.
+
+MY WEEK
+- Mon = Admin (inbox, invoices, planning, outreach, Harbor House, content planning, modeling submissions)
+- Tue + Thu = Shoot days
+- Wed + Fri = Edit days (deliver + invoice same day; Friday weekly review)
+- Sat = Off: walk together, Kingston relationships class 9–10:30a, time together
+- Sun = Off: church 12–1:45p, rest, State of Us check-in 6p, week preview 7p
+- Every workday morning: 5:45 wake, 6:00 Word + journal, 6:30–7:30 gym, start work 8:30.
+- Mon/Wed/Fri 3:00–3:45p: personal brand mentorship course (origin story). I paid $4k and haven't finished it — hold me to it, and help me turn each lesson into something I actually use.
+- Every evening: dinner together 6p, devices down 8:30p, together time 9p, lights out 10p.
+- First Friday of every month is date night.
+- Day types can swap when a client moves a shoot.
+
+MY BODY
+- Goal: back to model shape — lean and athletic, able to run and lift. (My starting numbers are in this project's notes.)
+- Shoulder injury: done with PT, told to strength train it. Joints and muscles are tight.
+- Program: Phase 1 Foundation (wk 1–4), Phase 2 Build (wk 5–10), Phase 3 Athletic (wk 11+). Mon/Wed/Fri strength, Tue/Thu run-walk progressing to running, Sat walk, Sun rest. Gym in my building has dumbbells, bench, barbell, cables, treadmill, bike, leg press, lat pulldown.
+- If I report shoulder pain above 3/10 or a pinch, tell me to swap the movement and check with a professional if it persists.
+
+HOW TO HELP
+- When I paste "today's context" from the app, use it to coach the day: what matters most, what to cut, what to protect.
+- Morning: help me set 3 intentions from the day's verse.
+- After work: debrief with one question.
+- Sunday: walk me through the week preview role by role.
+- Keep answers short unless I ask to go deeper.`;
+
+/* World English Bible (public domain) text for every reference in the plan */
+const VERSES = {
+"Matthew 25:21": "“His lord said to him, ‘Well done, good and faithful servant. You have been faithful over a few things, I will set you over many things. Enter into the joy of your lord.’",
+"Luke 16:10": "He who is faithful in a very little is faithful also in much. He who is dishonest in a very little is also dishonest in much.",
+"1 Corinthians 4:2": "Here, moreover, it is required of stewards, that they be found faithful.",
+"Psalm 24:1": "The earth is Yahweh’s, with its fullness; the world, and those who dwell therein.",
+"1 Peter 4:10": "As each has received a gift, employ it in serving one another, as good managers of the grace of God in its various forms.",
+"Luke 12:48": "but he who didn’t know, and did things worthy of stripes, will be beaten with few stripes. To whomever much is given, of him will much be required; and to whom much was entrusted, of him more will be asked.",
+"Genesis 2:15": "Yahweh God took the man, and put him into the garden of Eden to cultivate and keep it.",
+"Colossians 3:23-24": "And whatever you do, work heartily, as for the Lord, and not for men, knowing that from the Lord you will receive the reward of the inheritance; for you serve the Lord Christ.",
+"Ecclesiastes 9:10": "Whatever your hand finds to do, do it with your might; for there is no work, nor plan, nor knowledge, nor wisdom, in Sheol, where you are going.",
+"1 Corinthians 10:31": "Whether therefore you eat, or drink, or whatever you do, do all to the glory of God.",
+"Ephesians 6:7": "with good will doing service, as to the Lord, and not to men;",
+"Proverbs 14:23": "In all hard work there is profit, but the talk of the lips leads only to poverty.",
+"Psalm 90:17": "Let the favor of the Lord our God be on us; establish the work of our hands for us; yes, establish the work of our hands.",
+"2 Thessalonians 3:10": "For even when we were with you, we commanded you this: “If anyone will not work, don’t let him eat.”",
+"Proverbs 21:5": "The plans of the diligent surely lead to profit; and everyone who is hasty surely rushes to poverty.",
+"Proverbs 10:4": "He becomes poor who works with a lazy hand, but the hand of the diligent brings wealth.",
+"Proverbs 13:4": "The soul of the sluggard desires, and has nothing, but the desire of the diligent shall be fully satisfied.",
+"Proverbs 12:24": "The hands of the diligent ones shall rule, but laziness ends in slave labor.",
+"Proverbs 6:6-8": "Go to the ant, you sluggard. Consider her ways, and be wise; which having no chief, overseer, or ruler, provides her bread in the summer, and gathers her food in the harvest.",
+"Romans 12:11": "not lagging in diligence; fervent in spirit; serving the Lord;",
+"Proverbs 28:19": "One who works his land will have an abundance of food; but one who chases fantasies will have his fill of poverty.",
+"Proverbs 16:3": "Commit your deeds to Yahweh, and your plans shall succeed.",
+"Proverbs 16:9": "A man’s heart plans his course, but Yahweh directs his steps.",
+"Proverbs 19:21": "There are many plans in a man’s heart, but Yahweh’s counsel will prevail.",
+"James 4:13-15": "Come now, you who say, “Today or tomorrow let’s go into this city, and spend a year there, trade, and make a profit.” Whereas you don’t know what your life will be like tomorrow. For what is your life? For you are a vapor, that appears for a little time, and then vanishes away. For you ought to say, “If the Lord wills, we will both live, and do this or that.”",
+"Proverbs 3:5-6": "Trust in Yahweh with all your heart, and don’t lean on your own understanding. In all your ways acknowledge him, and he will make your paths straight.",
+"Psalm 37:5": "Commit your way to Yahweh. Trust also in him, and he will do this:",
+"Jeremiah 29:11": "For I know the thoughts that I think toward you,” says Yahweh, “thoughts of peace, and not of evil, to give you hope and a future.",
+"Ephesians 5:25": "Husbands, love your wives, even as Christ also loved the assembly, and gave himself up for it;",
+"Genesis 2:24": "Therefore a man will leave his father and his mother, and will join with his wife, and they will be one flesh.",
+"Ecclesiastes 4:9-12": "Two are better than one, because they have a good reward for their labor. For if they fall, the one will lift up his fellow; but woe to him who is alone when he falls, and doesn’t have another to lift him up. Again, if two lie together, then they have warmth; but how can one keep warm alone? If a man prevails against one who is alone, two shall withstand him; and a threefold cord is not quickly broken.",
+"1 Peter 3:7": "You husbands, in the same way, live with your wives according to knowledge, giving honor to the woman, as to the weaker vessel, as being also joint heirs of the grace of life; that your prayers may not be hindered.",
+"Colossians 3:19": "Husbands, love your wives, and don’t be bitter against them.",
+"Proverbs 18:22": "Whoever finds a wife finds a good thing, and obtains favor of Yahweh.",
+"Proverbs 5:18": "Let your spring be blessed. Rejoice in the wife of your youth.",
+"1 Corinthians 13:4-7": "Love is patient and is kind; love doesn’t envy. Love doesn’t brag, is not proud, doesn’t behave itself inappropriately, doesn’t seek its own way, is not provoked, takes no account of evil; doesn’t rejoice in unrighteousness, but rejoices with the truth; bears all things, believes all things, hopes all things, endures all things.",
+"John 15:12-13": "“This is my commandment, that you love one another, even as I have loved you. Greater love has no one than this, that someone lay down his life for his friends.",
+"1 John 4:7-8": "Beloved, let us love one another, for love is of God; and everyone who loves has been born of God, and knows God. He who doesn’t love doesn’t know God, for God is love.",
+"Romans 13:8": "Owe no one anything, except to love one another; for he who loves his neighbor has fulfilled the law.",
+"1 Peter 4:8": "And above all things be earnest in your love among yourselves, for love covers a multitude of sins.",
+"Colossians 3:14": "Above all these things, walk in love, which is the bond of perfection.",
+"John 13:34-35": "A new commandment I give to you, that you love one another. Just as I have loved you, you also love one another. By this everyone will know that you are my disciples, if you have love for one another.”",
+"Exodus 20:8-10": "“Remember the Sabbath day, to keep it holy. You shall labor six days, and do all your work, but the seventh day is a Sabbath to Yahweh your God. You shall not do any work in it, you, nor your son, nor your daughter, your male servant, nor your female servant, nor your livestock, nor your stranger who is within your gates;",
+"Mark 2:27": "He said to them, “The Sabbath was made for man, not man for the Sabbath.",
+"Matthew 11:28-30": "“Come to me, all you who labor and are heavily burdened, and I will give you rest. Take my yoke upon you, and learn from me, for I am gentle and humble in heart; and you will find rest for your souls. For my yoke is easy, and my burden is light.”",
+"Psalm 127:2": "It is vain for you to rise up early, to stay up late, eating the bread of toil; for he gives sleep to his loved ones.",
+"Hebrews 4:9-10": "There remains therefore a Sabbath rest for the people of God. For he who has entered into his rest has himself also rested from his works, as God did from his.",
+"Psalm 23:1-3": "Yahweh is my shepherd: I shall lack nothing. He makes me lie down in green pastures. He leads me beside still waters. He restores my soul. He guides me in the paths of righteousness for his name’s sake.",
+"Mark 6:31": "He said to them, “You come apart into a deserted place, and rest awhile.” For there were many coming and going, and they had no leisure so much as to eat.",
+"Deuteronomy 8:18": "But you shall remember Yahweh your God, for it is he who gives you power to get wealth; that he may establish his covenant which he swore to your fathers, as it is today.",
+"Proverbs 10:22": "Yahweh’s blessing brings wealth, and he adds no trouble to it.",
+"Proverbs 13:11": "Wealth gained dishonestly dwindles away, but he who gathers by hand makes it grow.",
+"1 Timothy 6:17-19": "Charge those who are rich in this present world that they not be haughty, nor have their hope set on the uncertainty of riches, but on the living God, who richly provides us with everything to enjoy; that they do good, that they be rich in good works, that they be ready to distribute, willing to share; laying up in store for themselves a good foundation against the time to come, that they may lay hold of eternal life.",
+"Proverbs 3:9-10": "Honor Yahweh with your substance, with the first fruits of all your increase: so your barns will be filled with plenty, and your vats will overflow with new wine.",
+"Ecclesiastes 5:10": "He who loves silver shall not be satisfied with silver; nor he who loves abundance, with increase: this also is vanity.",
+"Malachi 3:10": "Bring the whole tithe into the storehouse, that there may be food in my house, and test me now in this,” says Yahweh of Armies, “if I will not open you the windows of heaven, and pour you out a blessing, that there will not be room enough for.",
+"Philippians 4:11-13": "Not that I speak because of lack, for I have learned in whatever state I am, to be content in it. I know how to be humbled, and I know also how to abound. In everything and in all things I have learned the secret both to be filled and to be hungry, both to abound and to be in need. I can do all things through Christ, who strengthens me.",
+"Hebrews 13:5": "Be free from the love of money, content with such things as you have, for he has said, “I will in no way leave you, neither will I in any way forsake you.”",
+"1 Timothy 6:6-8": "But godliness with contentment is great gain. For we brought nothing into the world, and we certainly can’t carry anything out. But having food and clothing, we will be content with that.",
+"Proverbs 30:8-9": "Remove far from me falsehood and lies. Give me neither poverty nor riches. Feed me with the food that is needful for me; lest I be full, deny you, and say, ‘Who is Yahweh?’ or lest I be poor, and steal, and so dishonor the name of my God.",
+"Luke 12:15": "He said to them, “Beware! Keep yourselves from covetousness, for a man’s life doesn’t consist of the abundance of the things which he possesses.”",
+"Psalm 37:16": "Better is a little that the righteous has, than the abundance of many wicked.",
+"Matthew 6:19-21": "“Don’t lay up treasures for yourselves on the earth, where moth and rust consume, and where thieves break through and steal; but lay up for yourselves treasures in heaven, where neither moth nor rust consume, and where thieves don’t break through and steal; for where your treasure is, there your heart will be also.",
+"2 Corinthians 9:6-7": "Remember this: he who sows sparingly will also reap sparingly. He who sows bountifully will also reap bountifully. Let each man give according as he has determined in his heart; not grudgingly, or under compulsion; for God loves a cheerful giver.",
+"Proverbs 11:24-25": "There is one who scatters, and increases yet more. There is one who withholds more than is appropriate, but gains poverty. The liberal soul shall be made fat. He who waters shall be watered also himself.",
+"Acts 20:35": "In all things I gave you an example, that so laboring you ought to help the weak, and to remember the words of the Lord Jesus, that he himself said, ‘It is more blessed to give than to receive.’”",
+"Luke 6:38": "“Give, and it will be given to you: good measure, pressed down, shaken together, and running over, will be given to you. For with the same measure you measure it will be measured back to you.”",
+"Proverbs 19:17": "He who has pity on the poor lends to Yahweh; he will reward him.",
+"1 John 3:17": "But whoever has the world’s goods, and sees his brother in need, and closes his heart of compassion against him, how does God’s love remain in him?",
+"Proverbs 22:9": "He who has a generous eye will be blessed; for he shares his food with the poor.",
+"James 1:5": "But if any of you lacks wisdom, let him ask of God, who gives to all liberally and without reproach; and it will be given to him.",
+"Proverbs 4:7": "Wisdom is supreme. Get wisdom. Yes, though it costs all your possessions, get understanding.",
+"Proverbs 9:10": "The fear of Yahweh is the beginning of wisdom. The knowledge of the Holy One is understanding.",
+"Proverbs 2:6": "For Yahweh gives wisdom. Out of his mouth comes knowledge and understanding.",
+"Proverbs 3:13-14": "Happy is the man who finds wisdom, the man who gets understanding. For her good profit is better than getting silver, and her return is better than fine gold.",
+"Ecclesiastes 7:12": "For wisdom is a defense, even as money is a defense; but the excellency of knowledge is that wisdom preserves the life of him who has it.",
+"Colossians 3:16": "Let the word of Christ dwell in you richly; in all wisdom teaching and admonishing one another with psalms, hymns, and spiritual songs, singing with grace in your heart to the Lord.",
+"James 4:10": "Humble yourselves in the sight of the Lord, and he will exalt you.",
+"Philippians 2:3-4": "doing nothing through rivalry or through conceit, but in humility, each counting others better than himself; each of you not just looking to his own things, but each of you also to the things of others.",
+"Proverbs 11:2": "When pride comes, then comes shame, but with humility comes wisdom.",
+"Micah 6:8": "He has shown you, O man, what is good. What does Yahweh require of you, but to act justly, to love mercy, and to walk humbly with your God?",
+"1 Peter 5:5-6": "Likewise, you younger ones, be subject to the elder. Yes, all of you clothe yourselves with humility, to subject yourselves to one another; for “God resists the proud, but gives grace to the humble.” Humble yourselves therefore under the mighty hand of God, that he may exalt you in due time;",
+"Proverbs 22:4": "The result of humility and the fear of Yahweh is wealth, honor, and life.",
+"Matthew 23:12": "Whoever exalts himself will be humbled, and whoever humbles himself will be exalted.",
+"Proverbs 16:18": "Pride goes before destruction, and a haughty spirit before a fall.",
+"Proverbs 29:23": "A man’s pride brings him low, but one of lowly spirit gains honor.",
+"Romans 12:3": "For I say, through the grace that was given me, to every man who is among you, not to think of himself more highly than he ought to think; but to think reasonably, as God has apportioned to each person a measure of faith.",
+"Galatians 6:3": "For if a man thinks himself to be something when he is nothing, he deceives himself.",
+"Proverbs 27:2": "Let another man praise you, and not your own mouth; a stranger, and not your own lips.",
+"Jeremiah 9:23-24": "Yahweh says, “Don’t let the wise man glory in his wisdom. Don’t let the mighty man glory in his might. Don’t let the rich man glory in his riches. But let him who glories glory in this, that he has understanding, and knows me, that I am Yahweh who exercises loving kindness, justice, and righteousness, in the earth; for I delight in these things,” says Yahweh.",
+"1 Corinthians 4:7": "For who makes you different? And what do you have that you didn’t receive? But if you did receive it, why do you boast as if you had not received it?",
+"Joshua 1:9": "Haven’t I commanded you? Be strong and courageous. Don’t be afraid. Don’t be dismayed, for Yahweh your God is with you wherever you go.”",
+"Deuteronomy 31:6": "Be strong and courageous. Don’t be afraid or scared of them; for Yahweh your God himself is who goes with you. He will not fail you nor forsake you.”",
+"Isaiah 41:10": "Don’t you be afraid, for I am with you. Don’t be dismayed, for I am your God. I will strengthen you. Yes, I will help you. Yes, I will uphold you with the right hand of my righteousness.",
+"2 Timothy 1:7": "For God didn’t give us a spirit of fear, but of power, love, and self-control.",
+"Psalm 27:1": "Yahweh is my light and my salvation. Whom shall I fear? Yahweh is the strength of my life. Of whom shall I be afraid?",
+"Psalm 56:3-4": "When I am afraid, I will put my trust in you. In God, I praise his word. In God, I put my trust. I will not be afraid. What can flesh do to me?",
+"1 Corinthians 16:13": "Watch! Stand firm in the faith! Be courageous! Be strong!",
+"Philippians 4:6-7": "In nothing be anxious, but in everything, by prayer and petition with thanksgiving, let your requests be made known to God. And the peace of God, which surpasses all understanding, will guard your hearts and your thoughts in Christ Jesus.",
+"Matthew 6:34": "Therefore don’t be anxious for tomorrow, for tomorrow will be anxious for itself. Each day’s own evil is sufficient.",
+"1 Peter 5:7": "casting all your worries on him, because he cares for you.",
+"Psalm 55:22": "Cast your burden on Yahweh, and he will sustain you. He will never allow the righteous to be moved.",
+"Isaiah 26:3": "You will keep whoever’s mind is steadfast in perfect peace, because he trusts in you.",
+"John 14:27": "Peace I leave with you. My peace I give to you; not as the world gives, give I to you. Don’t let your heart be troubled, neither let it be fearful.",
+"Psalm 94:19": "In the multitude of my thoughts within me, your comforts delight my soul.",
+"2 Corinthians 5:17": "Therefore if anyone is in Christ, he is a new creation. The old things have passed away. Behold, all things have become new.",
+"Ephesians 2:10": "For we are his workmanship, created in Christ Jesus for good works, which God prepared before that we would walk in them.",
+"Galatians 2:20": "I have been crucified with Christ, and it is no longer I that live, but Christ lives in me. That life which I now live in the flesh, I live by faith in the Son of God, who loved me, and gave himself up for me.",
+"Psalm 139:13-14": "For you formed my inmost being. You knit me together in my mother’s womb. I will give thanks to you, for I am fearfully and wonderfully made. Your works are wonderful. My soul knows that very well.",
+"1 Peter 2:9": "But you are a chosen race, a royal priesthood, a holy nation, a people for God’s own possession, that you may proclaim the excellence of him who called you out of darkness into his marvelous light:",
+"Romans 8:1": "There is therefore now no condemnation to those who are in Christ Jesus, who don’t walk according to the flesh, but according to the Spirit.",
+"John 1:12": "But as many as received him, to them he gave the right to become God’s children, to those who believe in his name:",
+"Romans 11:29": "For the gifts and the calling of God are irrevocable.",
+"Ephesians 4:1": "I therefore, the prisoner in the Lord, beg you to walk worthily of the calling with which you were called,",
+"Jeremiah 1:5": "“Before I formed you in the womb, I knew you. Before you were born, I sanctified you. I have appointed you a prophet to the nations.”",
+"2 Timothy 1:9": "who saved us and called us with a holy calling, not according to our works, but according to his own purpose and grace, which was given to us in Christ Jesus before times eternal,",
+"Philippians 3:14": "I press on toward the goal for the prize of the high calling of God in Christ Jesus.",
+"1 Thessalonians 5:24": "He who calls you is faithful, who will also do it.",
+"Colossians 1:10": "that you may walk worthily of the Lord, to please him in all respects, bearing fruit in every good work, and increasing in the knowledge of God;",
+"Romans 12:6-8": "Having gifts differing according to the grace that was given to us, if prophecy, let us prophesy according to the proportion of our faith; or service, let us give ourselves to service; or he who teaches, to his teaching; or he who exhorts, to his exhorting: he who gives, let him do it with generosity; he who rules, with diligence; he who shows mercy, with cheerfulness.",
+"1 Corinthians 12:4-7": "Now there are various kinds of gifts, but the same Spirit. There are various kinds of service, and the same Lord. There are various kinds of workings, but the same God, who works all things in all. But to each one is given the manifestation of the Spirit for the profit of all.",
+"Exodus 35:31-32": "He has filled him with the Spirit of God, in wisdom, in understanding, in knowledge, and in all kinds of workmanship; and to make skillful works, to work in gold, in silver, in brass,",
+"James 1:17": "Every good gift and every perfect gift is from above, coming down from the Father of lights, with whom can be no variation, nor turning shadow.",
+"2 Timothy 1:6": "For this cause, I remind you that you should stir up the gift of God which is in you through the laying on of my hands.",
+"Proverbs 18:16": "A man’s gift makes room for him, and brings him before great men.",
+"1 Peter 4:11": "If anyone speaks, let it be as it were the very words of God. If anyone serves, let it be as of the strength which God supplies, that in all things God may be glorified through Jesus Christ, to whom belong the glory and the dominion forever and ever. Amen.",
+"Daniel 6:3": "Then this Daniel was distinguished above the presidents and the satraps, because an excellent spirit was in him; and the king thought to set him over the whole realm.",
+"Proverbs 22:29": "Do you see a man skilled in his work? He will serve kings. He won’t serve obscure men.",
+"Philippians 4:8": "Finally, brothers, whatever things are true, whatever things are honorable, whatever things are just, whatever things are pure, whatever things are lovely, whatever things are of good report; if there is any virtue, and if there is any praise, think about these things.",
+"Titus 2:7": "in all things showing yourself an example of good works; in your teaching showing integrity, seriousness, incorruptibility,",
+"Exodus 31:3": "and I have filled him with the Spirit of God, in wisdom, and in understanding, and in knowledge, and in all kinds of workmanship,",
+"2 Timothy 2:15": "Give diligence to present yourself approved by God, a workman who doesn’t need to be ashamed, properly handling the Word of Truth.",
+"1 Corinthians 9:24": "Don’t you know that those who run in a race all run, but one receives the prize? Run like that, that you may win.",
+"1 Corinthians 9:25-27": "Every man who strives in the games exercises self-control in all things. Now they do it to receive a corruptible crown, but we an incorruptible. I therefore run like that, not aimlessly. I fight like that, not beating the air, but I beat my body and bring it into submission, lest by any means, after I have preached to others, I myself should be rejected.",
+"Hebrews 12:11": "All chastening seems for the present to be not joyous but grievous; yet afterward it yields the peaceful fruit of righteousness to those who have been exercised thereby.",
+"Proverbs 25:28": "Like a city that is broken down and without walls is a man whose spirit is without restraint.",
+"Titus 2:11-12": "For the grace of God has appeared, bringing salvation to all men, instructing us to the intent that, denying ungodliness and worldly lusts, we would live soberly, righteously, and godly in this present age;",
+"1 Timothy 4:7-8": "But refuse profane and old wives’ fables. Exercise yourself toward godliness. For bodily exercise has some value, but godliness has value in all things, having the promise of the life which is now, and of that which is to come.",
+"Proverbs 12:1": "Whoever loves correction loves knowledge, but he who hates reproof is stupid.",
+"Galatians 5:22-23": "But the fruit of the Spirit is love, joy, peace, patience, kindness, goodness, faith, gentleness, and self-control. Against such things there is no law.",
+"1 Corinthians 6:19-20": "Or don’t you know that your body is a temple of the Holy Spirit who is in you, whom you have from God? You are not your own, for you were bought with a price. Therefore glorify God in your body and in your spirit, which are God’s.",
+"Romans 12:1": "Therefore I urge you, brothers, by the mercies of God, to present your bodies a living sacrifice, holy, acceptable to God, which is your spiritual service.",
+"1 Thessalonians 5:23": "May the God of peace himself sanctify you completely. May your whole spirit, soul, and body be preserved blameless at the coming of our Lord Jesus Christ.",
+"Isaiah 40:29-31": "He gives power to the weak. He increases the strength of him who has no might. Even the youths faint and get weary, and the young men utterly fall; But those who wait for Yahweh will renew their strength. They will mount up with wings like eagles. They will run, and not be weary. They will walk, and not faint.",
+"Proverbs 17:22": "A cheerful heart makes good medicine, but a crushed spirit dries up the bones.",
+"Proverbs 3:7-8": "Don’t be wise in your own eyes. Fear Yahweh, and depart from evil. It will be health to your body, and nourishment to your bones.",
+"Philippians 1:20": "according to my earnest expectation and hope, that I will in no way be disappointed, but with all boldness, as always, now also Christ will be magnified in my body, whether by life, or by death.",
+"James 1:2-4": "Count it all joy, my brothers, when you fall into various temptations, knowing that the testing of your faith produces endurance. Let endurance have its perfect work, that you may be perfect and complete, lacking in nothing.",
+"Romans 5:3-5": "Not only this, but we also rejoice in our sufferings, knowing that suffering produces perseverance; and perseverance, proven character; and proven character, hope: and hope doesn’t disappoint us, because God’s love has been poured out into our hearts through the Holy Spirit who was given to us.",
+"Galatians 6:9": "Let us not be weary in doing good, for we will reap in due season, if we don’t give up.",
+"Hebrews 12:1-2": "Therefore let us also, seeing we are surrounded by so great a cloud of witnesses, lay aside every weight and the sin which so easily entangles us, and let us run with perseverance the race that is set before us, looking to Jesus, the author and perfecter of faith, who for the joy that was set before him endured the cross, despising its shame, and has sat down at the right hand of the throne of God.",
+"2 Corinthians 4:16-18": "Therefore we don’t faint, but though our outward man is decaying, yet our inward man is renewed day by day. For our light affliction, which is for the moment, works for us more and more exceedingly an eternal weight of glory; while we don’t look at the things which are seen, but at the things which are not seen. For the things which are seen are temporal, but the things which are not seen are eternal.",
+"James 1:12": "Blessed is the man who endures temptation, for when he has been approved, he will receive the crown of life, which the Lord promised to those who love him.",
+"Philippians 1:6": "being confident of this very thing, that he who began a good work in you will complete it until the day of Jesus Christ.",
+"Lamentations 3:25-26": "Yahweh is good to those who wait for him, to the soul who seeks him. It is good that a man should hope and quietly wait for the salvation of Yahweh.",
+"Psalm 37:7": "Rest in Yahweh, and wait patiently for him. Don’t fret because of him who prospers in his way, because of the man who makes wicked plots happen.",
+"Habakkuk 2:3": "For the vision is yet for the appointed time, and it hurries toward the end, and won’t prove false. Though it takes time, wait for it; because it will surely come. It won’t delay.",
+"Romans 8:25": "But if we hope for that which we don’t see, we wait for it with patience.",
+"Ecclesiastes 3:1": "For everything there is a season, and a time for every purpose under heaven:",
+"James 5:7-8": "Be patient therefore, brothers, until the coming of the Lord. Behold, the farmer waits for the precious fruit of the earth, being patient over it, until it receives the early and late rain. You also be patient. Establish your hearts, for the coming of the Lord is at hand.",
+"Psalm 130:5": "I wait for Yahweh. My soul waits. I hope in his word.",
+"Proverbs 18:21": "Death and life are in the power of the tongue; those who love it will eat its fruit.",
+"James 1:19": "So, then, my beloved brothers, let every man be swift to hear, slow to speak, and slow to anger;",
+"Ephesians 4:29": "Let no corrupt speech proceed out of your mouth, but only what is good for building others up as the need may be, that it may give grace to those who hear.",
+"Proverbs 15:1": "A gentle answer turns away wrath, but a harsh word stirs up anger.",
+"Colossians 4:6": "Let your speech always be with grace, seasoned with salt, that you may know how you ought to answer each one.",
+"Proverbs 12:18": "There is one who speaks rashly like the piercing of a sword, but the tongue of the wise heals.",
+"James 3:5": "So the tongue is also a little member, and boasts great things. See how a small fire can spread to a large forest!",
+"Proverbs 10:9": "He who walks blamelessly walks surely, but he who perverts his ways will be found out.",
+"Proverbs 11:3": "The integrity of the upright shall guide them, but the perverseness of the treacherous shall destroy them.",
+"Psalm 15:1-2": "Yahweh, who shall dwell in your sanctuary? Who shall live on your holy hill? He who walks blamelessly does what is right, and speaks truth in his heart;",
+"Proverbs 20:7": "A righteous man walks in integrity. Blessed are his children after him.",
+"Proverbs 28:6": "Better is the poor who walks in his integrity, than he who is perverse in his ways, and he is rich.",
+"2 Corinthians 8:21": "Having regard for honorable things, not only in the sight of the Lord, but also in the sight of men.",
+"Proverbs 19:1": "Better is the poor who walks in his integrity than he who is perverse in his lips and is a fool.",
+"Colossians 3:13": "bearing with one another, and forgiving each other, if any man has a complaint against any; even as Christ forgave you, so you also do.",
+"Ephesians 4:32": "And be kind to one another, tender hearted, forgiving each other, just as God also in Christ forgave you.",
+"Matthew 6:14-15": "“For if you forgive men their trespasses, your heavenly Father will also forgive you. But if you don’t forgive men their trespasses, neither will your Father forgive your trespasses.",
+"Matthew 18:21-22": "Then Peter came and said to him, “Lord, how often shall my brother sin against me, and I forgive him? Until seven times?” Jesus said to him, “I don’t tell you until seven times, but, until seventy times seven.",
+"Luke 6:37": "Don’t judge, and you won’t be judged. Don’t condemn, and you won’t be condemned. Set free, and you will be set free.",
+"Mark 11:25": "Whenever you stand praying, forgive, if you have anything against anyone; so that your Father, who is in heaven, may also forgive you your transgressions.",
+"1 John 1:9": "If we confess our sins, he is faithful and righteous to forgive us the sins, and to cleanse us from all unrighteousness.",
+"Mark 10:43-45": "But it shall not be so among you, but whoever wants to become great among you shall be your servant. Whoever of you wants to become first among you, shall be bondservant of all. For the Son of Man also came not to be served, but to serve, and to give his life as a ransom for many.”",
+"John 13:14-15": "If I then, the Lord and the Teacher, have washed your feet, you also ought to wash one another’s feet. For I have given you an example, that you also should do as I have done to you.",
+"Philippians 2:5-7": "Have this in your mind, which was also in Christ Jesus, who, existing in the form of God, didn’t consider equality with God a thing to be grasped, but emptied himself, taking the form of a servant, being made in the likeness of men.",
+"Galatians 5:13": "For you, brothers, were called for freedom. Only don’t use your freedom for gain to the flesh, but through love be servants to one another.",
+"1 Peter 5:2-3": "Shepherd the flock of God which is among you, exercising the oversight, not under compulsion, but voluntarily, not for dishonest gain, but willingly; neither as lording it over those entrusted to you, but making yourselves examples to the flock.",
+"Matthew 23:11": "But he who is greatest among you will be your servant.",
+"Luke 22:26": "But not so with you. But one who is the greater among you, let him become as the younger, and one who is governing, as one who serves.",
+"1 Thessalonians 5:16-18": "Rejoice always. Pray without ceasing. In everything give thanks, for this is the will of God in Christ Jesus toward you.",
+"Matthew 7:7-8": "“Ask, and it will be given you. Seek, and you will find. Knock, and it will be opened for you. For everyone who asks receives. He who seeks finds. To him who knocks it will be opened.",
+"Jeremiah 33:3": "‘Call to me, and I will answer you, and will show you great and difficult things, which you don’t know.’",
+"James 5:16": "Confess your offenses to one another, and pray for one another, that you may be healed. The insistent prayer of a righteous person is powerfully effective.",
+"Mark 11:24": "Therefore I tell you, all things whatever you pray and ask for, believe that you have received them, and you shall have them.",
+"Matthew 6:6": "But you, when you pray, enter into your inner room, and having shut your door, pray to your Father who is in secret, and your Father who sees in secret will reward you openly.",
+"Romans 12:12": "rejoicing in hope; enduring in troubles; continuing steadfastly in prayer;",
+"Hebrews 11:1": "Now faith is assurance of things hoped for, proof of things not seen.",
+"Hebrews 11:6": "Without faith it is impossible to be well pleasing to him, for he who comes to God must believe that he exists, and that he is a rewarder of those who seek him.",
+"Romans 10:17": "So faith comes by hearing, and hearing by the word of God.",
+"Mark 9:23": "Jesus said to him, “If you can believe, all things are possible to him who believes.”",
+"2 Corinthians 5:7": "for we walk by faith, not by sight.",
+"Matthew 17:20": "He said to them, “Because of your unbelief. For most certainly I tell you, if you have faith as a grain of mustard seed, you will tell this mountain, ‘Move from here to there,’ and it will move; and nothing will be impossible for you.",
+"James 2:17": "Even so faith, if it has no works, is dead in itself.",
+"Psalm 100:4-5": "Enter into his gates with thanksgiving, into his courts with praise. Give thanks to him, and bless his name. For Yahweh is good. His loving kindness endures forever, his faithfulness to all generations.",
+"Colossians 3:17": "Whatever you do, in word or in deed, do all in the name of the Lord Jesus, giving thanks to God the Father, through him.",
+"Psalm 118:24": "This is the day that Yahweh has made. We will rejoice and be glad in it!",
+"Psalm 107:1": "Give thanks to Yahweh, for he is good, for his loving kindness endures forever.",
+"Ephesians 5:20": "giving thanks always concerning all things in the name of our Lord Jesus Christ, to God, even the Father;",
+"Psalm 9:1": "I will give thanks to Yahweh with my whole heart. I will tell of all your marvelous works.",
+"Hebrews 12:28": "Therefore, receiving a Kingdom that can’t be shaken, let us have grace, through which we serve God acceptably, with reverence and awe,",
+"Proverbs 27:17": "Iron sharpens iron; so a man sharpens his friend’s countenance.",
+"Hebrews 10:24-25": "Let us consider how to provoke one another to love and good works, not forsaking our own assembling together, as the custom of some is, but exhorting one another; and so much the more, as you see the Day approaching.",
+"Proverbs 17:17": "A friend loves at all times; and a brother is born for adversity.",
+"Proverbs 13:20": "One who walks with wise men grows wise, but a companion of fools suffers harm.",
+"Proverbs 18:24": "A man of many companions may be ruined, but there is a friend who sticks closer than a brother.",
+"Galatians 6:2": "Bear one another’s burdens, and so fulfill the law of Christ.",
+"Acts 2:42": "They continued steadfastly in the apostles’ teaching and fellowship, in the breaking of bread, and prayer.",
+"Proverbs 16:32": "One who is slow to anger is better than the mighty; one who rules his spirit, than he who takes a city.",
+"1 Peter 5:8": "Be sober and self-controlled. Be watchful. Your adversary, the devil, walks around like a roaring lion, seeking whom he may devour.",
+"1 Corinthians 10:13": "No temptation has taken you except what is common to man. God is faithful, who will not allow you to be tempted above what you are able, but will with the temptation also make the way of escape, that you may be able to endure it.",
+"Romans 6:12": "Therefore don’t let sin reign in your mortal body, that you should obey it in its lusts.",
+"James 1:14-15": "But each one is tempted when he is drawn away by his own lust, and enticed. Then the lust, when it has conceived, bears sin; and the sin, when it is full grown, produces death.",
+"2 Peter 1:5-7": "Yes, and for this very cause adding on your part all diligence, in your faith supply moral excellence; and in moral excellence, knowledge; and in knowledge, self-control; and in self-control perseverance; and in perseverance godliness; and in godliness brotherly affection; and in brotherly affection, love.",
+"Romans 13:14": "But put on the Lord Jesus Christ, and make no provision for the flesh, for its lusts.",
+"Romans 12:2": "Don’t be conformed to this world, but be transformed by the renewing of your mind, so that you may prove what is the good, well-pleasing, and perfect will of God.",
+"2 Corinthians 10:5": "throwing down imaginations and every high thing that is exalted against the knowledge of God, and bringing every thought into captivity to the obedience of Christ;",
+"Colossians 3:2": "Set your mind on the things that are above, not on the things that are on the earth.",
+"Proverbs 4:23": "Keep your heart with all diligence, for out of it is the wellspring of life.",
+"Ephesians 4:22-24": "that you put away, as concerning your former way of life, the old man, that grows corrupt after the lusts of deceit; and that you be renewed in the spirit of your mind, and put on the new man, who in the likeness of God has been created in righteousness and holiness of truth.",
+"Psalm 19:14": "Let the words of my mouth and the meditation of my heart be acceptable in your sight, Yahweh, my rock, and my redeemer.",
+"Psalm 119:11": "I have hidden your word in my heart, that I might not sin against you.",
+"Matthew 6:33": "But seek first God’s Kingdom, and his righteousness; and all these things will be given to you as well.",
+"Colossians 3:1": "If then you were raised together with Christ, seek the things that are above, where Christ is, seated on the right hand of God.",
+"Luke 9:23": "He said to all, “If anyone desires to come after me, let him deny himself, take up his cross, and follow me.",
+"Matthew 16:26": "For what will it profit a man, if he gains the whole world, and forfeits his life? Or what will a man give in exchange for his life?",
+"Romans 14:17": "for God’s Kingdom is not eating and drinking, but righteousness, peace, and joy in the Holy Spirit.",
+"Matthew 13:44": "“Again, the Kingdom of Heaven is like treasure hidden in the field, which a man found, and hid. In his joy, he goes and sells all that he has, and buys that field.",
+"Luke 9:62": "But Jesus said to him, “No one, having put his hand to the plow, and looking back, is fit for God’s Kingdom.”",
+"Philippians 4:19": "My God will supply every need of yours according to his riches in glory in Christ Jesus.",
+"Matthew 6:26": "See the birds of the sky, that they don’t sow, neither do they reap, nor gather into barns. Your heavenly Father feeds them. Aren’t you of much more value than they?",
+"Psalm 34:10": "The young lions do lack, and suffer hunger, but those who seek Yahweh shall not lack any good thing.",
+"Psalm 37:25": "I have been young, and now am old, yet I have not seen the righteous forsaken, nor his children begging for bread.",
+"2 Corinthians 9:8": "And God is able to make all grace abound to you, that you, always having all sufficiency in everything, may abound to every good work.",
+"Genesis 22:14": "Abraham called the name of that place Yahweh Will Provide. As it is said to this day, “On Yahweh’s mountain, it will be provided.”",
+"Psalm 84:11": "For Yahweh God is a sun and a shield. Yahweh will give grace and glory. He withholds no good thing from those who walk blamelessly.",
+"Psalm 46:1": "God is our refuge and strength, a very present help in trouble.",
+"Nehemiah 8:10": "Then he said to them, “Go your way. Eat the fat, drink the sweet, and send portions to him for whom nothing is prepared, for today is holy to our Lord. Don’t be grieved, for the joy of Yahweh is your strength.”",
+"2 Corinthians 12:9-10": "He has said to me, “My grace is sufficient for you, for my power is made perfect in weakness.” Most gladly therefore I will rather glory in my weaknesses, that the power of Christ may rest on me. Therefore I take pleasure in weaknesses, in injuries, in necessities, in persecutions, in distresses, for Christ’s sake. For when I am weak, then am I strong.",
+"Psalm 28:7": "Yahweh is my strength and my shield. My heart has trusted in him, and I am helped. Therefore my heart greatly rejoices. With my song I will thank him.",
+"Ephesians 6:10": "Finally, be strong in the Lord, and in the strength of his might.",
+"Psalm 73:26": "My flesh and my heart fails, but God is the strength of my heart and my portion forever.",
+"Habakkuk 3:19": "Yahweh, the Lord, is my strength. He makes my feet like deer’s feet, and enables me to go in high places. For the music director, on my stringed instruments.",
+"Proverbs 11:14": "Where there is no wise guidance, the nation falls, but in the multitude of counselors there is victory.",
+"Proverbs 29:18": "Where there is no revelation, the people cast off restraint; but one who keeps the law is blessed.",
+"Nehemiah 2:17-18": "Then I said to them, “You see the bad situation that we are in, how Jerusalem lies waste, and its gates are burned with fire. Come, let us build up the wall of Jerusalem, that we won’t be disgraced.” I told them of the hand of my God which was good on me, as also of the king’s words that he had spoken to me. They said, “Let’s rise up and build.” So they strengthened their hands for the good work.",
+"Exodus 18:21": "Moreover you shall provide out of all the people able men which fear God: men of truth, hating unjust gain; and place such over them, to be rulers of thousands, rulers of hundreds, rulers of fifties, and rulers of tens.",
+"Psalm 78:72": "So he was their shepherd according to the integrity of his heart, and guided them by the skillfulness of his hands.",
+"Proverbs 27:23": "Know well the state of your flocks, and pay attention to your herds:",
+"2 Timothy 2:2": "The things which you have heard from me among many witnesses, commit the same to faithful men, who will be able to teach others also.",
+"Joshua 24:15": "If it seems evil to you to serve Yahweh, choose today whom you will serve; whether the gods which your fathers served that were beyond the River, or the gods of the Amorites, in whose land you dwell; but as for me and my house, we will serve Yahweh.”",
+"Psalm 127:1": "Unless Yahweh builds the house, they labor in vain who build it. Unless Yahweh watches over the city, the watchman guards it in vain.",
+"Proverbs 24:3-4": "Through wisdom a house is built; by understanding it is established; by knowledge the rooms are filled with all rare and beautiful treasure.",
+"Proverbs 14:1": "Every wise woman builds her house, but the foolish one tears it down with her own hands.",
+"Deuteronomy 6:6-7": "These words, which I command you today, shall be on your heart; and you shall teach them diligently to your children, and shall talk of them when you sit in your house, and when you walk by the way, and when you lie down, and when you rise up.",
+"Proverbs 22:6": "Train up a child in the way he should go, and when he is old he will not depart from it.",
+"1 Timothy 5:8": "But if anyone doesn’t provide for his own, and especially his own household, he has denied the faith, and is worse than an unbeliever.",
+"Psalm 119:9": "How can a young man keep his way pure? By living according to your word.",
+"Matthew 5:8": "Blessed are the pure in heart, for they shall see God.",
+"1 Thessalonians 4:3-4": "For this is the will of God: your sanctification, that you abstain from sexual immorality, that each one of you know how to control his own body in sanctification and honor,",
+"Psalm 51:10": "Create in me a clean heart, O God. Renew a right spirit within me.",
+"2 Timothy 2:22": "Flee from youthful lusts; but pursue righteousness, faith, love, and peace with those who call on the Lord out of a pure heart.",
+"Philippians 2:14-15": "Do all things without murmurings and disputes, that you may become blameless and harmless, children of God without defect in the middle of a crooked and perverse generation, among whom you are seen as lights in the world,",
+"Hebrews 13:4": "Let marriage be held in honor among all, and let the bed be undefiled: but God will judge the sexually immoral and adulterers.",
+"Hebrews 5:14": "But solid food is for those who are full grown, who by reason of use have their senses exercised to discern good and evil.",
+"1 John 4:1": "Beloved, don’t believe every spirit, but test the spirits, whether they are of God, because many false prophets have gone out into the world.",
+"Philippians 1:9-10": "This I pray, that your love may abound yet more and more in knowledge and all discernment; so that you may approve the things that are excellent; that you may be sincere and without offense to the day of Christ;",
+"Proverbs 14:15": "A simple man believes everything, but the prudent man carefully considers his ways.",
+"James 3:17": "But the wisdom that is from above is first pure, then peaceful, gentle, reasonable, full of mercy and good fruits, without partiality, and without hypocrisy.",
+"1 Kings 3:9": "Give your servant therefore an understanding heart to judge your people, that I may discern between good and evil; for who is able to judge this great people of yours?”",
+"Proverbs 15:22": "Where there is no counsel, plans fail; but in a multitude of counselors they are established.",
+"Romans 15:13": "Now may the God of hope fill you with all joy and peace in believing, that you may abound in hope, in the power of the Holy Spirit.",
+"Lamentations 3:22-23": "It is because of Yahweh’s loving kindnesses that we are not consumed, because his compassion doesn’t fail. They are new every morning. Great is your faithfulness.",
+"Hebrews 6:19": "This hope we have as an anchor of the soul, a hope both sure and steadfast and entering into that which is within the veil;",
+"Psalm 42:11": "Why are you in despair, my soul? Why are you disturbed within me? Hope in God! For I shall still praise him, the saving help of my countenance, and my God.",
+"Isaiah 43:19": "Behold, I will do a new thing. It springs out now. Don’t you know it? I will even make a way in the wilderness, and rivers in the desert.",
+"Psalm 71:14": "But I will always hope, and will add to all of your praise.",
+"1 Peter 1:3": "Blessed be the God and Father of our Lord Jesus Christ, who according to his great mercy caused us to be born again to a living hope through the resurrection of Jesus Christ from the dead,",
+"Psalm 16:11": "You will show me the path of life. In your presence is fullness of joy. In your right hand there are pleasures forever more.",
+"John 15:11": "I have spoken these things to you, that my joy may remain in you, and that your joy may be made full.",
+"Psalm 30:5": "For his anger is but for a moment. His favor is for a lifetime. Weeping may stay for the night, but joy comes in the morning.",
+"Philippians 4:4": "Rejoice in the Lord always! Again I will say, “Rejoice!”",
+"John 16:24": "Until now, you have asked nothing in my name. Ask, and you will receive, that your joy may be made full.",
+"Psalm 126:5": "Those who sow in tears will reap in joy.",
+"Psalm 4:7": "You have put gladness in my heart, more than when their grain and their new wine are increased.",
+"John 16:33": "I have told you these things, that in me you may have peace. In the world you have oppression; but cheer up! I have overcome the world.”",
+"Romans 5:1": "Being therefore justified by faith, we have peace with God through our Lord Jesus Christ;",
+"Colossians 3:15": "And let the peace of God rule in your hearts, to which also you were called in one body; and be thankful.",
+"Isaiah 9:6": "For to us a child is born. To us a son is given; and the government will be on his shoulders. His name will be called Wonderful, Counselor, Mighty God, Everlasting Father, Prince of Peace.",
+"Psalm 4:8": "In peace I will both lay myself down and sleep, for you, Yahweh alone, make me live in safety.",
+"Numbers 6:24-26": "‘Yahweh bless you, and keep you. Yahweh make his face to shine on you, and be gracious to you. Yahweh lift up his face toward you, and give you peace.’",
+"2 Thessalonians 3:16": "Now may the Lord of peace himself give you peace at all times in all ways. The Lord be with you all.",
+"John 8:32": "You will know the truth, and the truth will make you free.”",
+"John 14:6": "Jesus said to him, “I am the way, the truth, and the life. No one comes to the Father, except through me.",
+"Psalm 119:105": "Your word is a lamp to my feet, and a light for my path.",
+"2 Timothy 3:16-17": "Every Scripture is God-breathed and profitable for teaching, for reproof, for correction, and for instruction in righteousness, that the man of God may be complete, thoroughly equipped for every good work.",
+"Ephesians 4:15": "but speaking truth in love, we may grow up in all things into him, who is the head, Christ;",
+"John 17:17": "Sanctify them in your truth. Your word is truth.",
+"Proverbs 12:22": "Lying lips are an abomination to Yahweh, but those who do the truth are his delight.",
+"John 14:15": "If you love me, keep my commandments.",
+"James 1:22": "But be doers of the word, and not only hearers, deluding your own selves.",
+"Luke 11:28": "But he said, “On the contrary, blessed are those who hear the word of God, and keep it.”",
+"Deuteronomy 28:1-2": "It shall happen, if you shall listen diligently to Yahweh your God’s voice, to observe to do all his commandments which I command you today, that Yahweh your God will set you high above all the nations of the earth. All these blessings will come upon you, and overtake you, if you listen to Yahweh your God’s voice.",
+"1 Samuel 15:22": "Samuel said, “Has Yahweh as great delight in burnt offerings and sacrifices, as in obeying Yahweh’s voice? Behold, to obey is better than sacrifice, and to listen than the fat of rams.",
+"Matthew 7:24": "“Everyone therefore who hears these words of mine, and does them, I will liken him to a wise man, who built his house on a rock.",
+"Joshua 1:8": "This book of the law shall not depart from your mouth, but you shall meditate on it day and night, that you may observe to do according to all that is written in it; for then you shall make your way prosperous, and then you shall have good success.",
+"Ephesians 2:8-9": "for by grace you have been saved through faith, and that not of yourselves; it is the gift of God, not of works, that no one would boast.",
+"Hebrews 4:16": "Let us therefore draw near with boldness to the throne of grace, that we may receive mercy, and may find grace for help in time of need.",
+"Romans 5:20": "The law came in besides, that the trespass might abound; but where sin abounded, grace abounded more exceedingly;",
+"John 1:16": "From his fullness we all received grace upon grace.",
+"James 4:6": "But he gives more grace. Therefore it says, “God resists the proud, but gives grace to the humble.”",
+"2 Peter 3:18": "But grow in the grace and knowledge of our Lord and Savior Jesus Christ. To him be the glory both now and forever. Amen.",
+"Romans 3:23-24": "for all have sinned, and fall short of the glory of God; being justified freely by his grace through the redemption that is in Christ Jesus;",
+"Matthew 5:14-16": "You are the light of the world. A city located on a hill can’t be hidden. Neither do you light a lamp, and put it under a measuring basket, but on a stand; and it shines to all who are in the house. Even so, let your light shine before men; that they may see your good works, and glorify your Father who is in heaven.",
+"1 Peter 3:15": "But sanctify the Lord God in your hearts; and always be ready to give an answer to everyone who asks you a reason concerning the hope that is in you, with humility and fear:",
+"Acts 1:8": "But you will receive power when the Holy Spirit has come upon you. You will be witnesses to me in Jerusalem, in all Judea and Samaria, and to the uttermost parts of the earth.”",
+"Romans 1:16": "For I am not ashamed of the Good News of Christ, because it is the power of God for salvation for everyone who believes; for the Jew first, and also for the Greek.",
+"Colossians 4:5": "Walk in wisdom toward those who are outside, redeeming the time.",
+"2 Corinthians 5:20": "We are therefore ambassadors on behalf of Christ, as though God were entreating by us: we beg you on behalf of Christ, be reconciled to God.",
+"Mark 16:15": "He said to them, “Go into all the world, and preach the Good News to the whole creation.",
+"Isaiah 43:18": "“Don’t remember the former things, and don’t consider the things of old.",
+"Ezekiel 36:26": "I will also give you a new heart, and I will put a new spirit within you. I will take away the stony heart out of your flesh, and I will give you a heart of flesh.",
+"Philippians 3:13": "Brothers, I don’t regard myself as yet having taken hold, but one thing I do. Forgetting the things which are behind, and stretching forward to the things which are before,",
+"Revelation 21:5": "He who sits on the throne said, “Behold, I am making all things new.” He said, “Write, for these words of God are faithful and true.”",
+"Psalm 51:12": "Restore to me the joy of your salvation. Uphold me with a willing spirit.",
+"Isaiah 1:18": "“Come now, and let us reason together,” says Yahweh: “Though your sins be as scarlet, they shall be as white as snow. Though they be red like crimson, they shall be as wool.",
+"Psalm 40:2-3": "He brought me up also out of a horrible pit, out of the miry clay. He set my feet on a rock, and gave me a firm place to stand. He has put a new song in my mouth, even praise to our God. Many shall see it, and fear, and shall trust in Yahweh.",
+"Psalm 78:4": "We will not hide them from their children, telling to the generation to come the praises of Yahweh, his strength, and his wondrous deeds that he has done.",
+"Proverbs 13:22": "A good man leaves an inheritance to his children’s children, but the wealth of the sinner is stored for the righteous.",
+"2 Timothy 4:7": "I have fought the good fight. I have finished the course. I have kept the faith.",
+"Psalm 145:4": "One generation will commend your works to another, and will declare your mighty acts.",
+"Psalm 90:12": "So teach us to count our days, that we may gain a heart of wisdom.",
+"Ecclesiastes 12:13": "This is the end of the matter. All has been heard. Fear God, and keep his commandments; for this is the whole duty of man.",
+"Psalm 112:1-2": "Praise Yah! Blessed is the man who fears Yahweh, who delights greatly in his commandments. His offspring will be mighty in the land. The generation of the upright will be blessed.",
+"Proverbs 22:7": "The rich rule over the poor. The borrower is servant to the lender.",
+"Luke 14:28": "For which of you, desiring to build a tower, doesn’t first sit down and count the cost, to see if he has enough to complete it?",
+"Proverbs 21:20": "There is precious treasure and oil in the dwelling of the wise; but a foolish man swallows it up.",
+"Proverbs 6:1-3": "My son, if you have become collateral for your neighbor, if you have struck your hands in pledge for a stranger; You are trapped by the words of your mouth. You are ensnared with the words of your mouth. Do this now, my son, and deliver yourself, since you have come into the hand of your neighbor. Go, humble yourself. Press your plea with your neighbor.",
+"Proverbs 24:27": "Prepare your work outside, and get your fields ready. Afterwards, build your house.",
+"Proverbs 23:4-5": "Don’t weary yourself to be rich. In your wisdom, show restraint. Why do you set your eyes on that which is not? For it certainly sprouts wings like an eagle and flies in the sky.",
+"Luke 16:11": "If therefore you have not been faithful in the unrighteous mammon, who will commit to your trust the true riches?",
+"Deuteronomy 7:9": "Know therefore that Yahweh your God himself is God, the faithful God, who keeps covenant and loving kindness with them who love him and keep his commandments to a thousand generations,",
+"Psalm 36:5": "Your loving kindness, Yahweh, is in the heavens. Your faithfulness reaches to the skies.",
+"2 Timothy 2:13": "If we are faithless, he remains faithful. For he can’t deny himself.”",
+"Psalm 89:1": "I will sing of the loving kindness of Yahweh forever. With my mouth, I will make known your faithfulness to all generations.",
+"Hebrews 10:23": "let us hold fast the confession of our hope without wavering; for he who promised is faithful.",
+"1 Corinthians 1:9": "God is faithful, through whom you were called into the fellowship of his Son, Jesus Christ, our Lord.",
+"Isaiah 25:1": "Yahweh, you are my God. I will exalt you! I will praise your name, for you have done wonderful things, things planned long ago, in complete faithfulness and truth.",
+"Luke 22:42": "saying, “Father, if you are willing, remove this cup from me. Nevertheless, not my will, but yours, be done.”",
+"Matthew 16:24": "Then Jesus said to his disciples, “If anyone desires to come after me, let him deny himself, and take up his cross, and follow me.",
+"Psalm 37:4": "Also delight yourself in Yahweh, and he will give you the desires of your heart.",
+"James 4:7": "Be subject therefore to God. Resist the devil, and he will flee from you.",
+"Psalm 46:10": "“Be still, and know that I am God. I will be exalted among the nations. I will be exalted in the earth.”",
+"Isaiah 6:8": "I heard the Lord’s voice, saying, “Whom shall I send, and who will go for us?” Then I said, “Here I am. Send me!”",
+"John 3:30": "He must increase, but I must decrease."
+};
+
+</script>
+<script>
+/* CarlOS v2 */
+(function(){
+"use strict";
+
+/* ── storage ── */
+const KEY = "carlos2";
+const DEF = {course:{name:"Origin story course", total:0, done:0, notes:[]}, done:{}, overrides:{}, eveGym:{}, jobs:[], journal:{}, read:{},
+  train:{phase:0, phaseStart:null, exDone:{}, loads:{}, gate:{}},
+  body:[], dateCheck:{}, qIndex:0, coachLink:""};
+let S;
+try { S = Object.assign({}, DEF, JSON.parse(localStorage.getItem(KEY) || "{}")); } catch(e){ S = Object.assign({}, DEF); }
+S.train = Object.assign({}, DEF.train, S.train || {});
+S.course = Object.assign({}, DEF.course, S.course || {});
+function save(){ try { localStorage.setItem(KEY, JSON.stringify(S)); } catch(e){} }
+
+/* ── helpers ── */
+const $ = (sel, el) => (el || document).querySelector(sel);
+const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const pad = n => String(n).padStart(2, "0");
+const keyOf = d => d.getFullYear() + "-" + pad(d.getMonth()+1) + "-" + pad(d.getDate());
+const parseKey = k => { const [y,m,d] = k.split("-").map(Number); return new Date(y, m-1, d); };
+const mins = hm => { const [h,m] = hm.split(":").map(Number); return h*60+m; };
+const fmt = hm => { let [h,m] = hm.split(":").map(Number); const ap = h >= 12 ? "p" : "a"; h = h % 12 || 12; return h + (m ? ":" + pad(m) : "") + ap; };
+const nowMin = () => { const n = new Date(); return n.getHours()*60 + n.getMinutes(); };
+const DOW = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+const DOWL = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+const CAT = {grow:"var(--grow)", faith:"var(--faith)", body:"var(--body)", us:"var(--us)", sleep:"var(--sleep)", life:"var(--life)"};
+const CHECK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
+
+let viewDate = new Date();
+const today = () => keyOf(new Date());
+
+function toast(msg){ const t = $("#toast"); t.textContent = msg; t.classList.add("on"); clearTimeout(toast._t); toast._t = setTimeout(() => t.classList.remove("on"), 1800); }
+
+/* ── sky by hour ── */
+function paintSky(){
+  const h = new Date().getHours() + new Date().getMinutes()/60;
+  let p;
+  if (h >= 5 && h < 8)       p = ["#1d1a45","#5b3f86","#e7906f","#f2a37a"]; // dawn
+  else if (h >= 8 && h < 16) p = ["#10295c","#1f4f94","#3d7cc4","#6fa6e6"]; // day
+  else if (h >= 16 && h < 19.5) p = ["#2a1f55","#7a4a8c","#e99a5f","#ffb36b"]; // golden
+  else                        p = ["#0f1233","#221d5a","#3f3384","#6f5bd6"]; // night
+  const r = document.documentElement.style;
+  r.setProperty("--sky1", p[0]); r.setProperty("--sky2", p[1]); r.setProperty("--sky3", p[2]); r.setProperty("--glow", p[3]);
+  document.querySelector('meta[name="theme-color"]').setAttribute("content", p[0]);
+}
+
+/* ── day model ── */
+function dayType(d){ return S.overrides[keyOf(d)] || DEFAULT_WEEK[d.getDay()]; }
+function isFirstFriday(d){ return d.getDay() === 5 && d.getDate() <= 7; }
+function typeInfo(t){
+  if (t === "sat" || t === "sun") return {label:"Off", color:TYPES.rest.color, desc: t === "sat" ? "Class, rest, and your wife" : "Church, rest, reset for the week"};
+  return TYPES[t];
+}
+function blocksFor(d){
+  const t = dayType(d), k = keyOf(d);
+  let list = [];
+  const work = ["admin","shoot","edit"].includes(t);
+  if (work){
+    let morning = MORNING.map(b => Object.assign({}, b));
+    if (S.eveGym[k]) morning = morning.filter(b => !b.gym);
+    list = list.concat(morning, DAY_BLOCKS[t].map(b => Object.assign({}, b, {cat:b.cat === "work" ? t : b.cat})));
+  } else if (t === "sat"){
+    list.push({s:"07:00",e:"07:25",cat:"faith",title:"Word + journal",sub:"Today's verse",link:"word",detail:"Open the Word tab before the walk."});
+    list = list.concat(DAY_BLOCKS.sat);
+  } else {
+    list = list.concat(DAY_BLOCKS[t === "sun" ? "sun" : "rest"]);
+  }
+  let evening = EVENING.map(b => Object.assign({}, b));
+  if (work && S.eveGym[k]){
+    list.push({s:"17:45",e:"18:45",cat:"body",title:"Gym (evening)",sub:"Moved from the morning",link:"train",gym:true,detail:"Early call today, so the session moved here. Same session as listed in Train."});
+    evening = evening.map(b => b.title === "Dinner together" ? Object.assign(b, {s:"19:00", e:"19:45"}) : b);
+  }
+  if (isFirstFriday(d)){
+    evening = [DATE_NIGHT, {s:"22:30",e:"22:31",cat:"sleep",title:"Lights out",sub:"A little later tonight",detail:"Late night is fine once a month."}];
+  }
+  list = list.concat(evening);
+  list.sort((a,b) => mins(a.s) - mins(b.s));
+  list.forEach(b => b.id = b.s + "|" + b.title);
+  return list;
+}
+function colorOf(b){ return TYPES[b.cat] ? TYPES[b.cat].color : CAT[b.cat] || "var(--life)"; }
+
+/* ── TODAY ── */
+function renderToday(){
+  const d = viewDate, k = keyOf(d), isToday = k === today();
+  const t = dayType(d), info = typeInfo(t);
+  const blocks = blocksFor(d);
+  const done = S.done[k] || {};
+  const cur = isToday ? nowMin() : -1;
+  const curB = blocks.find(b => cur >= mins(b.s) && cur < mins(b.e));
+  const nextB = blocks.find(b => mins(b.s) > cur);
+  const doneCount = blocks.filter(b => done[b.id]).length;
+  const pct = blocks.length ? doneCount / blocks.length : 0;
+
+  let hero;
+  if (!isToday){
+    hero = `<div class="lead">${DOWL[d.getDay()]}, ${d.toLocaleDateString("en-US",{month:"long",day:"numeric"})}</div><h1>${esc(info.label)} day</h1><div class="remain">${esc(info.desc)}</div>`;
+  } else if (curB){
+    const left = mins(curB.e) - cur;
+    hero = `<div class="lead">Right now</div><h1>${esc(curB.title)}</h1><div class="remain">${left >= 60 ? Math.floor(left/60) + "h " + (left%60) + "m" : left + " min"} left · next: ${nextB ? esc(nextB.title) + " at " + fmt(nextB.s) : "rest"}</div>`;
+  } else if (nextB){
+    hero = `<div class="lead">Up next at ${fmt(nextB.s)}</div><h1>${esc(nextB.title)}</h1><div class="remain">${esc(nextB.sub)}</div>`;
+  } else {
+    hero = `<div class="lead">Day's done</div><h1>Rest well</h1><div class="remain">Tomorrow starts at 5:45.</div>`;
+  }
+
+  /* ribbon */
+  const start = Math.min(...blocks.map(b => mins(b.s))), end = Math.max(...blocks.map(b => mins(b.e)));
+  const span = end - start || 1;
+  const segs = blocks.map(b => {
+    const l = (mins(b.s)-start)/span*100, w = Math.max((mins(b.e)-mins(b.s))/span*100, .9);
+    return `<div class="seg${done[b.id] ? " done" : ""}" style="left:${l}%;width:${w}%;background:${colorOf(b)}"></div>`;
+  }).join("");
+  const sunPos = isToday && cur >= start && cur <= end ? `<div class="sun" style="left:${(cur-start)/span*100}%"></div>` : "";
+
+  /* groups */
+  const groups = [
+    {name:"Morning", list: blocks.filter(b => mins(b.s) < mins("08:30"))},
+    {name:"Day", list: blocks.filter(b => mins(b.s) >= mins("08:30") && mins(b.s) < mins("17:45"))},
+    {name:"Evening", list: blocks.filter(b => mins(b.s) >= mins("17:45"))}
+  ].filter(g => g.list.length);
+
+  const blockHtml = b => {
+    const isNow = curB && curB.id === b.id;
+    return `<div class="blk${done[b.id] ? " done" : ""}${isNow ? " now" : ""}" data-blk="${esc(b.id)}">
+      <div class="bar" style="background:${colorOf(b)}"></div>
+      <div class="t">${fmt(b.s)}</div>
+      <div class="body"><div class="ttl">${esc(b.title)}${isNow ? '<span class="now-tag">Now</span>' : ""}</div><div class="sub">${esc(b.sub)}</div></div>
+      <button class="check${done[b.id] ? " on" : ""}" data-done="${esc(b.id)}" aria-label="Mark ${esc(b.title)} done">${CHECK}</button>
+    </div>`;
+  };
+
+  const work = ["admin","shoot","edit"].includes(t);
+  const circ = 2*Math.PI*24;
+
+  $("#s-today").innerHTML = `
+    <div class="top">
+      <div class="brand">Carl<span>OS</span></div>
+      <div class="row" style="flex:0;gap:6px">
+        <button class="chip" id="prevDay" aria-label="Previous day" style="padding:8px 12px">‹</button>
+        <button class="chip" id="nextDay" aria-label="Next day" style="padding:8px 12px">›</button>
+      </div>
+    </div>
+    <div class="hero">${hero}
+      <div class="meta" style="margin-top:14px">
+        <button class="chip" id="typeBtn"><i style="background:${info.color}"></i>${esc(info.label)} day<span class="tiny" style="margin-left:2px">change</span></button>
+        ${work ? `<button class="chip" id="gymBtn">${S.eveGym[k] ? "Gym: evening" : "Gym: morning"}</button>` : ""}
+        ${!isToday ? `<button class="chip" id="backToday">Back to today</button>` : ""}
+      </div>
+    </div>
+    <div class="ribbon" aria-hidden="true"><div class="track">${segs}</div>${sunPos}<div class="ends"><span>${fmt(blocks[0].s)}</span><span>${fmt(blocks[blocks.length-1].s)}</span></div></div>
+
+    <div class="glass panel prog" style="margin-top:10px">
+      <svg class="ring" viewBox="0 0 54 54"><circle class="bg" cx="27" cy="27" r="24"/><circle class="fg" cx="27" cy="27" r="24" transform="rotate(-90 27 27)" stroke-dasharray="${circ}" stroke-dashoffset="${circ*(1-pct)}"/></svg>
+      <div><h3>${doneCount} of ${blocks.length} done</h3><div class="small">${pct >= 1 ? "Full day. Well done." : isFirstFriday(d) ? "Date night tonight." : esc(info.desc)}</div></div>
+    </div>
+
+    ${groups.map(g => `<div class="glass group"><div class="group-head"><span>${g.name}</span><span>${fmt(g.list[0].s)}–${fmt(g.list[g.list.length-1].s)}</span></div>${g.list.map(blockHtml).join("")}</div>`).join("")}
+
+    <div class="section-title"><h2>Jobs for ${isToday ? "today" : DOW[d.getDay()]}</h2><button class="link" id="allJobs">All jobs</button></div>
+    <div class="glass group" id="jobsToday">${jobsFor(d)}</div>
+    <button class="btn" id="addJob" style="margin-top:4px">Add a job</button>
+  `;
+
+  $("#prevDay").onclick = () => { viewDate = new Date(viewDate.getTime() - 864e5); renderToday(); };
+  $("#nextDay").onclick = () => { viewDate = new Date(viewDate.getTime() + 864e5); renderToday(); };
+  if ($("#backToday")) $("#backToday").onclick = () => { viewDate = new Date(); renderToday(); };
+  $("#typeBtn").onclick = openTypeSheet;
+  if ($("#gymBtn")) $("#gymBtn").onclick = () => { S.eveGym[k] = !S.eveGym[k]; save(); renderToday(); toast(S.eveGym[k] ? "Gym moved to 5:45p" : "Gym back to 6:30a"); };
+  $("#addJob").onclick = () => openJobSheet();
+  $("#allJobs").onclick = openAllJobs;
+  document.querySelectorAll("#s-today [data-done]").forEach(btn => btn.onclick = e => {
+    e.stopPropagation();
+    const id = btn.dataset.done;
+    S.done[k] = S.done[k] || {};
+    S.done[k][id] = !S.done[k][id];
+    save(); renderToday();
+  });
+  document.querySelectorAll("#s-today [data-blk]").forEach(el => el.onclick = () => {
+    const b = blocks.find(x => x.id === el.dataset.blk);
+    openBlockSheet(b);
+  });
+  bindJobButtons($("#jobsToday"));
+}
+
+function courseHtml(){
+  const C = S.course, left = Math.max(C.total - C.done, 0);
+  const pct = C.total ? Math.min(C.done / C.total, 1) : 0;
+  let finish = "";
+  if (C.total && left){
+    const weeks = Math.ceil(left / 3);
+    const f = new Date(Date.now() + weeks * 7 * 864e5);
+    finish = "At 3 lessons a week you finish around " + f.toLocaleDateString("en-US",{month:"long",day:"numeric"}) + ".";
+  } else if (C.total && !left) finish = "Course finished. Keep applying it.";
+  return `<div class="glass panel" style="background:rgba(255,255,255,.07)">
+    <input id="cname" value="${esc(C.name)}" style="font-weight:650;margin-bottom:10px" aria-label="Course name">
+    <div style="height:10px;border-radius:999px;background:rgba(255,255,255,.12);overflow:hidden;margin:4px 0 8px"><div style="height:100%;width:${pct*100}%;background:var(--grow);border-radius:999px"></div></div>
+    <div class="row" style="align-items:center"><div class="small">${C.total ? C.done + " of " + C.total + " lessons" : "Set the total number of lessons"}</div>
+      <input id="ctotal" inputmode="numeric" value="${C.total || ""}" placeholder="Total" style="max-width:96px;flex:0 0 96px;padding:8px 12px" aria-label="Total lessons"></div>
+    ${finish ? `<div class="tiny" style="margin-top:8px">${finish}</div>` : ""}
+    <label class="f" for="capply">What I'll apply from this lesson</label>
+    <textarea id="capply" rows="3" placeholder="A hook, a story beat, a change to how you introduce yourself…"></textarea>
+    <button class="btn primary" id="clesson" style="margin-top:12px">Lesson done</button>
+    ${C.notes.length ? `<details style="margin-top:12px"><summary><span class="small">Past takeaways (${C.notes.length})</span></summary>${C.notes.slice().reverse().map(n => `<div style="padding:10px 0;border-top:1px solid var(--line2)"><div class="tiny">Lesson ${n.n} · ${parseKey(n.d).toLocaleDateString("en-US",{month:"short",day:"numeric"})}</div><div class="small" style="color:var(--ink)">${esc(n.t)}</div></div>`).join("")}</details>` : ""}
+  </div>`;
+}
+function bindCourse(b){
+  $("#cname").onchange = e => { S.course.name = e.target.value.trim() || "Origin story course"; save(); };
+  $("#ctotal").onchange = e => { S.course.total = parseInt(e.target.value, 10) || 0; save(); openBlockSheet(b); };
+  $("#clesson").onclick = () => {
+    const t = $("#capply").value.trim();
+    if (!t){ $("#capply").focus(); toast("Write one takeaway first"); return; }
+    S.course.done += 1;
+    S.course.notes.push({n:S.course.done, d:today(), t});
+    const k = keyOf(viewDate); S.done[k] = S.done[k] || {}; S.done[k][b.id] = true;
+    save(); closeSheet(); refresh(); toast("Lesson " + S.course.done + " done");
+  };
+}
+function openBlockSheet(b){
+  openSheet(`
+    <div class="small" style="margin-bottom:6px">${fmt(b.s)} – ${fmt(b.e)}</div>
+    <h2 style="font-size:28px;margin-bottom:12px">${esc(b.title)}</h2>
+    <p style="font-size:16px;line-height:1.6;color:var(--ink2);margin-bottom:20px">${esc(b.detail || b.sub)}</p>
+    ${b.course ? courseHtml() : ""}
+    ${b.link ? `<button class="btn primary" id="goLink">Open ${b.link === "word" ? "the Word" : b.link === "train" ? "today's session" : "Us"}</button>` : ""}
+  `);
+  if (b.link) $("#goLink").onclick = () => { closeSheet(); go(b.link); };
+  if (b.course) bindCourse(b);
+}
+
+function openTypeSheet(){
+  const k = keyOf(viewDate), cur = dayType(viewDate);
+  const opts = ["admin","shoot","edit","rest"];
+  const def = DEFAULT_WEEK[viewDate.getDay()];
+  openSheet(`
+    <h2 style="margin-bottom:4px">What kind of day is ${DOWL[viewDate.getDay()]}?</h2>
+    <p class="small" style="margin-bottom:14px">Swap it when a client moves a shoot. The blocks change to match.</p>
+    ${opts.map(o => `<div class="type-opt${cur === o || (o === "rest" && (cur === "sat" || cur === "sun")) ? " on" : ""}" data-t="${o}"><i style="background:${TYPES[o].color}"></i><div><h3>${TYPES[o].label}</h3><div class="small">${TYPES[o].desc}</div></div></div>`).join("")}
+    ${S.overrides[k] ? `<button class="btn ghost" id="resetType" style="margin-top:12px">Reset to the usual ${DOW[viewDate.getDay()]}</button>` : ""}
+  `);
+  document.querySelectorAll(".type-opt").forEach(el => el.onclick = () => {
+    let v = el.dataset.t;
+    if (v === "rest" && (def === "sat" || def === "sun")) v = def;
+    if (v === def) delete S.overrides[k]; else S.overrides[k] = v;
+    save(); closeSheet(); renderToday(); toast(typeInfo(v).label + " day set");
+  });
+  if ($("#resetType")) $("#resetType").onclick = () => { delete S.overrides[k]; save(); closeSheet(); renderToday(); };
+}
+
+/* ── JOBS ── */
+const STAGES = [
+  {id:"shoot", label:"To shoot"},
+  {id:"edit", label:"To edit"},
+  {id:"deliver", label:"To deliver"},
+  {id:"invoice", label:"To invoice"},
+  {id:"paid", label:"Awaiting payment"}
+];
+const stageLabel = id => (STAGES.find(s => s.id === id) || {label:"Done"}).label;
+function relevantStages(t){
+  if (t === "shoot") return ["shoot"];
+  if (t === "edit") return ["edit","deliver"];
+  if (t === "admin") return ["invoice","paid"];
+  return [];
+}
+function dueText(due){
+  if (!due) return {txt:"No due date", late:false};
+  const diff = Math.round((parseKey(due) - parseKey(today())) / 864e5);
+  if (diff < 0) return {txt: Math.abs(diff) + (diff === -1 ? " day" : " days") + " overdue", late:true};
+  if (diff === 0) return {txt:"Due today", late:false};
+  if (diff === 1) return {txt:"Due tomorrow", late:false};
+  return {txt:"Due " + parseKey(due).toLocaleDateString("en-US",{weekday:"short",month:"short",day:"numeric"}), late:false};
+}
+function jobRow(j){
+  const dt = dueText(j.due);
+  return `<div class="job"><div class="body"><div class="ttl">${esc(j.client)}${j.what ? " · " + esc(j.what) : ""}</div><div class="due${dt.late ? " late" : ""}">${dt.txt}</div></div>
+    <button class="stage" data-job="${j.id}">${stageLabel(j.stage)}</button></div>`;
+}
+function jobsFor(d){
+  const t = dayType(d), rel = relevantStages(t), k = keyOf(d);
+  const active = S.jobs.filter(j => j.stage !== "done");
+  let list = active.filter(j => rel.includes(j.stage) || (j.due && j.due <= k && j.stage !== "paid"));
+  if (t === "admin") list = list.concat(active.filter(j => j.due && !list.includes(j) && (parseKey(j.due) - d)/864e5 <= 7));
+  list.sort((a,b) => (a.due || "9999").localeCompare(b.due || "9999"));
+  if (!list.length){
+    if (!["admin","shoot","edit"].includes(t)) return `<div class="empty">Off day. Jobs can wait until tomorrow.</div>`;
+    return `<div class="empty">${active.length ? "Nothing here for a " + typeInfo(t).label.toLowerCase() + " day." : "No jobs yet. Add your client work so it shows up on the right day."}</div>`;
+  }
+  return list.map(jobRow).join("");
+}
+function bindJobButtons(root){
+  root.querySelectorAll("[data-job]").forEach(btn => btn.onclick = () => openJobSheet(S.jobs.find(j => j.id === btn.dataset.job)));
+}
+function openJobSheet(job){
+  const j = job || {id:"", client:"", what:"", stage:"shoot", due:"", notes:""};
+  const i = STAGES.findIndex(s => s.id === j.stage);
+  const next = STAGES[i+1];
+  openSheet(`
+    <h2 style="margin-bottom:6px">${job ? esc(j.client) : "Add a job"}</h2>
+    ${job ? `<p class="small">${stageLabel(j.stage)} · ${dueText(j.due).txt}</p>
+      <button class="btn primary" id="advance" style="margin:14px 0 6px">${next ? "Mark as " + next.label.toLowerCase() : "Mark as paid"}</button>` : ""}
+    <label class="f" for="jc">Client</label><input id="jc" value="${esc(j.client)}" placeholder="e.g. DTCo">
+    <label class="f" for="jw">What</label><input id="jw" value="${esc(j.what)}" placeholder="e.g. 3 UGC videos">
+    <div class="row">
+      <div><label class="f" for="js">Stage</label><select id="js">${STAGES.map(s => `<option value="${s.id}"${s.id === j.stage ? " selected" : ""}>${s.label}</option>`).join("")}</select></div>
+      <div><label class="f" for="jd">Due</label><input id="jd" type="date" value="${esc(j.due)}"></div>
+    </div>
+    <label class="f" for="jn">Notes</label><textarea id="jn" rows="2" placeholder="Shot list, rate, contact…">${esc(j.notes)}</textarea>
+    <div class="row" style="margin-top:16px">
+      ${job ? `<button class="btn ghost" id="delJob">Delete</button>` : ""}
+      <button class="btn${job ? "" : " primary"}" id="saveJob">${job ? "Save changes" : "Add job"}</button>
+    </div>
+  `);
+  if (job) $("#advance").onclick = () => {
+    job.stage = next ? next.id : "done";
+    save(); closeSheet(); refresh(); toast(next ? next.label : "Paid. Job closed.");
+  };
+  $("#saveJob").onclick = () => {
+    const c = $("#jc").value.trim();
+    if (!c){ $("#jc").focus(); toast("Add a client name"); return; }
+    const data = {client:c, what:$("#jw").value.trim(), stage:$("#js").value, due:$("#jd").value, notes:$("#jn").value.trim()};
+    if (job) Object.assign(job, data); else S.jobs.push(Object.assign({id: Date.now().toString(36)}, data));
+    save(); closeSheet(); refresh(); toast(job ? "Saved" : "Job added");
+  };
+  if (job) $("#delJob").onclick = () => { S.jobs = S.jobs.filter(x => x.id !== job.id); save(); closeSheet(); refresh(); toast("Deleted"); };
+}
+function openAllJobs(){
+  const active = S.jobs.filter(j => j.stage !== "done").sort((a,b) => (a.due || "9999").localeCompare(b.due || "9999"));
+  const closed = S.jobs.filter(j => j.stage === "done").slice(-5).reverse();
+  openSheet(`
+    <h2 style="margin-bottom:12px">All jobs</h2>
+    ${STAGES.map(s => {
+      const l = active.filter(j => j.stage === s.id);
+      return l.length ? `<div class="small" style="margin:14px 4px 4px">${s.label}</div><div class="glass group" style="background:rgba(255,255,255,.06)">${l.map(jobRow).join("")}</div>` : "";
+    }).join("") || `<p class="small">No open jobs.</p>`}
+    ${closed.length ? `<div class="small" style="margin:18px 4px 6px">Recently paid</div>${closed.map(j => `<div class="tiny" style="padding:4px">${esc(j.client)}${j.what ? " · " + esc(j.what) : ""}</div>`).join("")}` : ""}
+    <button class="btn primary" id="addFromAll" style="margin-top:16px">Add a job</button>
+  `);
+  bindJobButtons($("#sheet-body"));
+  $("#addFromAll").onclick = () => openJobSheet();
+}
+
+/* ── WORD ── */
+function planIndex(d){
+  const start = new Date(d.getFullYear(), 0, 1);
+  const doy = Math.floor((new Date(d.getFullYear(), d.getMonth(), d.getDate()) - start) / 864e5);
+  return doy % 364;
+}
+function verseFor(d){ const i = planIndex(d); return {week: Math.floor(i/7), day: i % 7}; }
+const VKEY = "carlos2-verses";
+let vcache; try { vcache = JSON.parse(localStorage.getItem(VKEY) || "{}"); } catch(e){ vcache = {}; }
+async function getVerse(ref){
+  if (typeof VERSES !== "undefined" && VERSES[ref]) return VERSES[ref];
+  if (vcache[ref]) return vcache[ref];
+  const url = "https://bible-api.com/" + encodeURIComponent(ref).replace(/%20/g,"+") + "?translation=web";
+  const r = await fetch(url);
+  if (!r.ok) throw new Error("fetch");
+  const j = await r.json();
+  const txt = (j.text || "").replace(/\s+/g, " ").trim();
+  vcache[ref] = txt;
+  try { localStorage.setItem(VKEY, JSON.stringify(vcache)); } catch(e){}
+  return txt;
+}
+let wordDay = null;
+function renderWord(){
+  const d = new Date(), {week, day} = verseFor(d);
+  const th = THEMES[week];
+  const sel = wordDay == null ? day : wordDay;
+  const ref = th.r[sel];
+  const k = today();
+  const J = S.journal[k] || {grat:"", i1:"", i2:"", i3:"", notes:""};
+  const weekStart = new Date(d.getTime() - day*864e5);
+
+  $("#s-word").innerHTML = `
+    <div class="top"><div class="brand">Carl<span>OS</span></div><div class="date">${d.toLocaleDateString("en-US",{weekday:"long",month:"long",day:"numeric"})}</div></div>
+    <div class="glass verse">
+      <div class="ref">${esc(ref)}</div>
+      <div class="txt loading" id="vtxt">Loading…</div>
+      <div class="theme-line">Week ${week+1} of 52 · ${esc(th.t)}</div>
+    </div>
+    <div class="glass panel">
+      <div class="small">This week's question</div>
+      <div class="q">${esc(th.q)}</div>
+      <div class="days">${th.r.map((r,i) => {
+        const dd = new Date(weekStart.getTime() + i*864e5);
+        return `<button data-wd="${i}" class="${i === sel ? "on" : ""}${S.read[keyOf(dd)] ? " read" : ""}" aria-label="${esc(r)}">${DOW[dd.getDay()]}</button>`;
+      }).join("")}</div>
+    </div>
+
+    <div class="section-title"><h2>Journal</h2><span class="tiny" id="saved"></span></div>
+    <div class="glass panel">
+      <label class="f" for="jg" style="margin-top:0">Grateful for</label>
+      <textarea id="jg" rows="2" placeholder="One or two things">${esc(J.grat)}</textarea>
+      <label class="f">Three intentions for today</label>
+      <input id="j1" value="${esc(J.i1)}" placeholder="Who I want to be today" style="margin-bottom:8px">
+      <input id="j2" value="${esc(J.i2)}" placeholder="What matters most at work" style="margin-bottom:8px">
+      <input id="j3" value="${esc(J.i3)}" placeholder="How I'll show up at home">
+      <label class="f" for="jn2">Prayer and notes</label>
+      <textarea id="jn2" rows="4" placeholder="Write freely">${esc(J.notes)}</textarea>
+      <button class="btn primary" id="readDone" style="margin-top:14px">${S.read[k] ? "Read today ✓" : "Mark today's Word done"}</button>
+    </div>
+    ${pastEntries()}
+    <p class="tiny" style="text-align:center;margin-top:18px">Scripture from the World English Bible (public domain).</p>
+  `;
+  const v = $("#vtxt");
+  getVerse(ref).then(t => { v.textContent = t; v.classList.remove("loading"); })
+    .catch(() => { v.innerHTML = `Couldn't load the verse. <a style="color:var(--ink)" href="https://www.biblegateway.com/passage/?search=${encodeURIComponent(ref)}&version=WEB" target="_blank" rel="noopener">Open ${esc(ref)}</a>`; v.classList.remove("loading"); });
+
+  document.querySelectorAll("[data-wd]").forEach(b => b.onclick = () => { wordDay = Number(b.dataset.wd); renderWord(); });
+  const fields = {jg:"grat", j1:"i1", j2:"i2", j3:"i3", jn2:"notes"};
+  Object.keys(fields).forEach(id => $("#"+id).addEventListener("input", e => {
+    S.journal[k] = Object.assign({grat:"",i1:"",i2:"",i3:"",notes:""}, S.journal[k] || {});
+    S.journal[k][fields[id]] = e.target.value; save();
+    $("#saved").textContent = "Saved";
+  }));
+  $("#readDone").onclick = () => {
+    S.read[k] = true;
+    S.done[k] = S.done[k] || {};
+    blocksFor(new Date()).filter(b => b.link === "word").forEach(b => S.done[k][b.id] = true);
+    save(); renderWord(); toast("Word marked done");
+  };
+}
+function pastEntries(){
+  const keys = Object.keys(S.journal).filter(k => k !== today()).sort().reverse().slice(0, 7)
+    .filter(k => { const j = S.journal[k]; return j.grat || j.i1 || j.notes; });
+  if (!keys.length) return "";
+  return `<details class="glass panel"><summary><h3>Past entries</h3></summary><div style="margin-top:10px">${keys.map(k => {
+    const j = S.journal[k];
+    return `<div style="padding:10px 0;border-top:1px solid var(--line2)"><div class="small">${parseKey(k).toLocaleDateString("en-US",{weekday:"short",month:"short",day:"numeric"})}</div>${j.grat ? `<div style="margin-top:4px">${esc(j.grat)}</div>` : ""}${[j.i1,j.i2,j.i3].filter(Boolean).length ? `<div class="small" style="margin-top:4px">${[j.i1,j.i2,j.i3].filter(Boolean).map(esc).join(" / ")}</div>` : ""}</div>`;
+  }).join("")}</div></details>`;
+}
+
+/* ── TRAIN ── */
+let trainDow = null;
+function programWeek(){
+  if (!S.train.phaseStart) return 1;
+  return Math.max(1, Math.floor((parseKey(today()) - parseKey(S.train.phaseStart)) / (7*864e5)) + 1);
+}
+function demoUrl(name){ return "https://www.youtube.com/results?search_query=" + encodeURIComponent(name + " proper form tutorial"); }
+function exRow(ex, k, idx){
+  const id = idx === "prep" ? "prep:" + ex.n : ex.n;
+  const done = (S.train.exDone[k] || {})[id];
+  const load = S.train.loads[id] || "";
+  return `<div class="ex">
+    <div class="ex-head">
+      <div style="flex:1"><div class="name">${esc(ex.n)}</div><div class="sets">${esc(ex.s)}</div></div>
+      <button class="check${done ? " on" : ""}" data-ex="${esc(id)}" aria-label="Mark ${esc(ex.n)} done">${CHECK}</button>
+    </div>
+    <div class="cue">${esc(ex.c)}</div>
+    <div class="tools">
+      <a href="${demoUrl(ex.n)}" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Watch demo</a>
+      ${idx !== "prep" ? `<input data-load="${esc(id)}" value="${esc(load)}" placeholder="Weight used" inputmode="text" aria-label="Weight used for ${esc(ex.n)}">` : ""}
+    </div>
+  </div>`;
+}
+function renderTrain(){
+  const ph = S.train.phase, P = PHASES[ph];
+  const d = new Date(), dow = trainDow == null ? d.getDay() : trainDow;
+  const key = WEEK_SESSIONS[dow];
+  const k = today();
+  let sess;
+  if (key === "rest") sess = REST_SESSION;
+  else if (key === "walk") sess = WALK_SESSION;
+  else sess = SESSIONS[ph][key];
+  const wk = programWeek();
+  const runIdx = Math.min(wk - 1, (sess.run || []).length - 1);
+  const exDone = S.train.exDone[k] || {};
+  const doneN = sess.ex.filter(e => exDone[e.n]).length;
+  const gate = S.train.gate[ph] || {};
+  const gateDone = P.gate.length && P.gate.every((_, i) => gate[i]);
+  const body = S.body.slice(-6);
+  const first = S.body[0], last = S.body[S.body.length - 1];
+
+  $("#s-train").innerHTML = `
+    <div class="top"><div class="brand">Carl<span>OS</span></div><div class="date">${S.train.phaseStart ? "Week " + wk + " of " + P.name : "Not started"}</div></div>
+    <div class="hero" style="margin-bottom:14px">
+      <div class="lead">${P.weeks}</div>
+      <h1>${esc(P.name)}</h1>
+      <div class="remain">${esc(P.goal)}</div>
+    </div>
+    <div class="glass seg-ctl" role="tablist">${PHASES.map((p,i) => `<button data-ph="${i}" class="${i === ph ? "on" : ""}">${p.name}</button>`).join("")}</div>
+    ${!S.train.phaseStart ? `<button class="btn primary" id="startPh" style="margin-bottom:14px">Start ${P.name} today</button>` : ""}
+
+    <div class="days" style="margin-bottom:12px">${DOW.map((n,i) => `<button data-tdow="${i}" class="${i === dow ? "on" : ""}">${n}</button>`).join("")}</div>
+
+    <div class="glass group">
+      <div class="group-head"><h3 style="color:var(--ink)">${esc(sess.title)}</h3><span>${doneN}/${sess.ex.length}</span></div>
+      ${sess.run ? `<div class="runplan" style="padding:4px 6px 10px">${sess.run.map((r,i) => `<div class="${ph < 2 && i === runIdx ? "cur" : ""}">${esc(r)}</div>`).join("")}</div>` : ""}
+      ${sess.ex.map(e => exRow(e, k, (key === "walk" || key === "rest") ? "prep" : "")).join("")}
+    </div>
+
+    ${key !== "rest" && key !== "walk" ? `<details class="glass panel"><summary><div><h3>10-minute prep</h3><div class="small">Before every session. Loosens hips, back, and shoulder.</div></div></summary><div style="margin:8px -14px -6px">${PREP.map(e => exRow(e, k, "prep")).join("")}</div></details>` : ""}
+
+    <div class="glass panel">
+      <h3>Rules that keep you healthy</h3>
+      <div class="small" style="margin-top:8px;line-height:1.6">Add weight when every set reaches the top of the rep range with 1–2 reps to spare. Shoulder pain above 3 out of 10 or any pinching: stop that movement, swap to the neutral-grip or landmine version, and get it checked if it lasts.</div>
+    </div>
+
+    ${P.gate.length ? `<div class="section-title"><h2>Ready for ${PHASES[ph+1].name}?</h2></div>
+    <div class="glass panel gate">${P.gate.map((g,i) => `<label><input type="checkbox" data-gate="${i}"${gate[i] ? " checked" : ""}>${esc(g)}</label>`).join("")}
+      ${gateDone ? `<button class="btn primary" id="nextPh" style="margin-top:10px">Move to ${PHASES[ph+1].name}</button>` : `<div class="tiny" style="margin-top:6px">Check all of these before moving up.</div>`}
+    </div>` : ""}
+
+    <div class="section-title"><h2>Body check-in</h2><span class="tiny">Once a week, same morning</span></div>
+    <div class="glass panel">
+      ${S.body.length ? `<div class="stat" style="margin-bottom:14px">
+        <div><span class="small">Weight</span><b>${esc(last.w)} lb</b><span class="tiny">${first !== last && first.w && last.w ? ((last.w - first.w) > 0 ? "+" : "") + (last.w - first.w).toFixed(1) + " since start" : "Starting point"}</span></div>
+        <div><span class="small">Waist</span><b>${last.waist ? esc(last.waist) + " in" : "–"}</b><span class="tiny">${first.waist && last.waist && first !== last ? ((last.waist - first.waist) > 0 ? "+" : "") + (last.waist - first.waist).toFixed(1) + " since start" : "Best fat-loss signal"}</span></div>
+      </div>` : `<p class="small" style="margin-bottom:12px">Log weight and waist once a week. Waist at the belly button tracks fat loss better than the scale alone.</p>`}
+      <div class="row"><input id="bw" inputmode="decimal" placeholder="Weight (lb)"><input id="bwa" inputmode="decimal" placeholder="Waist (in)"></div>
+      <button class="btn" id="logBody" style="margin-top:10px">Log check-in</button>
+      ${body.length > 1 ? `<div style="margin-top:12px">${body.slice().reverse().map(b => `<div class="tiny" style="padding:4px 2px;display:flex;justify-content:space-between"><span>${parseKey(b.d).toLocaleDateString("en-US",{month:"short",day:"numeric"})}</span><span>${esc(b.w)} lb${b.waist ? " · " + esc(b.waist) + " in" : ""}</span></div>`).join("")}</div>` : ""}
+    </div>
+  `;
+
+  document.querySelectorAll("[data-ph]").forEach(b => b.onclick = () => {
+    const v = Number(b.dataset.ph);
+    if (v === S.train.phase) return;
+    S.train.phase = v; S.train.phaseStart = S.train.phaseStart ? today() : null; save(); renderTrain();
+  });
+  if ($("#startPh")) $("#startPh").onclick = () => { S.train.phaseStart = today(); save(); renderTrain(); toast(P.name + " started"); };
+  document.querySelectorAll("[data-tdow]").forEach(b => b.onclick = () => { trainDow = Number(b.dataset.tdow); renderTrain(); });
+  document.querySelectorAll("[data-ex]").forEach(b => b.onclick = () => {
+    S.train.exDone[k] = S.train.exDone[k] || {};
+    S.train.exDone[k][b.dataset.ex] = !S.train.exDone[k][b.dataset.ex];
+    const all = sess.ex.every(e => S.train.exDone[k][e.n]);
+    if (all && dow === d.getDay()){
+      S.done[k] = S.done[k] || {};
+      blocksFor(d).filter(x => x.gym || x.link === "train").forEach(x => S.done[k][x.id] = true);
+      toast("Session done");
+    }
+    save(); renderTrain();
+  });
+  document.querySelectorAll("[data-load]").forEach(inp => inp.addEventListener("change", () => { S.train.loads[inp.dataset.load] = inp.value.trim(); save(); }));
+  document.querySelectorAll("[data-gate]").forEach(c => c.onchange = () => {
+    S.train.gate[ph] = S.train.gate[ph] || {}; S.train.gate[ph][c.dataset.gate] = c.checked; save(); renderTrain();
+  });
+  if ($("#nextPh")) $("#nextPh").onclick = () => { S.train.phase = ph + 1; S.train.phaseStart = today(); save(); renderTrain(); toast(PHASES[ph+1].name + " started"); };
+  $("#logBody").onclick = () => {
+    const w = parseFloat($("#bw").value), wa = parseFloat($("#bwa").value);
+    if (!w){ $("#bw").focus(); toast("Add your weight"); return; }
+    S.body = S.body.filter(b => b.d !== today());
+    S.body.push({d:today(), w, waist: wa || null});
+    save(); renderTrain(); toast("Logged");
+  };
+}
+
+/* ── US ── */
+function nextFirstFriday(from){
+  const f = new Date(from.getFullYear(), from.getMonth(), from.getDate());
+  for (let m = 0; m < 3; m++){
+    const base = new Date(f.getFullYear(), f.getMonth() + m, 1);
+    const off = (5 - base.getDay() + 7) % 7;
+    const ff = new Date(base.getFullYear(), base.getMonth(), 1 + off);
+    if (ff >= f) return ff;
+  }
+}
+let ideaIdx = null, qShown = null;
+function renderUs(){
+  const d = new Date();
+  const ff = nextFirstFriday(d);
+  const days = Math.round((ff - new Date(d.getFullYear(), d.getMonth(), d.getDate())) / 864e5);
+  const mk = ff.getFullYear() + "-" + pad(ff.getMonth()+1);
+  const chk = S.dateCheck[mk] || {};
+  if (ideaIdx == null) ideaIdx = (ff.getMonth() + ff.getFullYear()) % DATE_IDEAS.length;
+  if (qShown == null) qShown = S.qIndex % QUESTIONS.length;
+  const tonight = TONIGHT[planIndex(d) % TONIGHT.length];
+  const isSun = d.getDay() === 0;
+  const items = ["Pick the idea together or plan a surprise","Book it or put it on both calendars","Plan the evening start time","Phone in your pocket the whole night"];
+
+  $("#s-us").innerHTML = `
+    <div class="top"><div class="brand">Carl<span>OS</span></div><div class="date">You and your wife</div></div>
+    <div class="date-hero">
+      <div class="small" style="color:var(--ink)">Date night · ${ff.toLocaleDateString("en-US",{weekday:"long",month:"long",day:"numeric"})}</div>
+      <div class="big" style="margin:10px 0 2px">${days === 0 ? "Tonight" : days + (days === 1 ? " day" : " days")}</div>
+      <div class="small">${days === 0 ? "Enjoy it." : "First Friday of every month."}</div>
+      <div class="idea" style="margin-top:16px">${esc(DATE_IDEAS[ideaIdx])}</div>
+      <div class="row"><button class="btn" id="shuffle">Another idea</button></div>
+      <div class="list-check" style="margin-top:14px">${items.map((t,i) => `<label><input type="checkbox" data-dc="${i}"${chk[i] ? " checked" : ""}>${t}</label>`).join("")}</div>
+    </div>
+
+    <div class="section-title"><h2>Tonight, 9pm</h2></div>
+    <div class="glass panel"><div class="idea" style="margin:0">${esc(tonight)}</div></div>
+
+    <div class="section-title"><h2>Ask her</h2><button class="link" id="nextQ">Next question</button></div>
+    <div class="glass panel"><div class="qcard">${esc(QUESTIONS[qShown])}</div></div>
+
+    <div class="section-title"><h2>State of Us</h2><span class="tiny">${isSun ? "Tonight at 6" : "Sundays at 6"}</span></div>
+    <div class="glass panel">
+      <p class="small" style="margin-bottom:6px">Fifteen minutes. Each of you finishes these four. Listen first, fix nothing.</p>
+      ${STATE_OF_US.map(p => `<div class="prompt">${esc(p)}</div>`).join("")}
+    </div>
+
+    <div class="section-title"><h2>Every evening</h2></div>
+    <div class="glass group">${EVENING.map(b => `<div class="blk" style="cursor:default"><div class="bar" style="background:${CAT[b.cat]}"></div><div class="t">${fmt(b.s)}</div><div class="body"><div class="ttl">${esc(b.title)}</div><div class="sub">${esc(b.sub)}</div></div></div>`).join("")}</div>
+    <p class="tiny" style="padding:4px 6px">Same bedtime every night is the most reliable way to fall asleep faster. Lights out at 10 gets you 7h45 before the alarm.</p>
+  `;
+  $("#shuffle").onclick = () => { ideaIdx = (ideaIdx + 1) % DATE_IDEAS.length; renderUs(); };
+  $("#nextQ").onclick = () => { S.qIndex = (S.qIndex + 1) % QUESTIONS.length; qShown = S.qIndex; save(); renderUs(); };
+  document.querySelectorAll("[data-dc]").forEach(c => c.onchange = () => { S.dateCheck[mk] = S.dateCheck[mk] || {}; S.dateCheck[mk][c.dataset.dc] = c.checked; save(); });
+}
+
+/* ── COACH ── */
+function contextText(){
+  const d = new Date(), k = today(), t = dayType(d), info = typeInfo(t);
+  const blocks = blocksFor(d), done = S.done[k] || {};
+  const {week, day} = verseFor(d), th = THEMES[week];
+  const J = S.journal[k] || {};
+  const open = S.jobs.filter(j => j.stage !== "done");
+  const lines = [
+    "Today's context from CarlOS — " + d.toLocaleDateString("en-US",{weekday:"long",month:"long",day:"numeric"}) + ", " + d.toLocaleTimeString("en-US",{hour:"numeric",minute:"2-digit"}),
+    "Day type: " + info.label + (S.eveGym[k] ? " (gym moved to evening)" : "") + (isFirstFriday(d) ? " — date night tonight" : ""),
+    "Done: " + (blocks.filter(b => done[b.id]).map(b => b.title).join(", ") || "nothing yet"),
+    "Still ahead: " + (blocks.filter(b => !done[b.id] && mins(b.e) > nowMin()).map(b => fmt(b.s) + " " + b.title).join(", ") || "nothing"),
+    "Word: " + th.r[day] + " (theme: " + th.t + ")",
+    [J.i1, J.i2, J.i3].filter(Boolean).length ? "My intentions: " + [J.i1, J.i2, J.i3].filter(Boolean).join(" / ") : "Intentions: not written yet",
+    "Brand course: " + S.course.name + " — " + S.course.done + (S.course.total ? " of " + S.course.total : "") + " lessons done" + (S.course.notes.length ? "; last takeaway: " + S.course.notes[S.course.notes.length-1].t : ""),
+    "Training: " + PHASES[S.train.phase].name + (S.train.phaseStart ? ", week " + programWeek() : ", not started"),
+    S.body.length ? "Last check-in: " + S.body[S.body.length-1].w + " lb" + (S.body[S.body.length-1].waist ? ", waist " + S.body[S.body.length-1].waist + " in" : "") : "",
+    open.length ? "Open jobs: " + open.map(j => j.client + (j.what ? " (" + j.what + ")" : "") + " — " + stageLabel(j.stage).toLowerCase() + ", " + dueText(j.due).txt.toLowerCase()).join("; ") : "Open jobs: none logged"
+  ].filter(Boolean);
+  return lines.join("\n");
+}
+async function copy(text){
+  try { await navigator.clipboard.writeText(text); return true; }
+  catch(e){
+    const ta = document.createElement("textarea"); ta.value = text; document.body.appendChild(ta); ta.select();
+    let ok = false; try { ok = document.execCommand("copy"); } catch(_){}
+    ta.remove(); return ok;
+  }
+}
+function renderCoach(){
+  const has = !!S.coachLink;
+  $("#s-coach").innerHTML = `
+    <div class="top"><div class="brand">Carl<span>OS</span></div><div class="date">Coach</div></div>
+    <div class="hero">
+      <div class="lead">Your coach lives in a Claude project</div>
+      <h1>${has ? "Talk it through" : "Set up your coach"}</h1>
+      <div class="remain">${has ? "Tap below. Today's context is copied first, so paste it as your opening message." : "Three steps, about two minutes. You only do this once."}</div>
+    </div>
+    ${has ? `<a class="btn primary" id="openCoach" href="${esc(S.coachLink)}" target="_blank" rel="noopener" style="display:block;text-align:center;text-decoration:none;margin-bottom:10px">Copy today's context and open coach</a>
+      <div class="section-title"><h2>What gets copied</h2></div>
+      <pre class="ctx">${esc(contextText())}</pre>` : ""}
+
+    <details class="glass panel" ${has ? "" : "open"} style="margin-top:14px">
+      <summary><h3>${has ? "Coach setup" : "Setup"}</h3></summary>
+      <div style="margin-top:8px">
+        <div class="step"><div class="n">1</div><div><h3>Create the project</h3><div class="small">In the Claude app, start a new project and name it "CarlOS Coach".</div></div></div>
+        <div class="step"><div class="n">2</div><div style="flex:1"><h3>Add the instructions</h3><div class="small" style="margin-bottom:10px">Copy these and paste them into the project's instructions.</div><button class="btn" id="copyInstr">Copy coach instructions</button></div></div>
+        <div class="step"><div class="n">3</div><div style="flex:1"><h3>Paste the project link here</h3><div class="small" style="margin-bottom:10px">Open the project, tap Share or copy the link from your browser, then paste it.</div>
+          <input id="clink" value="${esc(S.coachLink)}" placeholder="https://claude.ai/project/…"><button class="btn" id="saveLink" style="margin-top:8px">Save link</button></div></div>
+      </div>
+    </details>
+
+    <details class="glass panel">
+      <summary><h3>Back up your data</h3></summary>
+      <p class="small" style="margin:8px 0 12px">Everything is stored on this phone. Copy a backup now and then, and paste it back if you ever reinstall.</p>
+      <div class="row"><button class="btn" id="exportData">Copy backup</button><button class="btn ghost" id="importData">Restore</button></div>
+    </details>
+  `;
+  if (has) $("#openCoach").addEventListener("click", () => { try { navigator.clipboard.writeText(contextText()).catch(() => {}); } catch(e){} toast("Context copied. Paste it as your first message."); });
+  $("#copyInstr").onclick = async () => { toast(await copy(COACH_INSTRUCTIONS) ? "Instructions copied" : "Couldn't copy"); };
+  $("#saveLink").onclick = () => {
+    const v = $("#clink").value.trim();
+    if (v && !/^https?:\/\//.test(v)){ toast("Paste the full link starting with https"); return; }
+    S.coachLink = v; save(); renderCoach(); toast(v ? "Link saved" : "Link removed");
+  };
+  $("#exportData").onclick = async () => { toast(await copy(JSON.stringify(S)) ? "Backup copied" : "Couldn't copy"); };
+  $("#importData").onclick = () => {
+    openSheet(`<h2 style="margin-bottom:10px">Restore a backup</h2><p class="small" style="margin-bottom:10px">Paste the backup text. This replaces what's on this phone.</p>
+      <textarea id="imp" rows="6"></textarea><button class="btn primary" id="doImp" style="margin-top:12px">Restore</button>`);
+    $("#doImp").onclick = () => {
+      try { const v = JSON.parse($("#imp").value); S = Object.assign({}, DEF, v); S.train = Object.assign({}, DEF.train, v.train || {}); save(); closeSheet(); refresh(); toast("Restored"); }
+      catch(e){ toast("That backup text isn't valid"); }
+    };
+  };
+}
+
+/* ── sheet + nav ── */
+function openSheet(html){ $("#sheet-body").innerHTML = html; $("#scrim").classList.add("on"); }
+function closeSheet(){ $("#scrim").classList.remove("on"); }
+$("#scrim").addEventListener("click", e => { if (e.target.id === "scrim") closeSheet(); });
+
+let tab = "today";
+const RENDER = {today:renderToday, word:renderWord, train:renderTrain, us:renderUs, coach:renderCoach};
+function go(name){
+  tab = name;
+  document.querySelectorAll(".screen").forEach(s => s.classList.toggle("on", s.id === "s-" + name));
+  document.querySelectorAll("#nav button").forEach(b => b.classList.toggle("on", b.dataset.tab === name));
+  if (name === "train") trainDow = null;
+  if (name === "word") wordDay = null;
+  RENDER[name]();
+  $("#s-" + name).scrollTop = 0;
+}
+function refresh(){ RENDER[tab](); }
+document.querySelectorAll("#nav button").forEach(b => b.onclick = () => go(b.dataset.tab));
+
+paintSky();
+renderToday();
+setInterval(() => { paintSky(); if (tab === "today" && keyOf(viewDate) === today()) renderToday(); }, 60000);
+document.addEventListener("visibilitychange", () => { if (!document.hidden){ paintSky(); if (keyOf(viewDate) !== today() && tab === "today") viewDate = new Date(); refresh(); } });
+
+
+})();
+
+</script>
+</body>
+</html>
