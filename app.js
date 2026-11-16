@@ -4,7 +4,7 @@
 
 /* ── storage ── */
 const KEY = "carlos2";
-const DEF = {events:[], skips:{}, workouts:[], course:{name:"Origin story course", total:0, done:0, notes:[]}, done:{}, overrides:{}, eveGym:{}, jobs:[], journal:{}, read:{},
+const DEF = {moves:{}, events:[], skips:{}, workouts:[], course:{name:"Origin story course", total:0, done:0, notes:[]}, done:{}, overrides:{}, eveGym:{}, jobs:[], journal:{}, read:{},
   train:{phase:0, phaseStart:null, exDone:{}, loads:{}, gate:{}},
   body:[], dateCheck:{}, qIndex:0, coachLink:""};
 let S;
@@ -74,15 +74,73 @@ function blocksFor(d){
   if (isFirstFriday(d)){
     evening = [DATE_NIGHT, {s:"22:30",e:"22:31",cat:"sleep",title:"Lights out",sub:"A little later tonight",detail:"Late night is fine once a month."}];
   }
+  evening.forEach(b => b.fixed = true);
+  list.forEach(b => { if (b.title === "Church" || b.title === "State of Us") b.fixed = true; });
   list = list.concat(evening);
-  list.forEach(b => b.id = b.s + "|" + b.title);
+  list.forEach(b => { b.id = b.s + "|" + b.title; b.ps = mins(b.s); });
   const skip = S.skips[k] || {};
   list = list.filter(b => !skip[b.id]);
-  eventsOn(d).forEach(ev => list.push({s:ev.s, e:ev.e, cat:ev.cat, title:ev.title, sub:ev.note || (ev.repeat === "weekly" ? "Every " + DOWL[d.getDay()] : "Added by you"), detail:ev.note, event:ev.id, id:"ev:" + ev.id}));
+  eventsOn(d).forEach(ev => list.push({s:ev.s, e:ev.e, cat:ev.cat, title:ev.title, sub:ev.note || (ev.repeat === "weekly" ? "Every " + DOWL[d.getDay()] : "Added by you"), detail:ev.note, event:ev.id, id:"ev:" + ev.id, fixed:true, ps:mins(ev.s)}));
   const wo = S.workouts.find(w => w.d === k);
   if (wo) list.forEach(b => { if (b.gym) b.sub = "Logged: " + wo.what; });
-  list.sort((a,b) => mins(a.s) - mins(b.s));
+  applyMoves(list, k);
+  list.sort((a,b) => mins(a.s) - mins(b.s) || a.ps - b.ps);
   return list;
+}
+const hm = m => { m = Math.max(0, Math.min(m, 23*60 + 59)); return pad(Math.floor(m/60)) + ":" + pad(m % 60); };
+/* Moves: a block can be given a new start for one day. Flexible blocks after it
+   get pushed later only if they would overlap. Fixed blocks (evening routine,
+   church, your own events) never move. */
+function applyMoves(list, k){
+  const mv = S.moves[k] || {};
+  const flex = list.filter(b => !b.fixed).sort((a,b) => a.ps - b.ps);
+  let prevEnd = -1;
+  flex.forEach(b => {
+    const dur = mins(b.e) - mins(b.s);
+    let st = mv[b.id] != null ? mv[b.id] : b.ps;
+    if (Object.keys(mv).length && prevEnd > st) st = prevEnd;
+    b.moved = st !== b.ps;
+    b.s = hm(st); b.e = hm(st + dur);
+    prevEnd = st + dur;
+  });
+  const firstFixedEve = list.filter(b => b.fixed && b.ps >= mins("17:00")).sort((a,b) => a.ps - b.ps)[0];
+  const lastFlex = flex.filter(b => b.ps < (firstFixedEve ? firstFixedEve.ps : 24*60)).pop();
+  list.overrun = (firstFixedEve && lastFlex && mins(lastFlex.e) > firstFixedEve.ps) ? {mins: mins(lastFlex.e) - firstFixedEve.ps, into: firstFixedEve.title} : null;
+}
+/* shift block b (and optionally everything flexible after it) by delta minutes */
+function shiftFrom(d, b, delta, cascade){
+  const k = keyOf(d), list = blocksFor(d);
+  S.moves[k] = S.moves[k] || {};
+  const target = list.find(x => x.id === b.id);
+  if (!target) return;
+  const from = mins(target.s);
+  list.filter(x => !x.fixed && (x.id === b.id || (cascade && mins(x.s) >= from && x.id !== b.id))).forEach(x => {
+    S.moves[k][x.id] = Math.max(0, mins(x.s) + delta);
+  });
+  Object.keys(S.moves[k]).forEach(id => { const x = list.find(y => y.id === id); if (x && S.moves[k][id] === x.ps) delete S.moves[k][id]; });
+  if (!Object.keys(S.moves[k]).length) delete S.moves[k];
+  save();
+}
+function openRunningLate(){
+  const d = viewDate, k = keyOf(d), done = S.done[k] || {}, cur = keyOf(d) === today() ? nowMin() : 0;
+  const list = blocksFor(d).filter(b => !b.fixed && !done[b.id]);
+  if (!list.length){ toast("Nothing left to move today"); return; }
+  const def = list.find(b => mins(b.e) > cur) || list[list.length - 1];
+  openSheet(`
+    <h2 style="margin-bottom:4px">Shift the rest of the day</h2>
+    <p class="small" style="margin-bottom:14px">Moves this block and everything after it. Your evening, church, and your own events stay put.</p>
+    <label class="f" for="rlFrom" style="margin-top:0">Starting with</label>
+    <select id="rlFrom">${list.map(b => `<option value="${esc(b.id)}"${b.id === def.id ? " selected" : ""}>${fmt(b.s)}  ${esc(b.title)}</option>`).join("")}</select>
+    <label class="f">Move by</label>
+    <div class="row" style="flex-wrap:wrap;gap:8px">${[-30,-15,15,30,45,60,90].map(n => `<button class="chip" data-shift="${n}" style="flex:1 0 auto;justify-content:center">${n > 0 ? "+" : "−"}${Math.abs(n) >= 60 ? (Math.abs(n)/60) + "h" : Math.abs(n) + "m"}</button>`).join("")}</div>
+    ${S.moves[k] ? `<button class="btn ghost" id="rlReset" style="margin-top:14px">Back to the planned times</button>` : ""}
+  `);
+  document.querySelectorAll("[data-shift]").forEach(btn => btn.onclick = () => {
+    const id = $("#rlFrom").value, b = list.find(x => x.id === id), n = Number(btn.dataset.shift);
+    shiftFrom(d, b, n, true); closeSheet(); renderToday();
+    toast((n > 0 ? "Pushed " : "Pulled ") + Math.abs(n) + " min from " + b.title);
+  });
+  if ($("#rlReset")) $("#rlReset").onclick = () => { delete S.moves[k]; save(); closeSheet(); renderToday(); toast("Back to plan"); };
 }
 function eventsOn(d){
   const k = keyOf(d);
@@ -205,16 +263,16 @@ function renderToday(){
 
   /* groups */
   const groups = [
-    {name:"Morning", list: blocks.filter(b => mins(b.s) < mins("08:30"))},
-    {name:"Day", list: blocks.filter(b => mins(b.s) >= mins("08:30") && mins(b.s) < mins("17:45"))},
-    {name:"Evening", list: blocks.filter(b => mins(b.s) >= mins("17:45"))}
+    {name:"Morning", list: blocks.filter(b => b.ps < mins("08:30"))},
+    {name:"Day", list: blocks.filter(b => b.ps >= mins("08:30") && b.ps < mins("17:45"))},
+    {name:"Evening", list: blocks.filter(b => b.ps >= mins("17:45"))}
   ].filter(g => g.list.length);
 
   const blockHtml = b => {
     const isNow = curB && curB.id === b.id;
     return `<div class="blk${done[b.id] ? " done" : ""}${isNow ? " now" : ""}" data-blk="${esc(b.id)}">
       <div class="bar" style="background:${colorOf(b)}"></div>
-      <div class="t">${fmt(b.s)}</div>
+      <div class="t"${b.moved ? ' style="color:#ffe2a8"' : ""}>${fmt(b.s)}</div>
       <div class="body"><div class="ttl">${esc(b.title)}${isNow ? '<span class="now-tag">Now</span>' : ""}</div><div class="sub">${esc(b.sub)}</div></div>
       <button class="check${done[b.id] ? " on" : ""}" data-done="${esc(b.id)}" aria-label="Mark ${esc(b.title)} done">${CHECK}</button>
     </div>`;
@@ -235,6 +293,7 @@ function renderToday(){
       <div class="meta" style="margin-top:14px">
         <button class="chip" id="typeBtn"><i style="background:${info.color}"></i>${esc(info.label)} day<span class="tiny" style="margin-left:2px">change</span></button>
         ${work ? `<button class="chip" id="gymBtn">${S.eveGym[k] ? "Gym: evening" : "Gym: morning"}</button>` : ""}
+        <button class="chip" id="shiftBtn">${S.moves[k] ? "Times shifted · edit" : "Shift my day"}</button>
         <button class="chip" id="addEv">+ Add event</button>
         ${!isToday ? `<button class="chip" id="backToday">Back to today</button>` : ""}
       </div>
@@ -243,7 +302,7 @@ function renderToday(){
 
     <div class="glass panel prog" style="margin-top:10px">
       <svg class="ring" viewBox="0 0 54 54"><circle class="bg" cx="27" cy="27" r="24"/><circle class="fg" cx="27" cy="27" r="24" transform="rotate(-90 27 27)" stroke-dasharray="${circ}" stroke-dashoffset="${circ*(1-pct)}"/></svg>
-      <div><h3>${doneCount} of ${blocks.length} done</h3>${S.workouts.find(w => w.d === k) ? `<div class="small" style="color:var(--body)">Workout: ${esc(S.workouts.find(w => w.d === k).what)}</div>` : ""}<div class="small">${pct >= 1 ? "Full day. Well done." : isFirstFriday(d) ? "Date night tonight." : esc(info.desc)}</div></div>
+      <div><h3>${doneCount} of ${blocks.length} done</h3>${blocks.overrun ? `<div class="small" style="color:#ffb4a2">Work now runs ${blocks.overrun.mins} min into ${esc(blocks.overrun.into).toLowerCase()}. Hide or shorten a block.</div>` : ""}${S.workouts.find(w => w.d === k) ? `<div class="small" style="color:var(--body)">Workout: ${esc(S.workouts.find(w => w.d === k).what)}</div>` : ""}<div class="small">${pct >= 1 ? "Full day. Well done." : isFirstFriday(d) ? "Date night tonight." : esc(info.desc)}</div></div>
     </div>
 
     ${groups.map(g => `<div class="glass group"><div class="group-head"><span>${g.name}</span><span>${fmt(g.list[0].s)}–${fmt(g.list[g.list.length-1].s)}</span></div>${g.list.map(blockHtml).join("")}</div>`).join("")}
@@ -259,6 +318,7 @@ function renderToday(){
   if ($("#backToday")) $("#backToday").onclick = () => { viewDate = new Date(); renderToday(); };
   $("#typeBtn").onclick = openTypeSheet;
   $("#addEv").onclick = () => openEventSheet();
+  $("#shiftBtn").onclick = openRunningLate;
   if ($("#restoreSkips")) $("#restoreSkips").onclick = () => { delete S.skips[k]; save(); renderToday(); toast("Blocks restored"); };
   if ($("#gymBtn")) $("#gymBtn").onclick = () => { S.eveGym[k] = !S.eveGym[k]; save(); renderToday(); toast(S.eveGym[k] ? "Gym moved to 5:45p" : "Gym back to 6:30a"); };
   $("#addJob").onclick = () => openJobSheet();
@@ -318,11 +378,23 @@ function openBlockSheet(b){
     <p style="font-size:16px;line-height:1.6;color:var(--ink2);margin-bottom:20px">${esc(b.detail || b.sub)}</p>
     ${b.course ? courseHtml() : ""}
     ${b.gym ? `<button class="btn" id="logWo" style="margin-bottom:10px">Trained something different? Log it</button>` : ""}
+    ${!b.fixed ? `<div class="glass panel" style="background:rgba(255,255,255,.07)">
+      <h3 style="margin-bottom:10px">Move this block</h3>
+      <div class="row" style="align-items:center"><input id="mvAt" type="time" value="${esc(b.s)}" aria-label="New start time"><button class="btn primary" id="mvGo" style="flex:0 0 auto;width:auto">Move</button></div>
+      <div class="row" style="gap:8px;margin-top:10px">${[-15,15,30,60].map(n => `<button class="chip" data-mv="${n}" style="justify-content:center">${n > 0 ? "+" : "−"}${Math.abs(n) >= 60 ? "1h" : Math.abs(n) + "m"}</button>`).join("")}</div>
+      <label style="display:flex;gap:10px;align-items:center;margin-top:12px;font-size:15px"><input type="checkbox" id="mvAll" checked style="width:22px;height:22px;accent-color:var(--ok)">Move everything after it too</label>
+      ${b.moved ? `<div class="tiny" style="margin-top:8px">Planned for ${fmt(hm(b.ps))}.</div>` : ""}
+    </div>` : `<p class="tiny" style="margin-bottom:10px">This one stays at its set time when you shift your day.</p>`}
     ${b.link ? `<button class="btn primary" id="goLink">Open ${b.link === "word" ? "the Word" : b.link === "train" ? "today's session" : "Us"}</button>` : ""}
   `);
   if (b.link) $("#goLink").onclick = () => { closeSheet(); go(b.link); };
   if (b.course) bindCourse(b);
   if (b.gym) $("#logWo").onclick = () => openWorkoutSheet(keyOf(viewDate));
+  if (!b.fixed){
+    const doMove = delta => { shiftFrom(viewDate, b, delta, $("#mvAll").checked); closeSheet(); renderToday(); toast(b.title + " moved to " + fmt(blocksFor(viewDate).find(x => x.id === b.id).s)); };
+    document.querySelectorAll("[data-mv]").forEach(x => x.onclick = () => doMove(Number(x.dataset.mv)));
+    $("#mvGo").onclick = () => { const v = $("#mvAt").value; if (!v) return; doMove(mins(v) - mins(b.s)); };
+  }
   const sk = document.createElement("button");
   sk.className = "btn ghost"; sk.style.marginTop = "10px"; sk.textContent = "Hide this block on " + DOWL[viewDate.getDay()];
   sk.onclick = () => { const k = keyOf(viewDate); S.skips[k] = S.skips[k] || {}; S.skips[k][b.id] = true; save(); closeSheet(); refresh(); toast("Hidden for that day"); };
@@ -787,7 +859,7 @@ function renderCoach(){
     openSheet(`<h2 style="margin-bottom:10px">Restore a backup</h2><p class="small" style="margin-bottom:10px">Paste the backup text. This replaces what's on this phone.</p>
       <textarea id="imp" rows="6"></textarea><button class="btn primary" id="doImp" style="margin-top:12px">Restore</button>`);
     $("#doImp").onclick = () => {
-      try { const v = JSON.parse($("#imp").value); S = Object.assign({}, DEF, v); S.course = Object.assign({}, DEF.course, v.course || {}); S.train = Object.assign({}, DEF.train, v.train || {}); save(); closeSheet(); refresh(); toast("Restored"); }
+      try { const v = JSON.parse($("#imp").value); S = Object.assign({}, DEF, v); S.moves = v.moves || {}; S.course = Object.assign({}, DEF.course, v.course || {}); S.train = Object.assign({}, DEF.train, v.train || {}); save(); closeSheet(); refresh(); toast("Restored"); }
       catch(e){ toast("That backup text isn't valid"); }
     };
   };
