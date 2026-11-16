@@ -150,11 +150,11 @@ const EV_CATS = [
   {id:"life", label:"Personal"}, {id:"admin", label:"Work"}, {id:"us", label:"Us"},
   {id:"faith", label:"Faith"}, {id:"body", label:"Body"}, {id:"grow", label:"Growth"}
 ];
-function openEventSheet(ev){
+function openEventSheet(ev, pre){
   const isNew = !ev;
-  const e = ev || {title:"", s:"16:00", e:"17:00", cat:"us", date:keyOf(viewDate), repeat:"none", note:""};
+  const e = ev || Object.assign({title:"", s:"16:00", e:"17:00", cat:"us", date:keyOf(viewDate), repeat:"none", note:""}, pre || {});
   openSheet(`
-    <h2 style="margin-bottom:12px">${isNew ? "Add to your day" : "Edit event"}</h2>
+    <h2 style="margin-bottom:12px">${e._replace ? "Replace with" : isNew ? "Add to your day" : "Edit event"}</h2>
     <label class="f" for="et" style="margin-top:0">What</label><input id="et" value="${esc(e.title)}" placeholder="e.g. Couples counseling">
     <div class="row">
       <div><label class="f" for="es">Starts</label><input id="es" type="time" value="${esc(e.s)}"></div>
@@ -168,10 +168,10 @@ function openEventSheet(ev){
     <div class="row" style="flex-wrap:wrap;gap:8px" id="ecats">${EV_CATS.map(c => `<button class="chip${c.id === e.cat ? " on" : ""}" data-cat="${c.id}" style="flex:0 0 auto;${c.id === e.cat ? "background:#f6f3ff;color:#1b1840" : ""}"><i style="background:${TYPES[c.id] ? TYPES[c.id].color : CAT[c.id]}"></i>${c.label}</button>`).join("")}</div>
     <label class="f" for="en">Note</label><textarea id="en" rows="2" placeholder="Optional">${esc(e.note)}</textarea>
     <div class="row" style="margin-top:16px">
-      ${isNew ? "" : `<button class="btn ghost" id="delEv">Delete</button>`}
-      <button class="btn primary" id="saveEv">${isNew ? "Add" : "Save changes"}</button>
+      ${isNew ? "" : `<button class="btn ghost" id="delEv">${e.repeat === "weekly" ? "Delete every week" : "Delete"}</button>`}
+      <button class="btn primary" id="saveEv">${e._replace ? "Replace" : isNew ? "Add" : "Save changes"}</button>
     </div>
-    ${!isNew && e.repeat === "weekly" ? `<button class="btn ghost" id="skipEv" style="margin-top:10px">Skip it just on ${parseKey(keyOf(viewDate)).toLocaleDateString("en-US",{weekday:"long",month:"short",day:"numeric"})}</button>` : ""}
+    ${!isNew && e.repeat === "weekly" ? `<button class="btn" id="skipEv" style="margin-top:10px">Remove just on ${parseKey(keyOf(viewDate)).toLocaleDateString("en-US",{weekday:"long",month:"short",day:"numeric"})}</button>` : ""}
   `);
   let cat = e.cat;
   document.querySelectorAll("#ecats [data-cat]").forEach(b => b.onclick = () => {
@@ -185,11 +185,12 @@ function openEventSheet(ev){
     if (!date){ toast("Pick a date"); return; }
     const data = {title, s, e:en, date, cat, repeat:$("#er").value, dow:parseKey(date).getDay(), note:$("#en").value.trim()};
     if (isNew) S.events.push(Object.assign({id:Date.now().toString(36)}, data)); else Object.assign(ev, data);
-    save(); closeSheet(); refresh(); toast(isNew ? "Added" : "Saved");
+    if (isNew && e._replace){ S.skips[date] = S.skips[date] || {}; S.skips[date][e._replace] = true; }
+    save(); closeSheet(); refresh(); toast(e._replace ? "Replaced" : isNew ? "Added" : "Saved");
   };
   if (!isNew){
     $("#delEv").onclick = () => { S.events = S.events.filter(x => x.id !== ev.id); save(); closeSheet(); refresh(); toast("Deleted"); };
-    if ($("#skipEv")) $("#skipEv").onclick = () => { ev.off = ev.off || {}; ev.off[keyOf(viewDate)] = true; save(); closeSheet(); refresh(); toast("Skipped for that day"); };
+    if ($("#skipEv")) $("#skipEv").onclick = () => { ev.off = ev.off || {}; ev.off[keyOf(viewDate)] = true; save(); closeSheet(); refresh(); toast("Removed for that day"); };
   }
 }
 function openWorkoutSheet(dateKey){
@@ -396,8 +397,15 @@ function openBlockSheet(b){
     $("#mvGo").onclick = () => { const v = $("#mvAt").value; if (!v) return; doMove(mins(v) - mins(b.s)); };
   }
   const sk = document.createElement("button");
-  sk.className = "btn ghost"; sk.style.marginTop = "10px"; sk.textContent = "Hide this block on " + DOWL[viewDate.getDay()];
-  sk.onclick = () => { const k = keyOf(viewDate); S.skips[k] = S.skips[k] || {}; S.skips[k][b.id] = true; save(); closeSheet(); refresh(); toast("Hidden for that day"); };
+  sk.className = "btn ghost"; sk.style.marginTop = "10px"; sk.textContent = "Remove from " + DOWL[viewDate.getDay()];
+  sk.onclick = () => { const k = keyOf(viewDate); S.skips[k] = S.skips[k] || {}; S.skips[k][b.id] = true; save(); closeSheet(); refresh(); toast("Removed for that day"); };
+  const rp = document.createElement("button");
+  rp.className = "btn"; rp.style.marginTop = "10px"; rp.textContent = "Replace with something else";
+  rp.onclick = () => {
+    openEventSheet(null, {s:b.s, e:b.e, cat:"life", date:keyOf(viewDate), _replace:b.id});
+    setTimeout(() => { const t = $("#et"); if (t){ t.placeholder = "e.g. Errand"; t.focus(); } }, 50);
+  };
+  $("#sheet-body").appendChild(rp);
   $("#sheet-body").appendChild(sk);
 }
 
